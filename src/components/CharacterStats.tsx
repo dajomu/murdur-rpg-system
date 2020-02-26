@@ -1,24 +1,37 @@
 import React from 'react';
 
-export default class CharacterStats extends React.Component<{}, {}> {
+const tabs = [
+  {name: "Stats", id: 'stats'},
+  {name: "Resist", id: 'resist'},
+  {name: "Char", id: 'char'},
+  {name: "Guild", id: 'guild'}
+];
+
+export default class CharacterStats extends React.Component<{}, {activeTab: string}> {
   constructor(props: {}) {
       super(props);
 
       this.state = {
+        activeTab: 'stats'
       };
   }
 
+  changeTab = (activeTab: string) => {
+    this.setState({activeTab});
+  }
+
   render() {
+    const {activeTab} = this.state;
     return <div className="character-stats">
       <div className="character-name">Reggie Plop Plops</div>
       <div className="top-tabs">
-        <div className="tab">Stats</div>
-        <div className="tab">Resist</div>
-        <div className="tab">Char</div>
-        <div className="tab">Guild</div>
+        {tabs.map(tabInfo => 
+          <div className={`tab ${activeTab === tabInfo.id ? 'active' : ''}`} 
+            onClick={() => {this.changeTab(tabInfo.id)}}>{tabInfo.name}</div>)}
       </div>
-      <div className="stats-pane">
-      </div>
+      {activeTab === 'stats' && <div className="stats-pane">
+          
+      </div>}
     </div>;
   }
 }

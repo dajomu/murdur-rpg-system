@@ -1,4 +1,5 @@
 import React from 'react';
+import CharacterStats from '../components/CharacterStats';
 
 export default class ExploreScreen extends React.Component<{}, {}> {
   constructor(props: {}) {
@@ -11,7 +12,7 @@ export default class ExploreScreen extends React.Component<{}, {}> {
   render() {
     return <div className="explore-screen">
       <div className="character-menu">
-        <div className="character-stats"></div>
+        <CharacterStats />
         <div className="character-inventory"></div>
         <div className="party"></div>
       </div>
