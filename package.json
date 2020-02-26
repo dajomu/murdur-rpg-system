@@ -23,7 +23,7 @@
     "build-js": "react-scripts build",
     "build-css": "stylus -c src/ --out src/",
     "watch-css": "yarn run build-css && stylus -c -w src/ --out src/",
-    "build": "npm-run-all build-css build-js && rm -rf docs && mv build docs && mkdir docs/murdur-rpg-system && mv docs/static docs/murdur-rpg-system/static",
+    "build": "npm-run-all build-css build-js && rm -rf docs && mv build docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -41,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://dajomu.github.io/murdur-rpg-system/"
 }
