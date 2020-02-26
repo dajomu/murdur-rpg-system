@@ -1,0 +1,45 @@
+html, body, #root, #root .App {
+  height: 100%;
+}
+
+.explore-screen {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+
+  .character-menu {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .character-inventory {
+      flex: 4;
+      background-color: blue;
+    }
+    .party {
+      height: 100px;
+      background-color: orange;
+    }
+  }
+  
+  .explore-pane {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    .expore-encounter{
+      flex 2;
+      background-color: red;
+    }
+    .explore-map {
+      flex 3;
+      background-color: black;
+    }
+    .explore-messages {
+      height: 100px;
+      overflow: scroll;
+      background-color: yellow;
+    }
+  }
+}
+
+@require './components/CharacterStats';
