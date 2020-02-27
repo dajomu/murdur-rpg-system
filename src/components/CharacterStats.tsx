@@ -1,4 +1,5 @@
 import React from 'react';
+import CharacterInfoPanel from './CharacterInfoPanel';
 
 const tabs = [
   {name: "Stats", id: 'stats'},
@@ -29,9 +30,7 @@ export default class CharacterStats extends React.Component<{}, {activeTab: stri
           <div className={`tab ${activeTab === tabInfo.id ? 'active' : ''}`} 
             onClick={() => {this.changeTab(tabInfo.id)}}>{tabInfo.name}</div>)}
       </div>
-      {activeTab === 'stats' && <div className="stats-pane">
-          
-      </div>}
+      {activeTab === 'stats' && <CharacterInfoPanel />}
     </div>;
   }
 }
