@@ -1,8 +1,10 @@
 import * as React from 'react';
 
 import playerStore from '../stores/player';
+import levelStore from '../stores/levels';
 
 const gameContextDefaultValue = {
+  levelStore,
   playerStore,
 };
 const gameContext = React.createContext(gameContextDefaultValue);

@@ -1,0 +1,51 @@
+.map-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: grey;
+  border-right 1px solid white;
+  border-bottom 1px solid white;
+
+  .map-square {
+    width: 13px;
+    height: 13px;
+    border-left 1px solid transparent;
+    border-top 1px solid transparent;
+    &.wall-wall {
+      border-top 1px solid white;
+      border-left 1px solid white;
+    }
+    &.wall-none {
+      border-top 1px solid white;
+      border-left 1px solid transparent;
+    }
+    &.none-wall {
+      border-top 1px solid transparent;
+      border-left 1px solid white;
+    }
+    &.door-door {
+      border-top 1px solid green;
+      border-left 1px solid green;
+    }
+    &.wall-door {
+      border-top 1px solid white;
+      border-left 1px solid green;
+    }
+    &.door-wall {
+      border-top 1px solid green;
+      border-left 1px solid white;
+    }
+    &.none-none {
+      border-top 1px solid transparent;
+      border-left 1px solid transparent;
+    }
+    &.none-door {
+      border-top 1px solid transparent;
+      border-left 1px solid green;
+    }
+    &.door-none {
+      border-top 1px solid green;
+      border-left 1px solid transparent;
+    }
+  }
+}

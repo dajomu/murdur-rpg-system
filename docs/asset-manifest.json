@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/murdur-rpg-system/static/css/main.f04bb650.chunk.css",
-    "main.js": "/murdur-rpg-system/static/js/main.d2d8354a.chunk.js",
-    "main.js.map": "/murdur-rpg-system/static/js/main.d2d8354a.chunk.js.map",
+    "main.css": "/murdur-rpg-system/static/css/main.3440b241.chunk.css",
+    "main.js": "/murdur-rpg-system/static/js/main.f227bb56.chunk.js",
+    "main.js.map": "/murdur-rpg-system/static/js/main.f227bb56.chunk.js.map",
     "runtime-main.js": "/murdur-rpg-system/static/js/runtime-main.62d9bb19.js",
     "runtime-main.js.map": "/murdur-rpg-system/static/js/runtime-main.62d9bb19.js.map",
-    "static/js/2.d37e8672.chunk.js": "/murdur-rpg-system/static/js/2.d37e8672.chunk.js",
-    "static/js/2.d37e8672.chunk.js.map": "/murdur-rpg-system/static/js/2.d37e8672.chunk.js.map",
+    "static/js/2.9ff03ab3.chunk.js": "/murdur-rpg-system/static/js/2.9ff03ab3.chunk.js",
+    "static/js/2.9ff03ab3.chunk.js.map": "/murdur-rpg-system/static/js/2.9ff03ab3.chunk.js.map",
     "index.html": "/murdur-rpg-system/index.html",
-    "precache-manifest.20b38a73492383baf7d49a64aa372ac1.js": "/murdur-rpg-system/precache-manifest.20b38a73492383baf7d49a64aa372ac1.js",
+    "precache-manifest.36eb8983dfec0ac16c9195e3b63c404c.js": "/murdur-rpg-system/precache-manifest.36eb8983dfec0ac16c9195e3b63c404c.js",
     "service-worker.js": "/murdur-rpg-system/service-worker.js",
-    "static/css/main.f04bb650.chunk.css.map": "/murdur-rpg-system/static/css/main.f04bb650.chunk.css.map",
-    "static/js/2.d37e8672.chunk.js.LICENSE.txt": "/murdur-rpg-system/static/js/2.d37e8672.chunk.js.LICENSE.txt"
+    "static/css/main.3440b241.chunk.css.map": "/murdur-rpg-system/static/css/main.3440b241.chunk.css.map",
+    "static/js/2.9ff03ab3.chunk.js.LICENSE.txt": "/murdur-rpg-system/static/js/2.9ff03ab3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.62d9bb19.js",
-    "static/js/2.d37e8672.chunk.js",
-    "static/css/main.f04bb650.chunk.css",
-    "static/js/main.d2d8354a.chunk.js"
+    "static/js/2.9ff03ab3.chunk.js",
+    "static/css/main.3440b241.chunk.css",
+    "static/js/main.f227bb56.chunk.js"
   ]
 }

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/murdur-rpg-system/precache-manifest.20b38a73492383baf7d49a64aa372ac1.js"
+  "/murdur-rpg-system/precache-manifest.36eb8983dfec0ac16c9195e3b63c404c.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import CharacterStats from '../components/CharacterStats';
+import MapPanel from '../components/MapPanel';
 
 export default class ExploreScreen extends React.Component<{}, {}> {
   constructor(props: {}) {
@@ -18,7 +19,7 @@ export default class ExploreScreen extends React.Component<{}, {}> {
       </div>
       <div className="explore-pane">
         <div className="expore-encounter"></div>
-        <div className="explore-map"></div>
+        <MapPanel />
         <div className="explore-messages"></div>
       </div>
     </div>;
