@@ -11,6 +11,11 @@
     height: 13px;
     border-left 1px solid transparent;
     border-top 1px solid transparent;
+
+    &.player-location {
+      background-color: red !important;
+    }
+
     &.wall-wall {
       border-top 1px solid white;
       border-left 1px solid white;
@@ -46,6 +51,16 @@
     &.door-none {
       border-top 1px solid green;
       border-left 1px solid transparent;
+    }
+
+    &.discovered-none {
+      background-color: black;
+    }
+    &.discovered-water {
+      background-color: blue;
+    }
+    &.discovered-sand {
+      background-color: yellow;
     }
   }
 }
