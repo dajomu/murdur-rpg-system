@@ -8,8 +8,8 @@ class MessagesPanel extends ComponentWithGameContext {
     const {messageStore} = this.context;
     return <div className="explore-messages" ref={messageStore.messagePanelScrollRef}>
       <ul>
-        {messageStore.messages.map(message => 
-          <li>{message.text}</li>)}
+        {messageStore.messages.map((message, index) => 
+          <li key={"message-" + index}>{message.text}</li>)}
       </ul>
     </div>
   }

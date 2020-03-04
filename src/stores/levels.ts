@@ -3,7 +3,6 @@ import LevelMap from '../dataObjects/LevelMap';
 
 export class LevelStore {
   @observable level1: LevelMap;
-  // @observable playerLocation: [number, number] = [15,15];
   constructor() {
     this.level1 = new LevelMap(30);
   }

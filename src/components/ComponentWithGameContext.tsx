@@ -1,10 +1,12 @@
 import * as React from 'react';
 
-import playerStore from '../stores/player';
+import audioStore from '../stores/audio';
 import levelStore from '../stores/levels';
 import messageStore from '../stores/messages';
+import playerStore from '../stores/player';
 
 const gameContextDefaultValue = {
+  audioStore,
   levelStore,
   messageStore,
   playerStore,

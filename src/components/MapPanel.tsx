@@ -26,6 +26,8 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
           if (boundingSection && boundingSection.leftWall !== 'wall' && this.state.playerLocation[0] !== 0) {
             playerLocation = [this.state.playerLocation[0] -1, this.state.playerLocation[1]];
             this.context.messageStore.addMessage('You walked WEST');
+          } else {
+            this.context.audioStore.playAudio('player', 'hitwall');
           }
           break;
         }
@@ -74,7 +76,6 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
 
   render() {
     const {levelStore} = this.context;
-    console.log(this.state.playerLocation);
     return <div className="explore-map">
       <div className="map-container" style={{width: levelStore.level1.size * 14, height: levelStore.level1.size * 14}}>
         {levelStore.level1.levelSections.map(section => {

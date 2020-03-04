@@ -11,45 +11,45 @@ class CharacterInfoPanel extends ComponentWithGameContext {
         {`${playerStore.sex} ${playerStore.race} (${playerStore.alignment}) (${playerStore.level})`}
       </div>
       <ul className="character-current-info">
-        <li>
+        <li key="age">
           <span>Age</span>
           <span>{playerStore.age}</span>
         </li>
-        <li>
+        <li key="hits">
           <span>Hits</span>
           <span>{`${playerStore.currentHits}/${playerStore.maxHits}`}</span>
         </li>
-        <li>
+        <li key="xp">
           <span>Experience</span>
           <span>{playerStore.experience}</span>
         </li>
-        <li>
+        <li key="gold">
           <span>Gold</span>
           <span>{playerStore.gold}</span>
         </li>
       </ul>
       <ul className="character-stats">
-        <li>
+        <li key="strength">
           <span>Strength</span>
           <span>{playerStore.stats.strength}</span>
         </li>
-        <li>
+        <li key="intelligence">
           <span>Intelligence</span>
           <span>{playerStore.stats.intelligence}</span>
         </li>
-        <li>
+        <li key="wisdom">
           <span>Wisdom</span>
           <span>{playerStore.stats.wisdom}</span>
         </li>
-        <li>
+        <li key="constitution">
           <span>Constitution</span>
           <span>{playerStore.stats.constitution}</span>
         </li>
-        <li>
+        <li key="charisma">
           <span>Charisma</span>
           <span>{playerStore.stats.charisma}</span>
         </li>
-        <li>
+        <li key="dexterity">
           <span>Dexterity</span>
           <span>{playerStore.stats.dexterity}</span>
         </li>
@@ -59,21 +59,3 @@ class CharacterInfoPanel extends ComponentWithGameContext {
 }
 
 export default CharacterInfoPanel;
-
-// age: number = 20;
-//   @observable alignment: string = "Good";
-//   @observable race: string = "Elf";
-//   @observable sex: string = "Female";
-//   @observable level: number = 1;
-//   @observable maxHits: number = 50;
-//   @observable currentHits: number = 50;
-//   @observable experience: number = 1;
-//   @observable gold: number = 0;
-//   @observable stats: Stats = {
-//     strength: 10,
-//     intelligence: 10,
-//     wisdom: 10,
-//     constitution: 10,
-//     charisma: 10,
-//     dexterity: 10,
-//   }
