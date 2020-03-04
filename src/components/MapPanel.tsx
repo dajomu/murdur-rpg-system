@@ -14,26 +14,41 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
       super(props);
 
       this.state = {
-        playerLocation: [0, 0]
+        playerLocation: [15,15],
       };
   }
 
   handleKeyDown = (event: KeyboardEvent) => {
-    console.log('event.keyCode: ', event.keyCode);
     let playerLocation: [number, number] = [this.state.playerLocation[0], this.state.playerLocation[1]];
     switch( event.keyCode ) {
-      case 37: // go left
-        playerLocation = [this.state.playerLocation[0] -1, this.state.playerLocation[1]];
+      case 37: {// go left
+          let boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0], this.state.playerLocation[1]]);
+          if (boundingSection && boundingSection.leftWall !== 'wall' && this.state.playerLocation[0] !== 0) {
+            playerLocation = [this.state.playerLocation[0] -1, this.state.playerLocation[1]];
+          }
+          break;
+        }
+      case 38: {// go up
+          const boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0], this.state.playerLocation[1]]);
+          if (boundingSection && boundingSection.topWall !== 'wall'  && this.state.playerLocation[1] !== 0) {
+            playerLocation = [this.state.playerLocation[0], this.state.playerLocation[1] - 1];
+          }
+          break;
+        }
+      case 39: {// go right
+          const boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0] + 1, this.state.playerLocation[1]]);
+          if (boundingSection && boundingSection.leftWall !== 'wall') {
+            playerLocation = [this.state.playerLocation[0] + 1, this.state.playerLocation[1]];
+          }
+          break;
+        }
+      case 40: {// go down
+        const boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0], this.state.playerLocation[1] + 1]);
+        if (boundingSection && boundingSection.topWall !== 'wall') {
+          playerLocation = [this.state.playerLocation[0], this.state.playerLocation[1] + 1];
+        }
         break;
-      case 38: // go up
-      playerLocation = [this.state.playerLocation[0], this.state.playerLocation[1] - 1];
-        break;
-      case 39: // go right
-      playerLocation = [this.state.playerLocation[0] +1, this.state.playerLocation[1]];
-        break;
-      case 40: // go down
-      playerLocation = [this.state.playerLocation[0], this.state.playerLocation[1] + 1];
-        break;
+      }
       default: 
         break;
     }
@@ -55,15 +70,17 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
 
   render() {
     const {levelStore} = this.context;
-    console.log(levelStore.level1.levelSections, levelStore.level1.discoveredSections, this.state.playerLocation);
+    console.log(this.state.playerLocation);
     return <div className="explore-map">
       <div className="map-container" style={{width: levelStore.level1.size * 14, height: levelStore.level1.size * 14}}>
         {levelStore.level1.levelSections.map(section => {
           const isPlayerLocation = section.coords[0] === this.state.playerLocation[0] && section.coords[1] === this.state.playerLocation[1];
-          const sectionClass = levelStore.isSectionDiscovered(section.coords) ?
-            "map-square " + section.walls + (isPlayerLocation ? " player-location" : "")  + ' discovered-' + section.terrain:
-            "map-square";
-          return <div className={sectionClass}></div>;
+          const isSectionDiscovered = levelStore.getSectionDiscovered(section.coords);
+          const wallClasses = `${isSectionDiscovered.leftWall ? "wall-left-"  + section.leftWall : ""} ${isSectionDiscovered.topWall ? "wall-top-"  + section.topWall : ""}`;
+          const sectionClass = isSectionDiscovered.tile ?
+            "map-square " + wallClasses + (isPlayerLocation ? " player-location" : "")  + ' discovered-' + section.terrain:
+            "map-square " + wallClasses;
+          return <div key={section.coords[0] + "-" + section.coords[1]} className={sectionClass}></div>;
         })}
       </div>
     </div>;

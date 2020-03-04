@@ -2,15 +2,23 @@
 
 interface SectionData {
   coords: [number, number],
-  walls: string,// sections are encoded with top and left walls
+  leftWall: string;
+  topWall: string;
   terrain: string;
   modifier?: string;
+}
+
+interface DiscoveredSection {
+  leftWall: boolean;
+  topWall: boolean;
+  tile: boolean,
+  modifier: boolean
 }
 
 export default class LevelMap {
   levelSections: SectionData[] = [];//Map<[number, number], SectionData> = new Map();
   size: number;
-  discoveredSections: { [key: string]: {tile: boolean, modifier: boolean} } = {};
+  discoveredSections: { [key: string]: DiscoveredSection } = {};
 
   constructor(size = 10, randomise = true) {
     this.size = size;
@@ -18,7 +26,13 @@ export default class LevelMap {
   }
 
   public markSectionDiscovered = (coords: [number, number]) => {
-    this.discoveredSections[`${coords[0]}-${coords[1]}`] = { tile: true, modifier: true };
+    this.discoveredSections[`${coords[0]}-${coords[1]}`] = { tile: true, modifier: true, leftWall: true, topWall: true };
+    if(this.discoveredSections[`${coords[0] + 1}-${coords[1]}`]) {
+      this.discoveredSections[`${coords[0] + 1}-${coords[1]}`].leftWall = true;
+    }
+    if(this.discoveredSections[`${coords[0]}-${coords[1] + 1}`]) {
+      this.discoveredSections[`${coords[0]}-${coords[1] + 1}`].topWall = true;
+    }
   }
 
   public isSectionDiscovered = (coords: [number, number]) => {
@@ -28,20 +42,19 @@ export default class LevelMap {
   private randomlyPopulateMap = () => {
     for(var ycord = 0; ycord < this.size; ycord++) {
       for(var xcord = 0; xcord < this.size; xcord++) {
-        this.levelSections.push({coords: [xcord, ycord], walls: this.getRandomWalls(), terrain: this.getRandomTerrain()});
-        this.discoveredSections[`${xcord}-${ycord}`] = { tile: false, modifier: false };
+        this.levelSections.push({coords: [xcord, ycord], leftWall: this.getRandomWall(), topWall: this.getRandomWall(), terrain: this.getRandomTerrain()});
+        this.discoveredSections[`${xcord}-${ycord}`] = { tile: false, modifier: false, leftWall: false, topWall: false };
       }
     }
   }
 
-  private getRandomWalls = (): string => {
-    const leftRand = Math.round(1 + Math.random() * 2);
-    const rightRand = Math.round(1 + Math.random() * 2);
-    return `${leftRand === 1 ? 'wall' : leftRand === 2 ? 'door' : 'none'}-${rightRand === 1 ? 'wall' : rightRand === 2 ? 'door' : 'none'}`
+  private getRandomWall = (): string => {
+    const randomWall = Math.round(1 + Math.random() * 4);
+    return randomWall >= 4 ? 'wall' : randomWall === 1 ? 'door' : 'none';
   }
 
   private getRandomTerrain = (): string => {
-    switch(Math.round(1 + Math.random() * 4)) {
+    switch(Math.round(1 + Math.random() * 6)) {
       case 1:
         return 'sand';
       case 2:

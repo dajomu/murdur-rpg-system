@@ -1,66 +1,57 @@
-.map-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background-color: grey;
-  border-right 1px solid white;
-  border-bottom 1px solid white;
+.explore-map {
+  flex 3;
+  background-color: black;
 
-  .map-square {
-    width: 13px;
-    height: 13px;
-    border-left 1px solid transparent;
-    border-top 1px solid transparent;
+  .map-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    
+    background-color: grey;
+    border-top 1px solid white;
+    border-left 1px solid white;
+    border-right 1px solid white;
+    border-bottom 1px solid white;
 
-    &.player-location {
-      background-color: red !important;
-    }
-
-    &.wall-wall {
-      border-top 1px solid white;
-      border-left 1px solid white;
-    }
-    &.wall-none {
-      border-top 1px solid white;
+    .map-square {
+      width: 13px;
+      height: 13px;
       border-left 1px solid transparent;
-    }
-    &.none-wall {
       border-top 1px solid transparent;
-      border-left 1px solid white;
-    }
-    &.door-door {
-      border-top 1px solid green;
-      border-left 1px solid green;
-    }
-    &.wall-door {
-      border-top 1px solid white;
-      border-left 1px solid green;
-    }
-    &.door-wall {
-      border-top 1px solid green;
-      border-left 1px solid white;
-    }
-    &.none-none {
-      border-top 1px solid transparent;
-      border-left 1px solid transparent;
-    }
-    &.none-door {
-      border-top 1px solid transparent;
-      border-left 1px solid green;
-    }
-    &.door-none {
-      border-top 1px solid green;
-      border-left 1px solid transparent;
-    }
 
-    &.discovered-none {
-      background-color: black;
-    }
-    &.discovered-water {
-      background-color: blue;
-    }
-    &.discovered-sand {
-      background-color: yellow;
+      &.player-location {
+        background-color: red !important;
+      }
+
+      &.wall-left-none {
+        border-left 1px solid black;
+      }
+      &.wall-left-wall {
+        border-left 1px solid white;
+      }
+      &.wall-left-door {
+        border-left 1px dashed lightgrey
+      }
+      &.wall-top-none {
+        border-top 1px solid black;
+      }
+      &.wall-top-wall {
+        border-top 1px solid white;
+      }
+      &.wall-top-door {
+        border-top 1px dashed lightgrey
+      }
+
+      &.discovered-none {
+        background-color: black;
+      }
+      &.discovered-water {
+        background-color: cornflowerblue;
+      }
+      &.discovered-sand {
+        background-color: burlywood;
+      }
     }
   }
 }
