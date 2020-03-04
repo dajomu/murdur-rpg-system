@@ -25,6 +25,7 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
           let boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0], this.state.playerLocation[1]]);
           if (boundingSection && boundingSection.leftWall !== 'wall' && this.state.playerLocation[0] !== 0) {
             playerLocation = [this.state.playerLocation[0] -1, this.state.playerLocation[1]];
+            this.context.messageStore.addMessage('You walked WEST');
           }
           break;
         }
@@ -32,6 +33,7 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
           const boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0], this.state.playerLocation[1]]);
           if (boundingSection && boundingSection.topWall !== 'wall'  && this.state.playerLocation[1] !== 0) {
             playerLocation = [this.state.playerLocation[0], this.state.playerLocation[1] - 1];
+            this.context.messageStore.addMessage('You walked NORTH');
           }
           break;
         }
@@ -39,6 +41,7 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
           const boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0] + 1, this.state.playerLocation[1]]);
           if (boundingSection && boundingSection.leftWall !== 'wall') {
             playerLocation = [this.state.playerLocation[0] + 1, this.state.playerLocation[1]];
+            this.context.messageStore.addMessage('You walked EAST');
           }
           break;
         }
@@ -46,6 +49,7 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
         const boundingSection = this.context.levelStore.getSectionByCoords([this.state.playerLocation[0], this.state.playerLocation[1] + 1]);
         if (boundingSection && boundingSection.topWall !== 'wall') {
           playerLocation = [this.state.playerLocation[0], this.state.playerLocation[1] + 1];
+          this.context.messageStore.addMessage('You walked SOUTH');
         }
         break;
       }
