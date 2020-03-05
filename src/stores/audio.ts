@@ -13,7 +13,7 @@ export class AudioStore {
   public playerAudioRef: React.RefObject<HTMLAudioElement> = React.createRef();
 
   playAudio(type: string, audio: string) {
-    if(type === 'player' && this.player[audio] && this.playerAudioRef.current && this.soundEnabled){
+    if(type === 'player' && this.player[audio] && this.playerAudioRef.current && this.soundEnabled && this.playerAudioRef.current.paused){
       this.playerAudioRef.current.src = this.player[audio].src;
       this.playerAudioRef.current.play();
     }

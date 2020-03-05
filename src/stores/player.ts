@@ -27,6 +27,17 @@ export class PlayerStore {
     charisma: 10,
     dexterity: 10,
   }
+  @observable playerLocation: [number, number] = [15,15];
+
+  public setPlayerLocation = (playerLocation: [number, number]) => {
+    this.playerLocation = playerLocation;
+  }
+
+  // public movePlayerNorth() {
+  //   if (this.playerLocation[1] > 0) {
+  //     this.playerLocation = 
+  //   }
+  // }
 }
 
 const playerStore = new PlayerStore();
