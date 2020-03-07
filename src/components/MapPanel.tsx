@@ -9,18 +9,9 @@ interface MapPanelState {
 }
 
 @observer 
-class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
-
-  constructor(props: {}) {
-      super(props);
-
-      this.state = {
-        playerLocation: [15,15],
-      };
-  }
-  
+class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {  
   componentWillMount() {
-    this.context.levelStore.level1.markSectionDiscovered(this.state.playerLocation);
+    this.context.levelStore.level1.markSectionDiscovered(this.context.playerStore.playerLocation);
   }
 
   componentDidMount() {
@@ -33,7 +24,7 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
 
   render() {
     const {levelStore, playerStore} = this.context;
-    const {playerLocation} = playerStore;
+    const {playerLocation, playerDirection} = playerStore;
     return <div className="explore-map">
       <div className="map-container" style={{width: levelStore.level1.size * 14, height: levelStore.level1.size * 14}}>
         {levelStore.level1.levelSections.map(section => {
@@ -41,9 +32,11 @@ class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {
           const isSectionDiscovered = levelStore.getSectionDiscovered(section.coords);
           const wallClasses = `${isSectionDiscovered.leftWall ? "wall-left-"  + section.leftWall : ""} ${isSectionDiscovered.topWall ? "wall-top-"  + section.topWall : ""}`;
           const sectionClass = isSectionDiscovered.tile ?
-            "map-square " + wallClasses + (isPlayerLocation ? " player-location" : "")  + ' discovered-' + section.terrain:
+            "map-square " + wallClasses + ' discovered-' + section.terrain:
             "map-square " + wallClasses;
-          return <div key={section.coords[0] + "-" + section.coords[1]} className={sectionClass}></div>;
+          return <div key={section.coords[0] + "-" + section.coords[1]} className={sectionClass}>
+            {isPlayerLocation ? <img src="/murdur-rpg-system/images/arrowUp-pink.png" alt="player" className={"player-sprite " + playerDirection} /> : null}
+          </div>;
         })}
       </div>
     </div>;

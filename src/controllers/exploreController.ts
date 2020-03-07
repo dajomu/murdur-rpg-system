@@ -1,15 +1,13 @@
 import audioStore from '../stores/audio';
-import playerStore from '../stores/player';
+import playerStore, { Direction } from '../stores/player';
 import levelStore from '../stores/levels';
 import messageStore from '../stores/messages';
 
-type Direction = 'west' | 'north' | 'east' | 'south';
-
-const keyDirection: {[key: number]: Direction} = {
-  37: 'west',
-  38: 'north',
-  39: 'east',
-  40: 'south'
+const keyDirection: {[key: number]: string} = {
+  37: 'counter-clockwise',
+  38: 'forward',
+  39: 'clockwise',
+  40: 'backward'
 }
 
 const boundingOffsetMap: {[key: string]: [number, number]} = {
@@ -30,11 +28,15 @@ export class ExploreController {
   handleKeyDown = (event: KeyboardEvent) => {
     const direction = keyDirection[event.keyCode];
     switch(direction) {
-      case 'west':
-      case 'north':
-      case 'east':
-      case 'south':
-        if(this.moveDirection(direction)) {
+      case 'counter-clockwise':
+        playerStore.rotatePlayerCounterClockwise();
+        break;
+      case 'clockwise':
+        playerStore.rotatePlayerClockwise();
+        break;
+      case 'forward':
+      // case 'backward':
+        if(this.moveDirection(playerStore.playerDirection)) {
           messageStore.addMessage(`You walked ${direction.toUpperCase()}`);
         } else {
           audioStore.playAudio('player', 'hitwall');
@@ -61,9 +63,9 @@ export class ExploreController {
     const boundingOffset = boundingOffsetMap[direction];
     const boundingSection = levelStore.getSectionByCoords([playerStore.playerLocation[0] + boundingOffset[0], playerStore.playerLocation[1] + boundingOffset[1]]);
     if(direction === 'north' || direction === 'south') {
-      return boundingSection && boundingSection.topWall !== 'wall';
+      return boundingSection && boundingSection.topWall !== 'wall' && playerStore.playerLocation[1] + boundingOffset[1] >= 1;
     } else {
-      return boundingSection && boundingSection.leftWall !== 'wall';
+      return boundingSection && boundingSection.leftWall !== 'wall' && playerStore.playerLocation[0] + boundingOffset[0] >= 1;
     }
     
   }

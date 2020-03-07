@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/murdur-rpg-system/static/css/main.8b373535.chunk.css",
-    "main.js": "/murdur-rpg-system/static/js/main.d11f5691.chunk.js",
-    "main.js.map": "/murdur-rpg-system/static/js/main.d11f5691.chunk.js.map",
+    "main.css": "/murdur-rpg-system/static/css/main.371a4c43.chunk.css",
+    "main.js": "/murdur-rpg-system/static/js/main.b57c7e8c.chunk.js",
+    "main.js.map": "/murdur-rpg-system/static/js/main.b57c7e8c.chunk.js.map",
     "runtime-main.js": "/murdur-rpg-system/static/js/runtime-main.62d9bb19.js",
     "runtime-main.js.map": "/murdur-rpg-system/static/js/runtime-main.62d9bb19.js.map",
     "static/js/2.2f14add7.chunk.js": "/murdur-rpg-system/static/js/2.2f14add7.chunk.js",
     "static/js/2.2f14add7.chunk.js.map": "/murdur-rpg-system/static/js/2.2f14add7.chunk.js.map",
     "index.html": "/murdur-rpg-system/index.html",
-    "precache-manifest.906ac4de38dc5e1b5d8f4e5d6d481754.js": "/murdur-rpg-system/precache-manifest.906ac4de38dc5e1b5d8f4e5d6d481754.js",
+    "precache-manifest.e172f4bd730d5a5b245e23fd9c1f2d5b.js": "/murdur-rpg-system/precache-manifest.e172f4bd730d5a5b245e23fd9c1f2d5b.js",
     "service-worker.js": "/murdur-rpg-system/service-worker.js",
-    "static/css/main.8b373535.chunk.css.map": "/murdur-rpg-system/static/css/main.8b373535.chunk.css.map",
+    "static/css/main.371a4c43.chunk.css.map": "/murdur-rpg-system/static/css/main.371a4c43.chunk.css.map",
     "static/js/2.2f14add7.chunk.js.LICENSE.txt": "/murdur-rpg-system/static/js/2.2f14add7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.62d9bb19.js",
     "static/js/2.2f14add7.chunk.js",
-    "static/css/main.8b373535.chunk.css",
-    "static/js/main.d11f5691.chunk.js"
+    "static/css/main.371a4c43.chunk.css",
+    "static/js/main.b57c7e8c.chunk.js"
   ]
 }

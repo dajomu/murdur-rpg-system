@@ -7,7 +7,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin: auto;
-    
+
     background-color: grey;
     border-top 1px solid white;
     border-left 1px solid white;
@@ -20,8 +20,24 @@
       border-left 1px solid transparent;
       border-top 1px solid transparent;
 
-      &.player-location {
-        background-color: red !important;
+      .player-sprite {
+        width: 13px;
+        height: 13px;
+        position: relative;
+        bottom: 2px;
+        right: 0px;
+
+        &.east {
+          transform: rotate(90deg);
+        }
+
+        &.south {
+          transform: rotate(180deg);
+        }
+
+        &.west {
+          transform: rotate(270deg);
+        }
       }
 
       &.wall-left-none {
