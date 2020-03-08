@@ -37,7 +37,7 @@ export class ExploreController {
       case 'forward':
       // case 'backward':
         if(this.moveDirection(playerStore.playerDirection)) {
-          messageStore.addMessage(`You walked ${direction.toUpperCase()}`);
+          messageStore.addMessage(`You walked ${playerStore.playerDirection.toUpperCase()}`);
         } else {
           audioStore.playAudio('player', 'hitwall');
         };

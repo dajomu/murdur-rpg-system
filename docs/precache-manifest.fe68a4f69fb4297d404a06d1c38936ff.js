@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5ce5b81516c03c67667ebadb72e03c21",
+    "revision": "5040b2549346f97d751acaabb34ba360",
     "url": "/murdur-rpg-system/index.html"
   },
   {
-    "revision": "440c82443c820ab2dc6f",
-    "url": "/murdur-rpg-system/static/css/main.371a4c43.chunk.css"
+    "revision": "c3bb7649d590f8c9ffcc",
+    "url": "/murdur-rpg-system/static/css/main.52e387fb.chunk.css"
   },
   {
     "revision": "0275bb3525770fdddec2",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/murdur-rpg-system/static/js/2.2f14add7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "440c82443c820ab2dc6f",
-    "url": "/murdur-rpg-system/static/js/main.b57c7e8c.chunk.js"
+    "revision": "c3bb7649d590f8c9ffcc",
+    "url": "/murdur-rpg-system/static/js/main.33898cca.chunk.js"
   },
   {
     "revision": "e97051762dfa0f1347c7",

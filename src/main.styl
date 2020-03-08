@@ -12,10 +12,6 @@ html, body, #root, #root .App {
     display: flex;
     flex-direction: column;
     flex: 1;
-    .character-inventory {
-      flex: 4;
-      background-color: darkseagreen;
-    }
     .party {
       height: 100px;
       background-color: mistyrose;
@@ -44,6 +40,7 @@ html, body, #root, #root .App {
   }
 }
 
+@require './components/InventoryPanel';
 @require './components/CharacterInfoPanel';
 @require './components/CharacterStats';
 @require './components/MapPanel';

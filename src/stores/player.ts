@@ -11,6 +11,8 @@ interface Stats {
 
 export type Direction = 'west' | 'north' | 'east' | 'south';
 
+type Alignment = 'good' | 'neutral' | 'evil';
+
 const clockwiseRotationMap: {[key: string]: Direction} = {
   'west': 'north',
   'north': 'east',
@@ -27,9 +29,9 @@ const counterClockwiseRotationMap: {[key: string]: Direction} = {
 
 export class PlayerStore {
   @observable age: number = 20;
-  @observable alignment: string = "Good";
-  @observable race: string = "Elf";
-  @observable sex: string = "Female";
+  @observable alignment: Alignment = 'good';
+  @observable race: string = 'elf';
+  @observable sex: string = 'female';
   @observable level: number = 1;
   @observable maxHits: number = 50;
   @observable currentHits: number = 50;
@@ -42,9 +44,15 @@ export class PlayerStore {
     constitution: 10,
     charisma: 10,
     dexterity: 10,
-  }
+  };
   @observable playerLocation: [number, number] = [15,15];
   @observable playerDirection: Direction = 'north';
+  @observable playerInventory: { itemId: number, alignment?: Alignment }[] = [{itemId: 0},{itemId: 1, alignment: 'good'},{itemId: 2},{itemId: 3},{itemId: 4, alignment: 'neutral'}];
+  @observable equippedRightHand?: number;
+  @observable equippedLeftHand?: number;
+  @observable equippedHelmet?: number;
+  @observable equippedBodyArmour?: number;
+  @observable equippedHandArmour?: number;
 
   public setPlayerLocation = (playerLocation: [number, number]) => {
     this.playerLocation = playerLocation;
