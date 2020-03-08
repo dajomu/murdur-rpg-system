@@ -1,5 +1,6 @@
 import React from 'react';
 import CharacterStats from '../components/CharacterStats';
+import EncounterPane from '../components/EncounterPane';
 import InventoryPanel from '../components/InventoryPanel';
 import MapPanel from '../components/MapPanel';
 import MessagesPanel from '../components/MessagesPanel';
@@ -20,7 +21,7 @@ export default class ExploreScreen extends React.Component<{}, {}> {
         <div className="party"></div>
       </div>
       <div className="explore-pane">
-        <div className="expore-encounter"></div>
+        <EncounterPane />
         <MapPanel />
         <MessagesPanel />
       </div>

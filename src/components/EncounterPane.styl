@@ -1,0 +1,40 @@
+.expore-encounter{
+  flex 2
+  background-color: antiquewhite
+
+  .fps-view {
+    width: 200px
+    height: 200px
+    margin: 10px
+    background: linear-gradient(#bbb, #111 40%, #111 60%, #f69d3c)
+    position: relative
+    overflow: hidden
+
+    .fps-square {
+      position: absolute
+      &.left {
+        width: 120px;
+        height: 120px;
+        background: #00f;
+        top: 40px;
+        left: -20px;
+        transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px);
+      }
+      &.front {
+        width: 120px
+        height: 120px
+        background: grey
+        top: 40px
+        left: 40px
+      }
+      &.right {
+        width: 120px;
+        height: 120px;
+        background: green;
+        top: 40px;
+        right: -20px;
+        transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px);
+      }
+    }
+  }
+}
