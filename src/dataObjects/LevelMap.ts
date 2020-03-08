@@ -1,4 +1,4 @@
-// import { observable } from 'mobx';
+import level1Data from '../data/levels/level1';
 
 interface SectionData {
   coords: [number, number],
@@ -6,6 +6,14 @@ interface SectionData {
   topWall: string;
   terrain: string;
   modifier?: string;
+  roomId?: string;
+}
+
+interface RoomData {
+  roomId: string;
+  chestId: string;
+  monsterGroupId: string;
+  monsters: [];
 }
 
 interface DiscoveredSection {
@@ -16,13 +24,19 @@ interface DiscoveredSection {
 }
 
 export default class LevelMap {
-  levelSections: SectionData[] = [];//Map<[number, number], SectionData> = new Map();
+  levelSections: SectionData[] = [];
+  levelRooms: RoomData[] = [];
+  level: number;
   size: number;
   discoveredSections: { [key: string]: DiscoveredSection } = {};
 
-  constructor(size = 10, randomise = true) {
+  constructor(level = 1, size = 30, randomise = true) {
+    this.level = level;
     this.size = size;
     if (randomise) { this.randomlyPopulateMap() }
+    else (this.populateMap())
+    this.populateDiscoveredSections();
+    console.log(this);
   }
 
   public markSectionDiscovered = (coords: [number, number]) => {
@@ -39,10 +53,21 @@ export default class LevelMap {
     return this.discoveredSections[`${coords[0]}-${coords[1]}`] ? this.discoveredSections[`${coords[0]}-${coords[1]}`].tile : false;
   }
 
+  private populateMap = () => {
+    this.levelSections = level1Data as SectionData[];
+  }
+
   private randomlyPopulateMap = () => {
     for(var ycord = 0; ycord < this.size; ycord++) {
       for(var xcord = 0; xcord < this.size; xcord++) {
         this.levelSections.push({coords: [xcord, ycord], leftWall: this.getRandomWall(), topWall: this.getRandomWall(), terrain: this.getRandomTerrain()});
+      }
+    }
+  }
+
+  private populateDiscoveredSections = () => {
+    for(var ycord = 0; ycord < this.size; ycord++) {
+      for(var xcord = 0; xcord < this.size; xcord++) {
         this.discoveredSections[`${xcord}-${ycord}`] = { tile: false, modifier: false, leftWall: false, topWall: false };
       }
     }
