@@ -27,7 +27,7 @@ export default class CharacterStats extends React.Component<{}, {activeTab: stri
       <div className="character-name">Reggie Plop Plops</div>
       <div className="top-tabs">
         {tabs.map(tabInfo => 
-          <div className={`tab ${activeTab === tabInfo.id ? 'active' : ''}`} 
+          <div key={"stats-tabs-" + tabInfo.id} className={`tab ${activeTab === tabInfo.id ? 'active' : ''}`} 
             onClick={() => {this.changeTab(tabInfo.id)}}>{tabInfo.name}</div>)}
       </div>
       {activeTab === 'stats' && <CharacterInfoPanel />}

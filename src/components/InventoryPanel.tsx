@@ -10,7 +10,7 @@ class InventoryPanel extends ComponentWithGameContext {
       <ol className="character-inventory-list">
         {playerStore.playerInventory.map((inventoryItem, inventoryIndex) => {
           const item = itemsStore[inventoryItem.itemId];
-          return !!item ? <li>{`${item.name} ${inventoryItem.alignment ? '(' + inventoryItem.alignment.charAt(0)+')' : ''}`}</li> : null})}
+          return !!item ? <li key={"inventory-" + inventoryIndex}>{`${item.name} ${inventoryItem.alignment ? '(' + inventoryItem.alignment.charAt(0)+')' : ''}`}</li> : null})}
       </ol>
     </div>;
   }

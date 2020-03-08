@@ -27,6 +27,13 @@ const counterClockwiseRotationMap: {[key: string]: Direction} = {
   'south': 'east'
 }
 
+const turnAroundMap: {[key: string]: Direction} = {
+  'west': 'east',
+  'north': 'south',
+  'east': 'west',
+  'south': 'north'
+}
+
 export class PlayerStore {
   @observable age: number = 20;
   @observable alignment: Alignment = 'good';
@@ -64,6 +71,10 @@ export class PlayerStore {
 
   public rotatePlayerCounterClockwise = () => {
     this.playerDirection = counterClockwiseRotationMap[this.playerDirection];
+  }
+
+  public turnAround = () => {
+    this.playerDirection = turnAroundMap[this.playerDirection];
   }
 }
 

@@ -34,8 +34,10 @@ export class ExploreController {
       case 'clockwise':
         playerStore.rotatePlayerClockwise();
         break;
+      case 'backward':
+        playerStore.turnAround();
+        break;
       case 'forward':
-      // case 'backward':
         if(this.moveDirection(playerStore.playerDirection)) {
           messageStore.addMessage(`You walked ${playerStore.playerDirection.toUpperCase()}`);
         } else {
