@@ -1,6 +1,9 @@
 import { action, observable } from 'mobx';
 import { getCookie, setCookie } from '../utils/cookie';
 import LevelMap from '../dataObjects/LevelMap';
+import { boundingOffsetMap } from '../constants';
+
+type Direction = 'west' | 'north' | 'east' | 'south';
 
 export class LevelStore {
   @observable useRandomMaps: boolean;
@@ -14,6 +17,16 @@ export class LevelStore {
     coords: [number, number]
   ) => {
     this.level1.markSectionDiscovered(coords);
+  }
+
+  getWallFace(playerLocation: [number, number], playerDirection: Direction, offset: [number, number] = [0,0]) {
+    const wallOffset = boundingOffsetMap[playerDirection];
+    const sectionWithWall = this.level1.levelSections.find(section => playerLocation[0] + wallOffset[0] + offset[0] === section.coords[0] && playerLocation[1] + wallOffset[1] + offset[1] === section.coords[1]);
+    if(playerDirection === 'north' || playerDirection === 'south') {
+      return sectionWithWall!.topWall;
+    } else {
+      return sectionWithWall!.leftWall;
+    }
   }
 
   getSectionDiscovered(coords: [number, number]) {

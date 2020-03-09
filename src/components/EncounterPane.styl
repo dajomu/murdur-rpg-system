@@ -12,28 +12,46 @@
 
     .fps-square {
       position: absolute
+      background: radial-gradient(transparent 40%,#222 92%);
+      &.wall {
+        background-color: grey
+      }
+      &.door {
+        background-color: brown
+      }
+      &.none {
+        display: none
+      }
       &.left {
-        width: 120px;
-        height: 120px;
-        background: #00f;
-        top: 40px;
-        left: -20px;
-        transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px);
+        width: 120px
+        height: 120px
+        top: 40px
+        left: -20px
+        transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
+        z-index: 5
+        &.forward {
+          transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
+          z-index: 3
+        }
       }
       &.front {
         width: 120px
         height: 120px
-        background: grey
         top: 40px
         left: 40px
+        z-index: 4
       }
       &.right {
-        width: 120px;
-        height: 120px;
-        background: green;
-        top: 40px;
-        right: -20px;
-        transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px);
+        width: 120px
+        height: 120px
+        top: 40px
+        right: -20px
+        transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
+        z-index: 5
+        &.forward {
+          transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
+          z-index: 3
+        }
       }
     }
   }

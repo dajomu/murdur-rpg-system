@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import { clockwiseRotationMap, counterClockwiseRotationMap, turnAroundMap} from '../constants';
 
 interface Stats {
   strength: number;
@@ -12,27 +13,6 @@ interface Stats {
 export type Direction = 'west' | 'north' | 'east' | 'south';
 
 type Alignment = 'good' | 'neutral' | 'evil';
-
-const clockwiseRotationMap: {[key: string]: Direction} = {
-  'west': 'north',
-  'north': 'east',
-  'east': 'south',
-  'south': 'west'
-}
-
-const counterClockwiseRotationMap: {[key: string]: Direction} = {
-  'west': 'south',
-  'north': 'west',
-  'east': 'north',
-  'south': 'east'
-}
-
-const turnAroundMap: {[key: string]: Direction} = {
-  'west': 'east',
-  'north': 'south',
-  'east': 'west',
-  'south': 'north'
-}
 
 export class PlayerStore {
   @observable age: number = 20;

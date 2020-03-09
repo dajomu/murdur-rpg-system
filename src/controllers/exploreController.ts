@@ -2,26 +2,13 @@ import audioStore from '../stores/audio';
 import playerStore, { Direction } from '../stores/player';
 import levelStore from '../stores/levels';
 import messageStore from '../stores/messages';
+import { boundingOffsetMap, movementOffsetMap } from '../constants';
 
 const keyDirection: {[key: number]: string} = {
   37: 'counter-clockwise',
   38: 'forward',
   39: 'clockwise',
   40: 'backward'
-}
-
-const boundingOffsetMap: {[key: string]: [number, number]} = {
-  west: [0,0],
-  north: [0,0],
-  east: [1,0],
-  south: [0,1]
-}
-
-const movementOffsetMap: {[key: string]: [number, number]} = {
-  west: [-1,0],
-  north: [0,-1],
-  east: [1,0],
-  south: [0,1]
 }
 
 export class ExploreController {
