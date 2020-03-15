@@ -29,14 +29,15 @@ export default class LevelMap {
   level: number;
   size: number;
   discoveredSections: { [key: string]: DiscoveredSection } = {};
+  setAllMapDiscovered: boolean;
 
-  constructor(level = 1, size = 30, randomise = true) {
+  constructor(level = 1, size = 30, randomise = true, setAllMapDiscovered = false) {
     this.level = level;
     this.size = size;
+    this.setAllMapDiscovered = setAllMapDiscovered;
     if (randomise) { this.randomlyPopulateMap() }
     else (this.populateMap())
     this.populateDiscoveredSections();
-    console.log(this);
   }
 
   public markSectionDiscovered = (coords: [number, number]) => {
@@ -68,7 +69,9 @@ export default class LevelMap {
   private populateDiscoveredSections = () => {
     for(var ycord = 0; ycord < this.size; ycord++) {
       for(var xcord = 0; xcord < this.size; xcord++) {
-        this.discoveredSections[`${xcord}-${ycord}`] = { tile: false, modifier: false, leftWall: false, topWall: false };
+        this.discoveredSections[`${xcord}-${ycord}`] = this.setAllMapDiscovered ?
+          { tile: true, modifier: true, leftWall: true, topWall: true } : 
+          { tile: false, modifier: false, leftWall: false, topWall: false };
       }
     }
   }

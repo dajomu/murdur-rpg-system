@@ -10,7 +10,7 @@ export class LevelStore {
   @observable level1: LevelMap;
   constructor() {
     this.useRandomMaps = this.checkForRandomMaps();
-    this.level1 = new LevelMap(1, 30, this.useRandomMaps);
+    this.level1 = new LevelMap(1, 30, this.useRandomMaps, false);
   }
 
   @action markSectionDiscovered = (
@@ -20,6 +20,7 @@ export class LevelStore {
   }
 
   getWallFace(playerLocation: [number, number], playerDirection: Direction, offset: [number, number] = [0,0]) {
+
     const wallOffset = boundingOffsetMap[playerDirection];
     const sectionWithWall = this.level1.levelSections.find(section => playerLocation[0] + wallOffset[0] + offset[0] === section.coords[0] && playerLocation[1] + wallOffset[1] + offset[1] === section.coords[1]);
     if(playerDirection === 'north' || playerDirection === 'south') {

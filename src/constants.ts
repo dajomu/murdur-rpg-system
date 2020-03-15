@@ -7,6 +7,13 @@ export const boundingOffsetMap: {[key: string]: [number, number]} = {
   south: [0,1]
 };
 
+export const offsetMap: {[key: string]: [number, number]} = {
+  west: [-1,0],
+  north: [0,-1],
+  east: [1,0],
+  south: [0,1]
+};
+
 export const movementOffsetMap: {[key: string]: [number, number]} = {
   west: [-1,0],
   north: [0,-1],
