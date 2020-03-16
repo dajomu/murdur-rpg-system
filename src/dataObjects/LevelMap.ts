@@ -1,4 +1,13 @@
 import level1Data from '../data/levels/level1';
+import levelOneRoomInitData from '../data/rooms/level1';
+import monsterStore from '../stores/monster';
+import { getCount, getPlusMinusTwentyPercentInteger } from '../utils/level';
+
+interface Chest {
+  trapType: 'none' | 'poison' | 'explosive';
+  gold: number;
+  itemIds: number[];
+}
 
 interface SectionData {
   coords: [number, number],
@@ -9,11 +18,14 @@ interface SectionData {
   roomId?: string;
 }
 
+interface RoomInitData {
+  chestId?: number;
+  monsterGroupId: number;
+}
+
 interface RoomData {
-  roomId: string;
-  chestId: string;
-  monsterGroupId: string;
-  monsters: [];
+  chest?: Chest;
+  groups: { monsterId: number; monsterHealth: number[]; monsterStatus: 'none' | 'poisoned'}[];
 }
 
 interface DiscoveredSection {
@@ -25,7 +37,7 @@ interface DiscoveredSection {
 
 export default class LevelMap {
   levelSections: SectionData[] = [];
-  levelRooms: RoomData[] = [];
+  levelRooms: {[key: string]: RoomData} = {};
   level: number;
   size: number;
   discoveredSections: { [key: string]: DiscoveredSection } = {};
@@ -36,7 +48,10 @@ export default class LevelMap {
     this.size = size;
     this.setAllMapDiscovered = setAllMapDiscovered;
     if (randomise) { this.randomlyPopulateMap() }
-    else (this.populateMap())
+    else {
+      this.populateMap();
+      this.populateRooms();
+    }
     this.populateDiscoveredSections();
   }
 
@@ -63,6 +78,25 @@ export default class LevelMap {
       for(var xcord = 0; xcord < this.size; xcord++) {
         this.levelSections.push({coords: [xcord, ycord], leftWall: this.getRandomWall(), topWall: this.getRandomWall(), terrain: this.getRandomTerrain()});
       }
+    }
+  }
+
+  private populateRooms = () => {
+    for (const roomKey in levelOneRoomInitData) {
+      this.populateRoom(roomKey, levelOneRoomInitData[roomKey]);
+    }
+  }
+
+  private populateRoom = (roomKey: number | string, roomInitData: RoomInitData) => {
+    if(!roomInitData) {
+      return;
+    }
+    const monsterGroup = monsterStore.monsterGroups[roomInitData.monsterGroupId]
+    this.levelRooms[roomKey] = {
+      groups: monsterGroup.groups.map(group => ({
+        monsterId: group.monsterId,
+        monsterHealth: [...Array(getCount(group.minCount, group.maxCount))].map(monster => getPlusMinusTwentyPercentInteger(monsterStore.monsters[group.monsterId].hp)),
+        monsterStatus: 'none'}))
     }
   }
 

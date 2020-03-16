@@ -1,79 +1,133 @@
 .expore-encounter{
   flex 2
   background-color: antiquewhite
+  display: flex
+  flex-direction: row
 
-  .fps-view {
-    width: 200px
-    height: 200px
-    margin: 10px
-    background: linear-gradient(#bbb, #111 40%, #111 60%, #f69d3c)
-    position: relative
-    overflow: hidden
+  .location-info {
+    display: flex
+    flex-direction: column
+    .location-direction {
+      margin: 10px
+      text-align: center
+      text-transform: capitalize;
+    }
 
-    .fps-square {
-      position: absolute
-      &.wall {
-        background: radial-gradient(transparent 40%,#222 92%), url(/murdur-rpg-system/images/wall-texture.png);
-        background-size: cover;
-      }
-      &.door {
-        background: radial-gradient(transparent 40%,#222 92%), url(/murdur-rpg-system/images/door-texture.png);
-        background-size: cover;
-      }
-      &.none {
-        display: none
-      }
-      &.left {
-        width: 120px
-        height: 120px
-        top: 40px
-        left: -20px
-        transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
-        z-index: 5
-        &.forward {
-          transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
-          z-index: 3
+    .fps-view {
+      width: 200px
+      height: 200px
+      margin: 10px
+      background: linear-gradient(#bbb, #111 40%, #111 60%, #f69d3c)
+      position: relative
+      overflow: hidden
+
+      .fps-square {
+        position: absolute
+        &.wall {
+          background: radial-gradient(transparent 40%,#222 92%), url(/murdur-rpg-system/images/wall-texture.png);
+          background-size: cover;
+        }
+        &.door {
+          background: radial-gradient(transparent 40%,#222 92%), url(/murdur-rpg-system/images/door-texture.png);
+          background-size: cover;
+        }
+        &.none {
+          display: none
+        }
+        &.left {
+          width: 120px
+          height: 120px
+          top: 40px
+          left: -20px
+          transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
+          z-index: 5
+          &.forward {
+            transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
+            z-index: 3
+          }
+        }
+        &.front {
+          width: 120px
+          height: 120px
+          top: 40px
+          left: 40px
+          z-index: 4
+          &.forward {
+            transform: scale(0.52)
+            z-index: 2;
+          }
+          &.forward-right {
+            transform: scale(0.52)
+            z-index: 2;
+            left: 102px;
+          }
+          &.forward-left {
+            transform: scale(0.52)
+            z-index: 2;
+            left: -22px;
+          }
+          &.front-left {
+            left: -80px;
+          }
+          &.front-right {
+            left: 160px;
+          }
+        }
+        &.right {
+          width: 120px
+          height: 120px
+          top: 40px
+          right: -20px
+          transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
+          z-index: 5
+          &.forward {
+            transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
+            z-index: 3
+          }
         }
       }
-      &.front {
-        width: 120px
-        height: 120px
-        top: 40px
-        left: 40px
-        z-index: 4
-        &.forward {
-          transform: scale(0.52)
-          z-index: 2;
-        }
-        &.forward-right {
-          transform: scale(0.52)
-          z-index: 2;
-          left: 102px;
-        }
-        &.forward-left {
-          transform: scale(0.52)
-          z-index: 2;
-          left: -22px;
-        }
-        &.front-left {
-          left: -80px;
-        }
-        &.front-right {
-          left: 160px;
+    }
+  }
+
+  .encounter-info {
+    display: flex
+    flex-direction: column
+    flex: 1
+
+    .encounter-images {
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      padding: 10px
+      align-items: flex-end
+
+      .monster-disposition {
+        width: 100px
+        height: 100px
+        background-color: indianred
+        img {
+          width: 100%
+          height: 100%
         }
       }
-      &.right {
-        width: 120px
-        height: 120px
-        top: 40px
-        right: -20px
-        transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
-        z-index: 5
-        &.forward {
-          transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
-          z-index: 3
+      .monster-portrait {
+        width: 150px
+        height: 150px
+        img {
+          width: 100%
+          height: 100%
         }
       }
+      .chest {
+        width: 100px
+        height: 100px
+        // background-color: red
+      }
+    }
+    .monster-list {
+      height: 100px
+      margin: 10px
+      background-color: #fff
     }
   }
 }

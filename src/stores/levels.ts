@@ -20,9 +20,11 @@ export class LevelStore {
   }
 
   getWallFace(playerLocation: [number, number], playerDirection: Direction, offset: [number, number] = [0,0]) {
-
     const wallOffset = boundingOffsetMap[playerDirection];
     const sectionWithWall = this.level1.levelSections.find(section => playerLocation[0] + wallOffset[0] + offset[0] === section.coords[0] && playerLocation[1] + wallOffset[1] + offset[1] === section.coords[1]);
+    if(!sectionWithWall) { return 'wall' }
+    if(playerLocation[0] + wallOffset[0] + offset[0] === 0 && playerDirection === 'west') { return 'wall' }
+    if(playerLocation[1] + wallOffset[1] + offset[1] === 0 && playerDirection === 'north') { return 'wall' }
     if(playerDirection === 'north' || playerDirection === 'south') {
       return sectionWithWall!.topWall;
     } else {

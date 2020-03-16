@@ -56,7 +56,6 @@ export class ExploreController {
     } else {
       return boundingSection && boundingSection.leftWall !== 'wall' && playerStore.playerLocation[0] + boundingOffset[0] >= 1;
     }
-    
   }
   
 
