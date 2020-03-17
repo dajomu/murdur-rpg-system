@@ -31,60 +31,104 @@
           background: radial-gradient(transparent 40%,#222 92%), url(/murdur-rpg-system/images/door-texture.png);
           background-size: cover;
         }
+        &.water {
+          background: radial-gradient(transparent 63%,#444 115%), darkblue;
+        }
+        &.sand {
+          background: radial-gradient(transparent 63%,#444 115%), burlywood;
+        }
         &.none {
           display: none
         }
-        &.left {
-          width: 120px
-          height: 120px
-          top: 40px
-          left: -20px
-          transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
-          z-index: 5
-          &.forward {
-            transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
-            z-index: 3
+
+        &.walls {
+          &.left {
+            width: 120px
+            height: 120px
+            top: 40px
+            left: -20px
+            transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
+            z-index: 5
+            &.forward {
+              transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
+              z-index: 3
+            }
+          }
+          &.front {
+            width: 120px
+            height: 120px
+            top: 40px
+            left: 40px
+            z-index: 4
+            &.forward {
+              transform: scale(0.52)
+              z-index: 2;
+            }
+            &.forward-right {
+              transform: scale(0.52)
+              z-index: 2;
+              left: 102px;
+            }
+            &.forward-left {
+              transform: scale(0.52)
+              z-index: 2;
+              left: -22px;
+            }
+            &.front-left {
+              left: -80px;
+            }
+            &.front-right {
+              left: 160px;
+            }
+          }
+          &.right {
+            width: 120px
+            height: 120px
+            top: 40px
+            right: -20px
+            transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
+            z-index: 5
+            &.forward {
+              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
+              z-index: 3
+            }
           }
         }
-        &.front {
-          width: 120px
-          height: 120px
-          top: 40px
-          left: 40px
-          z-index: 4
+
+        &.floor{
+          width: 120px;
+          height: 120px;
+          top: 100px;
+          right: 40px;
+
+          &.front {
+            top: 100px;
+            right: 40px;
+            transform: perspective(100px) rotate3d(-1,0,0,-65deg) translateY(60px);
+            z-index: 4;
+          }
+          &.left {
+            transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(60px) translateX(-120px)
+            z-index: 4;
+          }
+          &.right {
+            transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(60px) translateX(120px)
+            z-index: 4;
+          }
           &.forward {
-            transform: scale(0.52)
             z-index: 2;
-          }
-          &.forward-right {
-            transform: scale(0.52)
-            z-index: 2;
-            left: 102px;
-          }
-          &.forward-left {
-            transform: scale(0.52)
-            z-index: 2;
-            left: -22px;
-          }
-          &.front-left {
-            left: -80px;
-          }
-          &.front-right {
-            left: 160px;
+            transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-60px);
+
+            &.left {
+              transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-60px) translateX(-120px);
+            }
+            &.right {
+              transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-60px) translateX(120px);
+            }
           }
         }
-        &.right {
-          width: 120px
-          height: 120px
-          top: 40px
-          right: -20px
-          transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
-          z-index: 5
-          &.forward {
-            transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
-            z-index: 3
-          }
-        }
+
+    
       }
     }
   }

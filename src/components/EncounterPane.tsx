@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentWithGameContext } from './ComponentWithGameContext';
-import { boundingOffsetMap, clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
+import { clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
 import { observer } from "mobx-react"
 
 const comboCoordinates = function(offsetOne: [number, number], offsetTwo: [number,number]): [number, number] {
@@ -26,11 +26,23 @@ class EncounterPane extends ComponentWithGameContext {
     }
   }
 
+  getFloors = () => {
+    const {levelStore, playerStore} = this.context;
+    const {playerLocation, playerDirection} = playerStore;
+    return {
+      left: levelStore.getFloor(comboCoordinates(playerLocation, offsetMap[counterClockwiseRotationMap[playerDirection]])),
+      front: levelStore.getFloor(playerLocation),
+      right: levelStore.getFloor(comboCoordinates(playerLocation, offsetMap[clockwiseRotationMap[playerDirection]])),
+      forwardLeft: levelStore.getFloor(comboCoordinates(playerLocation, offsetMap[counterClockwiseRotationMap[playerDirection]]), movementOffsetMap[playerDirection]),
+      forward: levelStore.getFloor(playerLocation, movementOffsetMap[playerDirection]),
+      forwardRight: levelStore.getFloor(comboCoordinates(playerLocation, offsetMap[clockwiseRotationMap[playerDirection]]), movementOffsetMap[playerDirection]),
+    }
+  }
+
   getCurrentRoom = () => {
     const {levelStore, monsterStore, playerStore} = this.context;
     const {playerLocation} = playerStore;
     const levelSection = levelStore.getSectionByCoords(playerLocation);
-    console.log('levelSection', levelSection, levelSection!.roomId);
     return levelSection && typeof levelSection.roomId === 'number' ? {
       ...levelStore.level1.levelRooms[levelSection.roomId],
       monsters: levelStore.level1.levelRooms[levelSection.roomId].groups.map(group => monsterStore.monsters[group.monsterId]),
@@ -40,24 +52,31 @@ class EncounterPane extends ComponentWithGameContext {
   render() {
     const {playerStore} = this.context;
     const wallFaces = this.getWallFaces();
+    const floors = this.getFloors();
     const roomData = this.getCurrentRoom();
-    console.log(roomData);
+
     return <div className="expore-encounter">
       <div className="location-info">
         <p className="location-direction">
           {`${playerStore.playerLocation[0]},${playerStore.playerLocation[1]},1 ${playerStore.playerDirection}`}
         </p>
         <div className="fps-view">
-          <div className={`fps-square left ${wallFaces.left}`}/>
-          <div className={`fps-square left forward ${wallFaces.forwardLeft}`}/>
-          <div className={`fps-square front front-left ${wallFaces.frontLeft}`}/>
-          <div className={`fps-square front ${wallFaces.front}`} />
-          <div className={`fps-square front forward ${wallFaces.forwardFront}`} />
-          <div className={`fps-square front forward-left ${wallFaces.forwardFrontLeft}`} />
-          <div className={`fps-square front forward-right ${wallFaces.forwardFrontRight}`} />
-          <div className={`fps-square right ${wallFaces.right}`} />
-          <div className={`fps-square right forward ${wallFaces.forwardRight}`} />
-          <div className={`fps-square front front-right ${wallFaces.frontRight}`}/>
+          <div className={`fps-square walls left ${wallFaces.left}`}/>
+          <div className={`fps-square walls left forward ${wallFaces.forwardLeft}`}/>
+          <div className={`fps-square walls front front-left ${wallFaces.frontLeft}`}/>
+          <div className={`fps-square walls front ${wallFaces.front}`} />
+          <div className={`fps-square walls front forward ${wallFaces.forwardFront}`} />
+          <div className={`fps-square walls front forward-left ${wallFaces.forwardFrontLeft}`} />
+          <div className={`fps-square walls front forward-right ${wallFaces.forwardFrontRight}`} />
+          <div className={`fps-square walls right ${wallFaces.right}`} />
+          <div className={`fps-square walls right forward ${wallFaces.forwardRight}`} />
+          <div className={`fps-square walls front front-right ${wallFaces.frontRight}`}/>
+          <div className={`fps-square floor left ${floors.left}`}/>
+          <div className={`fps-square floor front ${floors.front}`}/>
+          <div className={`fps-square floor right ${floors.right}`}/>
+          <div className={`fps-square floor left forward ${floors.forwardLeft}`}/>
+          <div className={`fps-square floor forward ${floors.forward}`}/>
+          <div className={`fps-square floor right forward ${floors.forwardRight}`}/>
         </div>
       </div>
       {roomData ?

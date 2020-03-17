@@ -32,6 +32,15 @@ export class LevelStore {
     }
   }
 
+  getFloor(playerLocation: [number, number], offset: [number, number] = [0,0]) {
+    const section = this.level1.levelSections.find(section => playerLocation[0] + offset[0] === section.coords[0] && playerLocation[1] + offset[1] === section.coords[1]);
+    if(section) {
+      return section.terrain;
+    } else {
+      return 'none';
+    }
+  }
+
   getSectionDiscovered(coords: [number, number]) {
     return this.level1.discoveredSections[`${coords[0]}-${coords[1]}`];
   }
