@@ -5,7 +5,7 @@ import { observer } from "mobx-react"
 import exploreController from '../controllers/exploreController';
 
 interface MapPanelState {
-  playerLocation: [number, number];
+  playerLocation: MapLocation;
 }
 
 @observer 

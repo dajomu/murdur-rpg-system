@@ -1,12 +1,3 @@
-interface SectionData {
-  coords: [number, number],
-  leftWall: string;
-  topWall: string;
-  terrain: string;
-  modifier?: string;
-  roomId?: number;
-}
-
 const level1Data: SectionData[] = [
   {coords : [0,0], leftWall: 'none', topWall: 'none', terrain: 'none'},
   {coords: [1,0], leftWall: 'none', topWall: 'none', terrain: 'none'},

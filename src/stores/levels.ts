@@ -3,8 +3,6 @@ import { getCookie, setCookie } from '../utils/cookie';
 import LevelMap from '../dataObjects/LevelMap';
 import { boundingOffsetMap } from '../constants';
 
-type Direction = 'west' | 'north' | 'east' | 'south';
-
 export class LevelStore {
   @observable useRandomMaps: boolean;
   @observable level1: LevelMap;
@@ -14,12 +12,12 @@ export class LevelStore {
   }
 
   @action markSectionDiscovered = (
-    coords: [number, number]
+    coords: MapLocation
   ) => {
     this.level1.markSectionDiscovered(coords);
   }
 
-  getWallFace(playerLocation: [number, number], playerDirection: Direction, offset: [number, number] = [0,0]) {
+  getWallFace(playerLocation: MapLocation, playerDirection: Direction, offset: [number, number] = [0,0]) {
     const wallOffset = boundingOffsetMap[playerDirection];
     const sectionWithWall = this.level1.levelSections.find(section => playerLocation[0] + wallOffset[0] + offset[0] === section.coords[0] && playerLocation[1] + wallOffset[1] + offset[1] === section.coords[1]);
     if(!sectionWithWall) { return 'wall' }
@@ -32,7 +30,7 @@ export class LevelStore {
     }
   }
 
-  getFloor(playerLocation: [number, number], offset: [number, number] = [0,0]) {
+  getFloor(playerLocation: MapLocation, offset: [number, number] = [0,0]) {
     const section = this.level1.levelSections.find(section => playerLocation[0] + offset[0] === section.coords[0] && playerLocation[1] + offset[1] === section.coords[1]);
     if(section) {
       return section.terrain;
@@ -41,11 +39,11 @@ export class LevelStore {
     }
   }
 
-  getSectionDiscovered(coords: [number, number]) {
+  getSectionDiscovered(coords: MapLocation) {
     return this.level1.discoveredSections[`${coords[0]}-${coords[1]}`];
   }
 
-  getSectionByCoords(coords: [number, number]) {
+  getSectionByCoords(coords: MapLocation) {
     return this.level1.levelSections.find(section => coords[0] === section.coords[0] && coords[1] === section.coords[1]);
   }
 

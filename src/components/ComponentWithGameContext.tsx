@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import audioStore from '../stores/audio';
+import gameStateStore from '../stores/gameState';
 import itemsStore from '../stores/items';
 import levelStore from '../stores/levels';
 import messageStore from '../stores/messages';
@@ -9,12 +10,14 @@ import playerStore from '../stores/player';
 
 const gameContextDefaultValue = {
   audioStore,
+  gameStateStore,
   itemsStore,
   levelStore,
   messageStore,
   monsterStore,
   playerStore,
 };
+
 const gameContext = React.createContext(gameContextDefaultValue);
 
 export default gameContext;

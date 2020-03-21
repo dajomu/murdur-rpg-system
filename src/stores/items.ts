@@ -1,5 +1,3 @@
-type Alignment = 'good' | 'neutral' | 'evil';
-
 type EquipmentType = 'weapon' | 'head-armour' | 'body-armour' | 'hand-armour' | 'shield';
 
 interface InventoryItem {

@@ -1,7 +1,7 @@
 import level1Data from '../data/levels/level1';
 import levelOneRoomInitData from '../data/rooms/level1';
 import monsterStore from '../stores/monster';
-import { getCount, getPlusMinusTwentyPercentInteger } from '../utils/level';
+import { getCount, getPlusMinusTwentyPercentInteger, getRandomFromList } from '../utils/numbers';
 
 interface Chest {
   trapType: 'none' | 'poison' | 'explosive';
@@ -9,18 +9,9 @@ interface Chest {
   itemIds: number[];
 }
 
-interface SectionData {
-  coords: [number, number],
-  leftWall: string;
-  topWall: string;
-  terrain: string;
-  modifier?: string;
-  roomId?: string;
-}
-
 interface RoomInitData {
   chestId?: number;
-  monsterGroupId: number;
+  monsterGroupIds: number[];
 }
 
 interface RoomData {
@@ -55,7 +46,7 @@ export default class LevelMap {
     this.populateDiscoveredSections();
   }
 
-  public markSectionDiscovered = (coords: [number, number]) => {
+  public markSectionDiscovered = (coords: MapLocation) => {
     this.discoveredSections[`${coords[0]}-${coords[1]}`] = { tile: true, modifier: true, leftWall: true, topWall: true };
     if(this.discoveredSections[`${coords[0] + 1}-${coords[1]}`]) {
       this.discoveredSections[`${coords[0] + 1}-${coords[1]}`].leftWall = true;
@@ -65,7 +56,7 @@ export default class LevelMap {
     }
   }
 
-  public isSectionDiscovered = (coords: [number, number]) => {
+  public isSectionDiscovered = (coords: MapLocation) => {
     return this.discoveredSections[`${coords[0]}-${coords[1]}`] ? this.discoveredSections[`${coords[0]}-${coords[1]}`].tile : false;
   }
 
@@ -91,7 +82,11 @@ export default class LevelMap {
     if(!roomInitData) {
       return;
     }
-    const monsterGroup = monsterStore.monsterGroups[roomInitData.monsterGroupId]
+    const monsterGroupId = getRandomFromList(roomInitData.monsterGroupIds);
+    if(typeof monsterGroupId !== 'number') {
+      return;
+    }
+    const monsterGroup = monsterStore.monsterGroups[monsterGroupId]
     this.levelRooms[roomKey] = {
       groups: monsterGroup.groups.map(group => ({
         monsterId: group.monsterId,

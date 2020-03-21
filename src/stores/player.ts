@@ -1,19 +1,6 @@
 import { observable } from 'mobx';
 import { clockwiseRotationMap, counterClockwiseRotationMap, turnAroundMap} from '../constants';
 
-interface Stats {
-  strength: number;
-  intelligence: number;
-  wisdom: number;
-  constitution: number;
-  charisma: number;
-  dexterity: number;
-}
-
-export type Direction = 'west' | 'north' | 'east' | 'south';
-
-type Alignment = 'good' | 'neutral' | 'evil';
-
 export class PlayerStore {
   @observable age: number = 20;
   @observable alignment: Alignment = 'good';
@@ -32,7 +19,7 @@ export class PlayerStore {
     charisma: 10,
     dexterity: 10,
   };
-  @observable playerLocation: [number, number] = [15,15];
+  @observable playerLocation: MapLocation = [15,15];
   @observable playerDirection: Direction = 'north';
   @observable playerInventory: { itemId: number, alignment?: Alignment }[] = [{itemId: 0},{itemId: 1, alignment: 'good'},{itemId: 2},{itemId: 3},{itemId: 4, alignment: 'neutral'}];
   @observable equippedRightHand?: number;
@@ -41,7 +28,7 @@ export class PlayerStore {
   @observable equippedBodyArmour?: number;
   @observable equippedHandArmour?: number;
 
-  public setPlayerLocation = (playerLocation: [number, number]) => {
+  public setPlayerLocation = (playerLocation: MapLocation) => {
     this.playerLocation = playerLocation;
   }
 

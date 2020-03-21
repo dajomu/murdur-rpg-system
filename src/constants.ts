@@ -1,5 +1,3 @@
-type Direction = 'west' | 'north' | 'east' | 'south';
-
 export const boundingOffsetMap: {[key: string]: [number, number]} = {
   west: [0,0],
   north: [0,0],

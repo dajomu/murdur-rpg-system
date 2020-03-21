@@ -1,13 +1,13 @@
 interface RoomInitData {
   chestId?: number;
-  monsterGroupId: number;
+  monsterGroupIds: number[];
 }
 
 const levelOneRoomInitData: {[key: number]: RoomInitData} = {
-  0: { monsterGroupId: 0 },
-  1: { monsterGroupId: 1 },
-  2: { monsterGroupId: 2 },
-  3: { monsterGroupId: 3 }
+  0: { monsterGroupIds: [0] },
+  1: { monsterGroupIds: [1] },
+  2: { monsterGroupIds: [2] },
+  3: { monsterGroupIds: [3] }
 };
 
 export default levelOneRoomInitData;
