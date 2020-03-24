@@ -14,3 +14,12 @@ interface MonsterGroup {
   name: string;
   groups: {monsterId: number, minCount: number, maxCount: number}[],
 }
+
+type MonsterStatus = 'none' | 'poisoned';
+
+interface ActiveMonsterGroup {
+  monsterId: number;
+  monster: MonsterItem;
+  monsterHealth: number[];
+  monsterStatus: MonsterStatus;
+}

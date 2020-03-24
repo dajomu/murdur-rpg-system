@@ -40,13 +40,8 @@ class EncounterPane extends ComponentWithGameContext {
   }
 
   getCurrentRoom = () => {
-    const {levelStore, monsterStore, playerStore} = this.context;
-    const {playerLocation} = playerStore;
-    const levelSection = levelStore.getSectionByCoords(playerLocation);
-    return levelSection && typeof levelSection.roomId === 'number' ? {
-      ...levelStore.level1.levelRooms[levelSection.roomId],
-      monsters: levelStore.level1.levelRooms[levelSection.roomId].groups.map(group => monsterStore.monsters[group.monsterId]),
-    } : null;
+    const { gameStateStore } = this.context;
+    return gameStateStore.currentRoom;
   }
 
   render() {
@@ -83,13 +78,13 @@ class EncounterPane extends ComponentWithGameContext {
         <div className="encounter-info">
           <div className="encounter-images">
             <div className="monster-disposition"><img src="/murdur-rpg-system/images/fighting.png" alt="Fight!"/></div>
-            <div className="monster-portrait"><img src={roomData.monsters[0].profileImage} alt={roomData.monsters[0].name} /></div>
+            <div className="monster-portrait"><img src={roomData.groups[0].monster.profileImage} alt={roomData.groups[0].monster.name} /></div>
             <div className="chest"></div>
           </div>
           <div className="monster-list">
             <ol>
               {roomData.groups.map((group, index) => 
-                <li key={'monster-group-' + index}>{`${group.monsterHealth.length} ${roomData.monsters[index].name}${group.monsterHealth.length > 1 ? 's' : ''}`}</li>)}
+                <li key={'monster-group-' + index}>{`${group.monsterHealth.length} ${roomData.groups[index].monster.name}${group.monsterHealth.length > 1 ? 's' : ''}`}</li>)}
             </ol>
           </div>
         </div> :

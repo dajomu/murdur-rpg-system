@@ -9,23 +9,6 @@ interface Chest {
   itemIds: number[];
 }
 
-interface RoomInitData {
-  chestId?: number;
-  monsterGroupIds: number[];
-}
-
-interface RoomData {
-  chest?: Chest;
-  groups: { monsterId: number; monsterHealth: number[]; monsterStatus: 'none' | 'poisoned'}[];
-}
-
-interface DiscoveredSection {
-  leftWall: boolean;
-  topWall: boolean;
-  tile: boolean,
-  modifier: boolean
-}
-
 export default class LevelMap {
   levelSections: SectionData[] = [];
   levelRooms: {[key: string]: RoomData} = {};
@@ -90,6 +73,7 @@ export default class LevelMap {
     this.levelRooms[roomKey] = {
       groups: monsterGroup.groups.map(group => ({
         monsterId: group.monsterId,
+        monster: monsterStore.monsters[group.monsterId],
         monsterHealth: [...Array(getCount(group.minCount, group.maxCount))].map(monster => getPlusMinusTwentyPercentInteger(monsterStore.monsters[group.monsterId].hp)),
         monsterStatus: 'none'}))
     }

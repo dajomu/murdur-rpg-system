@@ -46,7 +46,7 @@ export class ExploreController {
       const playerLocation: MapLocation = [playerStore.playerLocation[0] + movementOffset[0], playerStore.playerLocation[1] + movementOffset[1]];
       levelStore.level1.markSectionDiscovered(playerLocation);
       playerStore.setPlayerLocation(playerLocation);
-
+      this.setUpRoomMonsters(playerLocation, direction);
       return true;
     } else {
       return false;
@@ -57,10 +57,11 @@ export class ExploreController {
     const levelSection = levelStore.getSectionByCoords(playerLocation);
     if (levelSection && typeof levelSection.roomId === 'number') {
       const room = levelStore.level1.levelRooms[levelSection.roomId];
-      const monsters =  room.groups.map(group => monsterStore.monsters[group.monsterId]);
-      
+      const groups = room.groups.map(group => ({...group, monster: monsterStore.monsters[group.monsterId]}));
+      gameStateStore.setCurrentRoom({...room, groups});
+    } else {
+      gameStateStore.setCurrentRoom(undefined);
     }
-    
   }
 
   checkMoveWallCollision(direction: Direction) {

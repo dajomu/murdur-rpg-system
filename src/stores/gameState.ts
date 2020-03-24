@@ -1,14 +1,17 @@
-import { action, observable } from 'mobx';
+import { action, observable, toJS } from 'mobx';
+import cloneDeep from 'lodash/cloneDeep';
+
 
 export class GameStateStore {
   @observable isFighting = false;
-  @observable monsters = [];
+  @observable currentRoom?: RoomData;
   // constructor() {
   //   this.useRandomMaps = this.checkForRandomMaps();
   //   this.level1 = new LevelMap(1, 30, this.useRandomMaps, false);
   // }
-  @action setMonsters() {
-
+  @action setCurrentRoom(room?: RoomData) {
+    this.currentRoom = cloneDeep(room);
+    console.log(toJS(this.currentRoom));
   }
 }
 
