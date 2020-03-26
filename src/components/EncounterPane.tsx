@@ -74,10 +74,10 @@ class EncounterPane extends ComponentWithGameContext {
           <div className={`fps-square floor right forward ${floors.forwardRight}`}/>
         </div>
       </div>
-      {roomData ?
+      {roomData && roomData.groups.length ?
         <div className="encounter-info">
           <div className="encounter-images">
-            <div className="monster-disposition"><img src="/murdur-rpg-system/images/fighting.png" alt="Fight!"/></div>
+            <div className={`monster-disposition ${roomData.isFighting ? "fight" : "peace"}`}><img src="/murdur-rpg-system/images/fighting.png" alt={roomData.isFighting ? "Fight!" : "Friends!"}/></div>
             <div className="monster-portrait"><img src={roomData.groups[0].monster.profileImage} alt={roomData.groups[0].monster.name} /></div>
             <div className="chest"></div>
           </div>

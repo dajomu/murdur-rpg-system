@@ -22,4 +22,6 @@ interface RoomInitData {
 interface RoomData {
   chest?: Chest;
   groups: ActiveMonsterGroup[];
+  id: number;
+  isFighting?: boolean;
 }

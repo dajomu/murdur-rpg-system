@@ -2,7 +2,7 @@ import audioStore from '../stores/audio';
 import playerStore from '../stores/player';
 import gameStateStore from '../stores/gameState';
 import levelStore from '../stores/levels';
-import monsterStore from '../stores/monster';
+// import monsterStore from '../stores/monster';
 import messageStore from '../stores/messages';
 import { boundingOffsetMap, movementOffsetMap } from '../constants';
 
@@ -16,9 +16,12 @@ const keyDirection: {[key: number]: string} = {
 
 export class ExploreController {
   handleKeyDown = (event: KeyboardEvent) => {
-    console.log('KEYCODE: ', event.keyCode);
+    // console.log('KEYCODE: ', event.keyCode);
     const direction = keyDirection[event.keyCode];
     switch(direction) {
+      case 'fight':
+        gameStateStore.startFight();
+        break;
       case 'counter-clockwise':
         playerStore.rotatePlayerCounterClockwise();
         break;
@@ -55,13 +58,30 @@ export class ExploreController {
 
   setUpRoomMonsters(playerLocation: MapLocation, direction: Direction) {
     const levelSection = levelStore.getSectionByCoords(playerLocation);
-    if (levelSection && typeof levelSection.roomId === 'number') {
-      const room = levelStore.level1.levelRooms[levelSection.roomId];
-      const groups = room.groups.map(group => ({...group, monster: monsterStore.monsters[group.monsterId]}));
-      gameStateStore.setCurrentRoom({...room, groups});
-    } else {
-      gameStateStore.setCurrentRoom(undefined);
+    const newRoomId = !!levelSection ? levelSection.roomId : 'empty';
+    const currentRoomId = gameStateStore.currentRoom ? gameStateStore.currentRoom.id : undefined;
+    const newRoom = newRoomId !== 'empty' ? levelStore.level1.levelRooms[newRoomId!] : undefined;
+
+    if(newRoomId !== currentRoomId) { // if changing rooms
+      if(typeof gameStateStore.currentRoom !== 'undefined') {
+        levelStore.level1.levelRooms[gameStateStore.currentRoom.id] = {...gameStateStore.currentRoom!};
+      }
+      gameStateStore.setCurrentRoom(newRoom ? {...newRoom, isFighting: this.calculateIsFighting(newRoom)} : undefined)
     }
+  }
+
+  calculateIsFighting(newRoom?: RoomData): boolean {
+    if(newRoom) {
+      if(typeof newRoom.isFighting !== 'undefined') {
+        return newRoom.isFighting;
+      } else if (newRoom.groups.length){
+        console.log(newRoom.groups[0].monster.alignment, playerStore.alignment);
+        return newRoom.groups[0].monster.alignment !== playerStore.alignment;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 
   checkMoveWallCollision(direction: Direction) {

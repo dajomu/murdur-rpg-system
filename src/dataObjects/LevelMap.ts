@@ -57,11 +57,11 @@ export default class LevelMap {
 
   private populateRooms = () => {
     for (const roomKey in levelOneRoomInitData) {
-      this.populateRoom(roomKey, levelOneRoomInitData[roomKey]);
+      this.populateRoom(parseInt(roomKey), levelOneRoomInitData[roomKey]);
     }
   }
 
-  private populateRoom = (roomKey: number | string, roomInitData: RoomInitData) => {
+  private populateRoom = (roomKey: number, roomInitData: RoomInitData) => {
     if(!roomInitData) {
       return;
     }
@@ -71,6 +71,7 @@ export default class LevelMap {
     }
     const monsterGroup = monsterStore.monsterGroups[monsterGroupId]
     this.levelRooms[roomKey] = {
+      id: roomKey,
       groups: monsterGroup.groups.map(group => ({
         monsterId: group.monsterId,
         monster: monsterStore.monsters[group.monsterId],
