@@ -3,8 +3,10 @@ import playerStore from '../stores/player';
 import gameStateStore from '../stores/gameState';
 import levelStore from '../stores/levels';
 // import monsterStore from '../stores/monster';
+import {toJS} from 'mobx';
 import messageStore from '../stores/messages';
 import { boundingOffsetMap, movementOffsetMap } from '../constants';
+import { calculateFightDamage } from '../utils/combat';
 
 const keyDirection: {[key: number]: string} = {
   37: 'counter-clockwise',
@@ -20,7 +22,8 @@ export class ExploreController {
     const direction = keyDirection[event.keyCode];
     switch(direction) {
       case 'fight':
-        gameStateStore.startFight();
+        gameStateStore.startFight('player');
+        this.fight();
         break;
       case 'counter-clockwise':
         playerStore.rotatePlayerCounterClockwise();
@@ -49,14 +52,14 @@ export class ExploreController {
       const playerLocation: MapLocation = [playerStore.playerLocation[0] + movementOffset[0], playerStore.playerLocation[1] + movementOffset[1]];
       levelStore.level1.markSectionDiscovered(playerLocation);
       playerStore.setPlayerLocation(playerLocation);
-      this.setUpRoomMonsters(playerLocation, direction);
+      this.checkAndChangeRoom(playerLocation);
       return true;
     } else {
       return false;
     }
   }
 
-  setUpRoomMonsters(playerLocation: MapLocation, direction: Direction) {
+  checkAndChangeRoom(playerLocation: MapLocation) {
     const levelSection = levelStore.getSectionByCoords(playerLocation);
     const newRoomId = !!levelSection ? levelSection.roomId : 'empty';
     const currentRoomId = gameStateStore.currentRoom ? gameStateStore.currentRoom.id : undefined;
@@ -66,7 +69,37 @@ export class ExploreController {
       if(typeof gameStateStore.currentRoom !== 'undefined') {
         levelStore.level1.levelRooms[gameStateStore.currentRoom.id] = {...gameStateStore.currentRoom!};
       }
-      gameStateStore.setCurrentRoom(newRoom ? {...newRoom, isFighting: this.calculateIsFighting(newRoom)} : undefined)
+      const currentFighter = newRoom && typeof newRoom.currentFighter !== 'undefined' ? newRoom.currentFighter : 'player';
+      gameStateStore.setCurrentRoom(newRoom ? {...newRoom, isFighting: this.calculateIsFighting(newRoom), currentFighter} : undefined);
+      if(this.calculateIsFighting(newRoom)) {
+        console.log('fight starting from change room');
+        this.fight();
+      }
+    }
+  }
+
+  fight() {
+    const {currentRoom} = gameStateStore;
+    if(currentRoom) {console.log('Fight !!!!', toJS(currentRoom), currentRoom.isFighting, currentRoom.currentFighter);}
+    if(currentRoom && currentRoom.isFighting && typeof currentRoom.currentFighter !== 'undefined'){
+      // fight stuff
+      if(currentRoom.currentFighter === 'player') {
+        const damage = calculateFightDamage(playerStore, currentRoom.groups[0].monster);
+        gameStateStore.setCurrentAttackResult(currentRoom.currentFighter, damage);
+        gameStateStore.setCurrentFighter(0);
+      } else if (typeof currentRoom.currentFighter === 'number' && currentRoom.groups[currentRoom.currentFighter]) {
+        const damage = calculateFightDamage(currentRoom.groups[currentRoom.currentFighter].monster, playerStore);
+        gameStateStore.setCurrentAttackResult(currentRoom.currentFighter, damage);
+        if (currentRoom.currentFighter <= currentRoom.groups.length - 2) {
+          gameStateStore.setCurrentFighter((currentRoom.currentFighter + 1)  as 0 | 1 | 2 | 3);
+        } else {
+          gameStateStore.setCurrentFighter('player');
+        }
+      }
+      // setup next move
+      setTimeout(() => {
+        this.fight();
+      }, 1000);
     }
   }
 

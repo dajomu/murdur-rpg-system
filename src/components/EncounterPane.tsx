@@ -45,7 +45,7 @@ class EncounterPane extends ComponentWithGameContext {
   }
 
   render() {
-    const {playerStore} = this.context;
+    const {gameStateStore, playerStore} = this.context;
     const wallFaces = this.getWallFaces();
     const floors = this.getFloors();
     const roomData = this.getCurrentRoom();
@@ -79,6 +79,10 @@ class EncounterPane extends ComponentWithGameContext {
           <div className="encounter-images">
             <div className={`monster-disposition ${roomData.isFighting ? "fight" : "peace"}`}><img src="/murdur-rpg-system/images/fighting.png" alt={roomData.isFighting ? "Fight!" : "Friends!"}/></div>
             <div className="monster-portrait"><img src={roomData.groups[0].monster.profileImage} alt={roomData.groups[0].monster.name} /></div>
+            <div className="monster-fight-info">
+              <p>{gameStateStore.currentPlayerAttackResult ? `You hit for ${gameStateStore.currentPlayerAttackResult} damage` : ''}</p>
+              <p>{gameStateStore.currentMonsterAttackResult ? `Monster hit for ${gameStateStore.currentMonsterAttackResult} damage` : ''}</p>
+            </div>
             <div className="chest"></div>
           </div>
           <div className="monster-list">

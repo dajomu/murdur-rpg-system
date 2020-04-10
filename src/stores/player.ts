@@ -11,13 +11,15 @@ export class PlayerStore {
   @observable currentHits: number = 50;
   @observable experience: number = 1;
   @observable gold: number = 0;
+  @observable atk: number;
+  @observable def: number;
   @observable stats: Stats = {
     strength: 10,
+    dexterity: 10,
     intelligence: 10,
     wisdom: 10,
     constitution: 10,
     charisma: 10,
-    dexterity: 10,
   };
   @observable playerLocation: MapLocation = [15,15];
   @observable playerDirection: Direction = 'north';
@@ -27,6 +29,16 @@ export class PlayerStore {
   @observable equippedHelmet?: number;
   @observable equippedBodyArmour?: number;
   @observable equippedHandArmour?: number;
+  @observable maxLevel: number = 1;
+  @observable guild: number = 0;
+  @observable guilds: {[key: number]: number} = {
+    0: 1,
+  };
+
+  constructor() {
+    this.atk = this.calculateAtk();
+    this.def = this.calculateDef();
+  }
 
   public setPlayerLocation = (playerLocation: MapLocation) => {
     this.playerLocation = playerLocation;
@@ -42,6 +54,14 @@ export class PlayerStore {
 
   public turnAround = () => {
     this.playerDirection = turnAroundMap[this.playerDirection];
+  }
+
+  public calculateAtk = (): number => {
+    return this.stats.strength;
+  }
+
+  public calculateDef = (): number => {
+    return this.stats.dexterity;
   }
 }
 

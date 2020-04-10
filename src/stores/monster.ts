@@ -1,7 +1,7 @@
 const monsters: {[key: number]: MonsterItem} = {
-  0: { name: 'Larcener', hp: 8, atk: 2, def: 2, xp: 5, gold: 10, profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg', alignment: 'evil', canSteal: true },
-  1: { name: 'Bandit', hp: 10, atk: 3, def: 3, xp: 10, gold: 20, profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg', alignment: 'evil', canSteal: true },
-  2: { name: 'Corridor Cleaner', hp: 12, atk: 1, def: 3, xp: 8, gold: 2, profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg', alignment: 'good', canSteal: false }
+  0: { name: 'Larcener', hp: 8, atk: 7, def: 5, xp: 5, gold: 10, guild: 2, maxLevel: 1, profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg', alignment: 'evil', canSteal: true, stats: {strength: 5, intelligence: 5, wisdom: 5,constitution: 5,charisma: 5, dexterity: 5} },
+  1: { name: 'Bandit', hp: 10, atk: 9, def: 8, xp: 10, gold: 20, guild: 2, maxLevel: 1, profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg', alignment: 'evil', canSteal: true, stats: {strength: 5, intelligence: 5, wisdom: 5,constitution: 5,charisma: 5, dexterity: 5} },
+  2: { name: 'Corridor Cleaner', hp: 12, atk: 9, def: 9, xp: 8, guild: 0, maxLevel: 1, gold: 2, profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg', alignment: 'good', canSteal: false, stats: {strength: 5, intelligence: 5, wisdom: 5,constitution: 5,charisma: 5, dexterity: 5} }
 }
 
 const monsterGroups: {[key: number]: MonsterGroup} = {
@@ -21,3 +21,4 @@ const monsterStore = new MonsterStore();
 export default monsterStore;
 
 // { name: '', xp: 1, hp: 10, atk: 2, def: 2, profileImage: '/murdur-rpg-system/images/monsters/', alignment: 'good', canSteal: false }
+// stats: {strength: 5, intelligence: 5, wisdom: 5,constitution: 5,charisma: 5, dexterity: 5}

@@ -8,6 +8,9 @@ interface MonsterItem {
   profileImage: string;
   alignment?: Alignment;
   canSteal?: boolean;
+  guild: number;
+  maxLevel: number;
+  stats: Stats;
 }
 
 interface MonsterGroup {

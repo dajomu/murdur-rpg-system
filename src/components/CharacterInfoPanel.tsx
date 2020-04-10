@@ -6,9 +6,10 @@ import { observer } from "mobx-react"
 class CharacterInfoPanel extends ComponentWithGameContext {
   render() {
     const {playerStore} = this.context;
+    const currentLevel = playerStore.guilds[playerStore.guild];
     return <div className="character-info-panel">
       <div className="character-alignment">
-        {`${playerStore.sex} ${playerStore.race} (${playerStore.alignment}) (${playerStore.level})`}
+        {`${playerStore.sex} ${playerStore.race} (${playerStore.alignment}) (${currentLevel})`}
       </div>
       <ul className="character-current-info">
         <li key="age">
