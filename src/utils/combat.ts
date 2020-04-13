@@ -7,11 +7,13 @@ export function getGuildFightingMod(attacker: AttackerDefender): number {
 }
 
 export function guildLevelDamageModifier(guildLevel: number) {
-  return (Math.log(guildLevel + 5) + 1) / Math.log(1.2)
+  // LvlMod = (Ln(GLvl + 5) + 1) / Ln(1.2)
+  return (Math.log(guildLevel + 5) + 1) / Math.log(1.2);
 }
 
 export function calculateStrengthValue(strengthStat: number): number {
-  return Math.round(
+  // Int(Strength - (LN(Strength) * ((LN(Strength) - 2,4) * 2,25))) + 1
+  return Math.floor(
     strengthStat
     - (Math.log(strengthStat) * ((Math.log(strengthStat) - 2.4) * 2.25))
     + 1
@@ -19,32 +21,67 @@ export function calculateStrengthValue(strengthStat: number): number {
 }
 
 export function strengthModifierOne(strengthValue: number) : number {
-  return Math.round(
+  // StrMod1 = Int((Rnd * ((BSV + 10) / 2)) + ((BSV + 10) / 4)) / 10
+  return Math.floor(
     (Math.random() * ((strengthValue + 10) / 2)) + ((strengthValue + 10) / 4)
   ) / 10;
 }
 
 export function strengthModifierTwo(strengthValue: number) : number {
+  // StrMod2 = BSV/30
   return strengthValue / 30;
 }
 
 export function getDamageModifier(attacker: AttackerDefender) {
-  const damageModifer = 0.6 + (((Math.log(100 + attacker.maxLevel) / 1.75) - 2.3) * getGuildFightingMod(attacker) ^2 / 2)
+  const damageModifer = 0.6 + (((Math.log(100 + attacker.maxLevel) / 1.75) - 2.3) * Math.pow(getGuildFightingMod(attacker), 2) / 2)
+  // 1: DamMod = 0.6 + (((Ln(100 + GLvl) / 1.75) - 2.3) * FightingMod^2 / 2)
   // do these later
   // 2: * WeaponModifier
   // 3: + 5 if Critical Hit, Chance see below
   // 4: + 2 if Backstab, Chance see below
   // 5: / 2 if Monster is invisible and character can't see invisible
   // 6: +0.1/-0.1 per size bigger/smaller than monster
-  return damageModifer > 1 ? damageModifer - Math.log(damageModifer) ^ 2 : damageModifer;
+  return damageModifer > 1 ? damageModifer - Math.pow(Math.log(damageModifer), 2) : damageModifer;
+  // 7: if DamMod is > 1, then DamMod = DamMod - ln(DamMod)^2
 }
 
 export function calculateFightDamage(attacker: AttackerDefender,  defender: AttackerDefender) {
   const strengthValue = calculateStrengthValue(attacker.stats.strength);
-  console.log('!!!!', attacker.maxLevel, guildLevelDamageModifier(attacker.maxLevel), strengthModifierOne(strengthValue), strengthModifierTwo(strengthValue), getDamageModifier(attacker));
   return Math.round((guildLevelDamageModifier(attacker.maxLevel) * strengthModifierOne(strengthValue) * strengthModifierTwo(strengthValue) * getDamageModifier(attacker)) 
-    - Math.round(1 + Math.random() * (defender.def - attacker.atk)/8));
+    - Math.floor(1 + Math.random() * (defender.def - attacker.atk)/8));
 }
+/*
+GLvl = Guild Level with best fighting ability, should be the same as the one in "Guild" Tab
+FightingMod = Value found in Help File / 10, i.e., Warrior = 1.2, Nomad = 0.7
+Size = Range [0 to 5] or Very Small, Small, Normal, Big, Very Big, Huge
+Ln stands for natural logarithm.
+Rnd is a number ranging from 0 to 0.999.. (not 1, this is important because it produces different top values).
+
+This is the Damage Modifier, a bit more complex than I expected really
+1: DamMod = 0.6 + (((Ln(100 + GLvl) / 1.75) - 2.3) * FightingMod^2 / 2)
+2: * WeaponModifier
+3: + 5 if Critical Hit, Chance see below
+4: + 2 if Backstab, Chance see below
+5: / 2 if Monster is invisible and character can't see invisible
+6: +0.1/-0.1 per size bigger/smaller than monster
+7: if DamMod is > 1, then DamMod = DamMod - ln(DamMod)^2
+Value 0.1 to 7ish (Lv 999 Human Warrior with a Mod 2.6 Weapon, severing a Tiny monster)
+
+Let's get the Strength Modifier, it's actually 2 parts, and requires a new Strength Value (called BSV here)
+BSV = Int(Strength - (LN(Strength) * ((LN(Strength) - 2,4) * 2,25))) + 1
+StrMod1 = Int((Rnd * ((BSV + 10) / 2)) + ((BSV + 10) / 4)) / 10
+StrMod2 = BSV/30
+Str 1 to 40 -> Value [0.3-0.8 * 0.06667] to [1-2.9 * 1] Note, this value is the 2 StrMods combined
+
+And last part of formula, Level Modifier.
+LvlMod = (Ln(GLvl + 5) + 1) / Ln(1.2)
+Lvl 1 to 999 -> Value 15.31228 to 43.39447
+
+Base Damage = LvlMod * StrMod1 * StrMod2 * DamMod
+Final Damage = Base - Rnd[1 to (Def-Atk)/8] or very close to this
+Defense bug lurks though, so it's just:
+Final Damage = Base + Rnd[1 to Atk/8]
+*/
 
 export function chanceToHit(atk: number, def: number):number {
   const divisor = atk > def ? atk : def;
