@@ -19,30 +19,32 @@ const keyDirection: {[key: number]: string} = {
 export class ExploreController {
   handleKeyDown = (event: KeyboardEvent) => {
     // console.log('KEYCODE: ', event.keyCode);
-    const direction = keyDirection[event.keyCode];
-    switch(direction) {
-      case 'fight':
-        gameStateStore.startFight('player');
-        this.fight();
-        break;
-      case 'counter-clockwise':
-        playerStore.rotatePlayerCounterClockwise();
-        break;
-      case 'clockwise':
-        playerStore.rotatePlayerClockwise();
-        break;
-      case 'backward':
-        playerStore.turnAround();
-        break;
-      case 'forward':
-        if(this.moveDirection(playerStore.playerDirection)) {
-          messageStore.addMessage(`You walked ${playerStore.playerDirection.toUpperCase()}`);
-        } else {
-          audioStore.playAudio('player', 'hitwall');
-        };
-        break;
-      default: 
-        break;
+    if(gameStateStore.gameState === 'EXPLORE') {
+      const direction = keyDirection[event.keyCode];
+      switch(direction) {
+        case 'fight':
+          gameStateStore.startFight('player');
+          this.fight();
+          break;
+        case 'counter-clockwise':
+          playerStore.rotatePlayerCounterClockwise();
+          break;
+        case 'clockwise':
+          playerStore.rotatePlayerClockwise();
+          break;
+        case 'backward':
+          playerStore.turnAround();
+          break;
+        case 'forward':
+          if(this.moveDirection(playerStore.playerDirection)) {
+            messageStore.addMessage(`You walked ${playerStore.playerDirection.toUpperCase()}`);
+          } else {
+            audioStore.playAudio('player', 'hitwall');
+          };
+          break;
+        default: 
+          break;
+      }
     }
   }
 
@@ -86,10 +88,12 @@ export class ExploreController {
       if(currentRoom.currentFighter === 'player') {
         const damage = calculateFightDamage(playerStore, currentRoom.groups[0].monster);
         gameStateStore.setCurrentAttackResult(currentRoom.currentFighter, damage);
+        gameStateStore.hurtcurrentTargettedGroup(damage);
         gameStateStore.setCurrentFighter(0);
       } else if (typeof currentRoom.currentFighter === 'number' && currentRoom.groups[currentRoom.currentFighter]) {
         const damage = calculateFightDamage(currentRoom.groups[currentRoom.currentFighter].monster, playerStore);
         gameStateStore.setCurrentAttackResult(currentRoom.currentFighter, damage);
+        this.hurtPlayer(damage);
         if (currentRoom.currentFighter <= currentRoom.groups.length - 2) {
           gameStateStore.setCurrentFighter((currentRoom.currentFighter + 1)  as 0 | 1 | 2 | 3);
         } else {
@@ -108,13 +112,21 @@ export class ExploreController {
       if(typeof newRoom.isFighting !== 'undefined') {
         return newRoom.isFighting;
       } else if (newRoom.groups.length){
-        console.log(newRoom.groups[0].monster.alignment, playerStore.alignment);
         return newRoom.groups[0].monster.alignment !== playerStore.alignment;
       } else {
         return false;
       }
     }
     return false;
+  }
+
+  hurtPlayer(damage: number) {
+    if(playerStore.currentHits - damage <= 0) {
+      playerStore.setDead();
+      gameStateStore.setDead();
+    } else {
+      playerStore.hurtPlayer(damage)
+    }
   }
 
   checkMoveWallCollision(direction: Direction) {

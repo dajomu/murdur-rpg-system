@@ -4,8 +4,11 @@ import EncounterPane from '../components/EncounterPane';
 import InventoryPanel from '../components/InventoryPanel';
 import MapPanel from '../components/MapPanel';
 import MessagesPanel from '../components/MessagesPanel';
+import DeathModal from '../components/DeathModal';
+import { ComponentWithGameContext } from '../components/ComponentWithGameContext';
 
-export default class ExploreScreen extends React.Component<{}, {}> {
+
+export default class ExploreScreen extends ComponentWithGameContext {
   constructor(props: {}) {
       super(props);
 
@@ -14,6 +17,7 @@ export default class ExploreScreen extends React.Component<{}, {}> {
   }
 
   render() {
+    const {gameStateStore} = this.context;
     return <div className="explore-screen">
       <div className="character-menu">
         <CharacterStats />
@@ -25,6 +29,7 @@ export default class ExploreScreen extends React.Component<{}, {}> {
         <MapPanel />
         <MessagesPanel />
       </div>
+      {gameStateStore.gameState === "DEAD" && <DeathModal />}
     </div>;
   }
 }

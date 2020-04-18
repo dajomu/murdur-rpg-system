@@ -8,7 +8,7 @@ export class PlayerStore {
   @observable sex: string = 'female';
   @observable level: number = 1;
   @observable maxHits: number = 50;
-  @observable currentHits: number = 50;
+  @observable currentHits: number = 10;
   @observable experience: number = 1;
   @observable gold: number = 0;
   @observable atk: number;
@@ -54,6 +54,14 @@ export class PlayerStore {
 
   public turnAround = () => {
     this.playerDirection = turnAroundMap[this.playerDirection];
+  }
+
+  public setDead = () => {
+    this.currentHits = 0;
+  }
+
+  public hurtPlayer = (damage: number) => {
+    this.currentHits -= damage;
   }
 
   public calculateAtk = (): number => {
