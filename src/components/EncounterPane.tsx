@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentWithGameContext } from './ComponentWithGameContext';
 import { clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
+import {isUndefined} from 'lodash';
 import { observer } from "mobx-react"
 
 const comboCoordinates = function(offsetOne: [number, number], offsetTwo: [number,number]): [number, number] {
@@ -44,6 +45,18 @@ class EncounterPane extends ComponentWithGameContext {
     return gameStateStore.currentRoom;
   }
 
+  getCombatMessage(attacker: string, attackResult: AttackResult | undefined): string {
+    if(attackResult === 'missed') {
+      return `${attacker} missed!`;
+    } else if (attackResult === 'kill') {
+      return `${attacker} killed one!`;
+    } else if(!isUndefined(attackResult)) {
+      return `${attacker} hit for ${attackResult} damage`;
+    } else {
+      return '';
+    }
+  }
+
   render() {
     const {gameStateStore, playerStore} = this.context;
     const wallFaces = this.getWallFaces();
@@ -80,8 +93,8 @@ class EncounterPane extends ComponentWithGameContext {
             <div className={`monster-disposition ${roomData.isFighting ? "fight" : "peace"}`}><img src="/murdur-rpg-system/images/fighting.png" alt={roomData.isFighting ? "Fight!" : "Friends!"}/></div>
             <div className="monster-portrait"><img src={roomData.groups[0].monster.profileImage} alt={roomData.groups[0].monster.name} /></div>
             <div className="monster-fight-info">
-              <p>{gameStateStore.currentPlayerAttackResult ? `You hit for ${gameStateStore.currentPlayerAttackResult} damage` : ''}</p>
-              <p>{gameStateStore.currentMonsterAttackResult ? `Monster hit for ${gameStateStore.currentMonsterAttackResult} damage` : ''}</p>
+              <p>{this.getCombatMessage('You', gameStateStore.currentPlayerAttackResult)}</p>
+              <p>{this.getCombatMessage('Monster', gameStateStore.currentMonsterAttackResult)}</p>
             </div>
             <div className="chest"></div>
           </div>

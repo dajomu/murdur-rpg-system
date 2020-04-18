@@ -74,7 +74,6 @@ export class ExploreController {
       const currentFighter = newRoom && typeof newRoom.currentFighter !== 'undefined' ? newRoom.currentFighter : 'player';
       gameStateStore.setCurrentRoom(newRoom ? {...newRoom, isFighting: this.calculateIsFighting(newRoom), currentFighter} : undefined);
       if(this.calculateIsFighting(newRoom)) {
-        console.log('fight starting from change room');
         this.fight();
       }
     }

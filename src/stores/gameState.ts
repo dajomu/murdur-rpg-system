@@ -1,7 +1,6 @@
 import { action, observable, toJS } from 'mobx';
 import cloneDeep from 'lodash/cloneDeep';
 
-type AttackResult = number | 'missed' | 'kill';
 type GameState = 'EXPLORE' | 'DEAD';
 
 export class GameStateStore {
@@ -34,9 +33,9 @@ export class GameStateStore {
   @action setCurrentAttackResult(currentFighter: CurrentFighter, currentAttackResult: AttackResult) {
     console.log('fight!', currentFighter, currentAttackResult);
       if(currentFighter === 'player') {
-        this.currentPlayerAttackResult = currentAttackResult;
+        this.currentPlayerAttackResult = currentAttackResult === 0 ? 'missed' : currentAttackResult;
       } else if (typeof currentFighter === 'number') {
-        this.currentMonsterAttackResult = currentAttackResult;
+        this.currentMonsterAttackResult = currentAttackResult === 0 ? 'missed' : currentAttackResult;
       }
   }
 
@@ -63,6 +62,9 @@ export class GameStateStore {
       this.currentRoom.groups = this.currentRoom.groups.filter(group => {
         return group.monsterHealth.length > 0;
       })
+    }
+    if(this.currentRoom && this.currentRoom.groups.length === 0) {
+      this.currentRoom.isFighting = false;
     }
   }
 

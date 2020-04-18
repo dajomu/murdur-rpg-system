@@ -21,6 +21,8 @@ interface RoomInitData {
 
 type CurrentFighter = undefined | 'player' | 0 | 1 | 2 | 3;
 
+type AttackResult = number | 'missed' | 'kill';
+
 interface RoomData {
   chest?: Chest;
   currentFighter: CurrentFighter;
