@@ -10,7 +10,7 @@ class DeathModal extends ComponentWithGameContext {
       <div className="modal">
         <p>You died</p>
         <div className="modal-death-restart" onClick={() => {gameController.reset()}}>
-          Restart
+          Ressurect
         </div>
       </div>
     </div>;

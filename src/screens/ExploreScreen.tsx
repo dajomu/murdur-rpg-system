@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from "mobx-react"
 import CharacterStats from '../components/CharacterStats';
 import EncounterPane from '../components/EncounterPane';
 import InventoryPanel from '../components/InventoryPanel';
@@ -7,11 +8,10 @@ import MessagesPanel from '../components/MessagesPanel';
 import DeathModal from '../components/DeathModal';
 import { ComponentWithGameContext } from '../components/ComponentWithGameContext';
 
-
+@observer
 export default class ExploreScreen extends ComponentWithGameContext {
   constructor(props: {}) {
       super(props);
-
       this.state = {
       };
   }
@@ -33,5 +33,3 @@ export default class ExploreScreen extends ComponentWithGameContext {
     </div>;
   }
 }
-
-//<div className=""></div>

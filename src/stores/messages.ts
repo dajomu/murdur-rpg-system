@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 interface Message {
   text: string;
@@ -20,6 +20,10 @@ export class MessageStore {
     if(messagePanelScrollRefElement) {
       messagePanelScrollRefElement.scrollTop = messagePanelScrollRefElement.scrollHeight
     }
+  }
+
+  @action clearMessage = () => {
+    this.messages = [{text: "Welcome to MURDUR 0.1!", type: 'normal'}];
   }
 }
 

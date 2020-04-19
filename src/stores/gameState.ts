@@ -10,6 +10,14 @@ export class GameStateStore {
   @observable currentTargettedGroup: 0 | 1 | 2 | 3 = 0;
   @observable gameState: GameState = 'EXPLORE';
 
+  @action reset(gameState?: GameState) {
+    this.currentMonsterAttackResult = undefined;
+    this.currentPlayerAttackResult = undefined;
+    this.currentRoom = undefined;
+    this.currentTargettedGroup = 0;
+    this.gameState = gameState || 'EXPLORE';
+  }
+
   @action setCurrentRoom(room?: RoomData) {
     this.currentRoom = cloneDeep(room);
     this.currentMonsterAttackResult = undefined;

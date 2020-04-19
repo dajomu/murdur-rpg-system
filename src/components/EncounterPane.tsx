@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentWithGameContext } from './ComponentWithGameContext';
 import { clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
 import {isUndefined} from 'lodash';
-import { observer } from "mobx-react"
+import { observer } from "mobx-react";
 
 const comboCoordinates = function(offsetOne: [number, number], offsetTwo: [number,number]): [number, number] {
   return [offsetOne[0] + offsetTwo[0], offsetOne[1] + offsetTwo[1]];

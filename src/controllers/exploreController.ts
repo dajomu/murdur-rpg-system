@@ -80,9 +80,9 @@ export class ExploreController {
   }
 
   fight() {
-    const {currentRoom} = gameStateStore;
+    const {currentRoom, gameState} = gameStateStore;
     if(currentRoom) {console.log('Fight !!!!', toJS(currentRoom), currentRoom.isFighting, currentRoom.currentFighter);}
-    if(currentRoom && currentRoom.isFighting && typeof currentRoom.currentFighter !== 'undefined'){
+    if(currentRoom && currentRoom.isFighting && gameState === 'EXPLORE' && typeof currentRoom.currentFighter !== 'undefined'){
       // fight stuff
       if(currentRoom.currentFighter === 'player') {
         const damage = calculateFightDamage(playerStore, currentRoom.groups[0].monster);

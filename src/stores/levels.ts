@@ -11,6 +11,11 @@ export class LevelStore {
     this.level1 = new LevelMap(1, 30, this.useRandomMaps, false);
   }
 
+  @action reset = (startLocation: MapLocation) => {
+    this.level1 = new LevelMap(1, 30, this.useRandomMaps, false);
+    this.markSectionDiscovered(startLocation);
+  }
+
   @action markSectionDiscovered = (
     coords: MapLocation
   ) => {

@@ -1,13 +1,3 @@
-type EquipmentType = 'weapon' | 'head-armour' | 'body-armour' | 'hand-armour' | 'shield';
-
-interface InventoryItem {
-  name: string;
-  baseValue: number;
-  alignment?: Alignment;
-  canBeEquiped: boolean;
-  equipmentType?: EquipmentType;
-}
-
 const itemsStore: {[key: number]: InventoryItem} = {
   0: { name: 'Iron Sword', baseValue: 10, canBeEquiped: true, equipmentType: 'weapon' },
   1: { name: 'Iron Shield', baseValue: 10, canBeEquiped: true, equipmentType: 'shield' },
