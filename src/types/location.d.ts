@@ -16,6 +16,7 @@ interface DiscoveredSection {
 
 interface RoomInitData {
   chestId?: number;
+  description?: string;
   monsterGroupIds: number[];
 }
 
@@ -26,6 +27,7 @@ type AttackResult = number | 'missed' | 'kill';
 interface RoomData {
   chest?: Chest;
   currentFighter: CurrentFighter;
+  description?: string;
   groups: ActiveMonsterGroup[];
   id: number;
   isFighting?: boolean;

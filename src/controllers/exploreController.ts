@@ -1,9 +1,10 @@
+import {toJS} from 'mobx';
+import {isUndefined} from 'lodash';
 import audioStore from '../stores/audio';
 import playerStore from '../stores/player';
 import gameStateStore from '../stores/gameState';
 import levelStore from '../stores/levels';
 // import monsterStore from '../stores/monster';
-import {toJS} from 'mobx';
 import messageStore from '../stores/messages';
 import { boundingOffsetMap, movementOffsetMap } from '../constants';
 import { calculateFightDamage } from '../utils/combat';
@@ -68,11 +69,14 @@ export class ExploreController {
     const newRoom = newRoomId !== 'empty' ? levelStore.level1.levelRooms[newRoomId!] : undefined;
 
     if(newRoomId !== currentRoomId) { // if changing rooms
-      if(typeof gameStateStore.currentRoom !== 'undefined') {
+      if(!isUndefined(gameStateStore.currentRoom)) {
         levelStore.level1.levelRooms[gameStateStore.currentRoom.id] = {...gameStateStore.currentRoom!};
       }
-      const currentFighter = newRoom && typeof newRoom.currentFighter !== 'undefined' ? newRoom.currentFighter : 'player';
+      const currentFighter = newRoom && !isUndefined(newRoom.currentFighter) ? newRoom.currentFighter : 'player';
       gameStateStore.setCurrentRoom(newRoom ? {...newRoom, isFighting: this.calculateIsFighting(newRoom), currentFighter} : undefined);
+      if(!isUndefined(newRoom) && newRoom.description) {
+        messageStore.addMessage(newRoom.description);
+      }
       if(this.calculateIsFighting(newRoom)) {
         this.fight();
       }
@@ -82,7 +86,7 @@ export class ExploreController {
   fight() {
     const {currentRoom, gameState} = gameStateStore;
     if(currentRoom) {console.log('Fight !!!!', toJS(currentRoom), currentRoom.isFighting, currentRoom.currentFighter);}
-    if(currentRoom && currentRoom.isFighting && gameState === 'EXPLORE' && typeof currentRoom.currentFighter !== 'undefined'){
+    if(currentRoom && currentRoom.isFighting && gameState === 'EXPLORE' && !isUndefined(currentRoom.currentFighter)){
       // fight stuff
       if(currentRoom.currentFighter === 'player') {
         const damage = calculateFightDamage(playerStore, currentRoom.groups[0].monster);
@@ -108,7 +112,7 @@ export class ExploreController {
 
   calculateIsFighting(newRoom?: RoomData): boolean {
     if(newRoom) {
-      if(typeof newRoom.isFighting !== 'undefined') {
+      if(!isUndefined(newRoom.isFighting)) {
         return newRoom.isFighting;
       } else if (newRoom.groups.length){
         return newRoom.groups[0].monster.alignment !== playerStore.alignment;

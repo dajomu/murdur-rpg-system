@@ -72,6 +72,7 @@ export default class LevelMap {
     const monsterGroup = monsterStore.monsterGroups[monsterGroupId]
     this.levelRooms[roomKey] = {
       currentFighter: undefined,
+      description: roomInitData.description,
       id: roomKey,
       groups: monsterGroup.groups.map(group => ({
         monsterId: group.monsterId,
