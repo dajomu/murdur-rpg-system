@@ -109,6 +109,10 @@ export class PlayerStore {
   public calculateDef = (): number => {
     return this.stats.dexterity;
   }
+
+  public increaseExperience = (experienceIncrease: number) => {
+    this.experience += experienceIncrease;
+  }
 }
 
 const playerStore = new PlayerStore();

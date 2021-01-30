@@ -53,7 +53,10 @@ export class ExploreController {
     if (this.checkMoveWallCollision(direction)) {
       const movementOffset = movementOffsetMap[direction];
       const playerLocation: MapLocation = [playerStore.playerLocation[0] + movementOffset[0], playerStore.playerLocation[1] + movementOffset[1]];
-      levelStore.level1.markSectionDiscovered(playerLocation);
+      if(!levelStore.level1.isSectionDiscovered(playerLocation)) {
+        levelStore.level1.markSectionDiscovered(playerLocation);
+        playerStore.increaseExperience(1);
+      }
       playerStore.setPlayerLocation(playerLocation);
       this.checkAndChangeRoom(playerLocation);
       return true;
