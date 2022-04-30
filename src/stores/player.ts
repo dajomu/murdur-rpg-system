@@ -80,7 +80,7 @@ export class PlayerStore {
   }
 
   @action setPlayerLocation = (playerLocation: MapLocation) => {
-    this.playerLocation = playerLocation;
+    this.playerLocation = [...playerLocation];
   }
 
   @action rotatePlayerClockwise = () => {

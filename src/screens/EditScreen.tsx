@@ -7,7 +7,11 @@ export default observer(() => {
     const context = useContext(gameContext);
     const {gameStateStore} = context;
     return <div className="edit-screen">
-        <p>the edit screen</p>
-        <MapPanel />
+        <div className="edit-screen-map">
+            <MapPanel />
+        </div>
+        <div className="edit-screen-edits">
+            
+        </div>
     </div>;
 })
