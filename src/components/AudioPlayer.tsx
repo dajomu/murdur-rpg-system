@@ -1,15 +1,12 @@
-import React from 'react';
-import { ComponentWithGameContext } from './ComponentWithGameContext';
+import React, {useContext} from 'react';
+import gameContext from '../stores/gameContext';
 import { observer } from "mobx-react"
-
-@observer 
-class AudioPlayer extends ComponentWithGameContext {
-  render() {
-    const {audioStore} = this.context;
-    return <>
-      <audio ref={audioStore.playerAudioRef} />
-    </>;
-  }
-}
+ 
+const AudioPlayer = observer(() => {
+  const context = useContext(gameContext);
+  return <>
+    <audio ref={context.audioStore.playerAudioRef} />
+  </>;
+})
 
 export default AudioPlayer;

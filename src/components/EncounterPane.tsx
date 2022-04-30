@@ -1,5 +1,5 @@
-import React from 'react';
-import { ComponentWithGameContext } from './ComponentWithGameContext';
+import React, {useContext} from 'react';
+import gameContext from '../stores/gameContext';
 import { clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
 import {isUndefined} from 'lodash';
 import { observer } from "mobx-react";
@@ -8,10 +8,12 @@ const comboCoordinates = function(offsetOne: [number, number], offsetTwo: [numbe
   return [offsetOne[0] + offsetTwo[0], offsetOne[1] + offsetTwo[1]];
 }
 
-@observer 
-class EncounterPane extends ComponentWithGameContext {
-  getWallFaces = () => {
-    const {levelStore, playerStore} = this.context;
+const EncounterPane = observer(() => {
+
+  const context = useContext(gameContext);
+
+  const getWallFaces = () => {
+    const {levelStore, playerStore} = context;
     const {playerLocation, playerDirection} = playerStore;
     return {
       front: levelStore.getWallFace(playerLocation, playerDirection),
@@ -27,8 +29,8 @@ class EncounterPane extends ComponentWithGameContext {
     }
   }
 
-  getFloors = () => {
-    const {levelStore, playerStore} = this.context;
+  const getFloors = () => {
+    const {levelStore, playerStore} = context;
     const {playerLocation, playerDirection} = playerStore;
     return {
       left: levelStore.getFloor(comboCoordinates(playerLocation, offsetMap[counterClockwiseRotationMap[playerDirection]])),
@@ -40,12 +42,12 @@ class EncounterPane extends ComponentWithGameContext {
     }
   }
 
-  getCurrentRoom = () => {
-    const { gameStateStore } = this.context;
+  const getCurrentRoom = () => {
+    const { gameStateStore } = context;
     return gameStateStore.currentRoom;
   }
 
-  getCombatMessage(attacker: string, attackResult: AttackResult | undefined): string {
+  const getCombatMessage = (attacker: string, attackResult: AttackResult | undefined): string => {
     if(attackResult === 'missed') {
       return `${attacker} missed!`;
     } else if (attackResult === 'kill') {
@@ -57,11 +59,10 @@ class EncounterPane extends ComponentWithGameContext {
     }
   }
 
-  render() {
-    const {gameStateStore, playerStore} = this.context;
-    const wallFaces = this.getWallFaces();
-    const floors = this.getFloors();
-    const roomData = this.getCurrentRoom();
+    const {gameStateStore, playerStore} = context;
+    const wallFaces = getWallFaces();
+    const floors = getFloors();
+    const roomData = getCurrentRoom();
 
     return <div className="expore-encounter">
       <div className="location-info">
@@ -93,8 +94,8 @@ class EncounterPane extends ComponentWithGameContext {
             <div className={`monster-disposition ${roomData.isFighting ? "fight" : "peace"}`}><img src="/murdur-rpg-system/images/fighting.png" alt={roomData.isFighting ? "Fight!" : "Friends!"}/></div>
             <div className="monster-portrait"><img src={roomData.groups[0].monster.profileImage} alt={roomData.groups[0].monster.name} /></div>
             <div className="monster-fight-info">
-              <p>{this.getCombatMessage('You', gameStateStore.currentPlayerAttackResult)}</p>
-              <p>{this.getCombatMessage('Monster', gameStateStore.currentMonsterAttackResult)}</p>
+              <p>{getCombatMessage('You', gameStateStore.currentPlayerAttackResult)}</p>
+              <p>{getCombatMessage('Monster', gameStateStore.currentMonsterAttackResult)}</p>
             </div>
             <div className="chest"></div>
           </div>
@@ -108,7 +109,6 @@ class EncounterPane extends ComponentWithGameContext {
         <div className="encounter-info"> </div>
       }
     </div>
-  }
-}
+})
 
 export default EncounterPane;

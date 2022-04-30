@@ -15,7 +15,7 @@ export class MessageStore {
 
   public messagePanelScrollRef: React.RefObject<HTMLDivElement> = React.createRef();
 
-  public addMessage = (text: string, type: 'normal' | 'alert' = 'normal') => {
+  @action addMessage = (text: string, type: 'normal' | 'alert' = 'normal') => {
     this.messages.push({text, type});
     this.scrollMessagesToBottom();
   }

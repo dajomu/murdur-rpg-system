@@ -1,4 +1,4 @@
-import { observable, makeObservable } from 'mobx';
+import { action, observable, makeObservable } from 'mobx';
 import { clockwiseRotationMap, counterClockwiseRotationMap, turnAroundMap} from '../constants';
 
 const startLocation: MapLocation = [15,15];
@@ -79,27 +79,27 @@ export class PlayerStore {
     Object.assign(this, playerDefaults);
   }
 
-  public setPlayerLocation = (playerLocation: MapLocation) => {
+  @action setPlayerLocation = (playerLocation: MapLocation) => {
     this.playerLocation = playerLocation;
   }
 
-  public rotatePlayerClockwise = () => {
+  @action rotatePlayerClockwise = () => {
     this.playerDirection = clockwiseRotationMap[this.playerDirection];
   }
 
-  public rotatePlayerCounterClockwise = () => {
+  @action rotatePlayerCounterClockwise = () => {
     this.playerDirection = counterClockwiseRotationMap[this.playerDirection];
   }
 
-  public turnAround = () => {
+  @action turnAround = () => {
     this.playerDirection = turnAroundMap[this.playerDirection];
   }
 
-  public setDead = () => {
+  @action setDead = () => {
     this.currentHits = 0;
   }
 
-  public hurtPlayer = (damage: number) => {
+  @action hurtPlayer = (damage: number) => {
     this.currentHits -= damage;
   }
 
@@ -111,7 +111,7 @@ export class PlayerStore {
     return this.stats.dexterity;
   }
 
-  public increaseExperience = (experienceIncrease: number) => {
+  @action increaseExperience = (experienceIncrease: number) => {
     this.experience += experienceIncrease;
   }
 }

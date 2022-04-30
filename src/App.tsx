@@ -4,7 +4,7 @@ import GlobalControls from './components/GlobalControls';
 import Header from './components/Header';
 import ExploreScreen from './screens/ExploreScreen';
 import './main.css';
-import gameContext, { gameContextDefaultValue } from './components/ComponentWithGameContext';
+import gameContext, { gameContextDefaultValue } from './stores/gameContext';
 
 function App() {
   return (

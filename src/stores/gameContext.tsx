@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import audioStore from '../stores/audio';
-import gameStateStore from '../stores/gameState';
-import itemsStore from '../stores/items';
-import levelStore from '../stores/levels';
-import messageStore from '../stores/messages';
-import monsterStore from '../stores/monster';
-import playerStore from '../stores/player';
+import audioStore from './audio';
+import gameStateStore from './gameState';
+import itemsStore from './items';
+import levelStore from './levels';
+import messageStore from './messages';
+import monsterStore from './monster';
+import playerStore from './player';
 
 export const gameContextDefaultValue = {
   audioStore,

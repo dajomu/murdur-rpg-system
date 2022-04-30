@@ -1,21 +1,16 @@
 import React, { useContext, useEffect } from 'react';
-// import { ComponentWithGameContext } from './ComponentWithGameContext';
 import { observer } from "mobx-react"
 
 import exploreController from '../controllers/exploreController';
-import gameContext from './ComponentWithGameContext';
+import gameContext from '../stores/gameContext';
 
 interface MapPanelState {
   playerLocation: MapLocation;
 }
 
-// @observer 
-// class MapPanel extends ComponentWithGameContext<{}, MapPanelState> {  
 const MapPanel = observer(() => {
 
-  const context = useContext(gameContext) // See the Timer definition above.
-
-  console.log(context);
+  const context = useContext(gameContext);
 
   useEffect(() => {
     context.levelStore.level1.markSectionDiscovered(context.playerStore.playerLocation);
@@ -27,7 +22,7 @@ const MapPanel = observer(() => {
 
   const {levelStore, playerStore} = context;
   const {playerLocation, playerDirection} = playerStore;
-  console.log('change', playerLocation, playerDirection);
+
   return <div className="explore-map">
     <div className="map-container" style={{width: levelStore.level1.size * 14, height: levelStore.level1.size * 14}}>
       {levelStore.level1.levelSections.map(section => {
