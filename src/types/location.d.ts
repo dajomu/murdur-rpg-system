@@ -17,6 +17,7 @@ interface DiscoveredSection {
 interface RoomInitData {
   chestId?: number;
   description?: string;
+  name: string;
   monsterGroupIds: number[];
 }
 

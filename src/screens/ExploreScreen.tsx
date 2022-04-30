@@ -24,4 +24,4 @@ export default observer(() => {
     </div>
     {gameStateStore.gameState === "DEAD" && <DeathModal />}
   </div>;
-})
+});
