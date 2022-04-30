@@ -8,7 +8,7 @@ import messageStore from '../stores/messages';
 import monsterStore from '../stores/monster';
 import playerStore from '../stores/player';
 
-const gameContextDefaultValue = {
+export const gameContextDefaultValue = {
   audioStore,
   gameStateStore,
   itemsStore,

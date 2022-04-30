@@ -1,4 +1,4 @@
-import { action, observable, toJS } from 'mobx';
+import { action, makeObservable, observable, toJS } from 'mobx';
 import cloneDeep from 'lodash/cloneDeep';
 
 type GameState = 'EXPLORE' | 'DEAD';
@@ -9,6 +9,10 @@ export class GameStateStore {
   @observable currentRoom?: RoomData;
   @observable currentTargettedGroup: 0 | 1 | 2 | 3 = 0;
   @observable gameState: GameState = 'EXPLORE';
+
+  constructor() {
+    makeObservable(this);
+  }
 
   @action reset(gameState?: GameState) {
     this.currentMonsterAttackResult = undefined;

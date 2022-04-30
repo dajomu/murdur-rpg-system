@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, makeObservable } from 'mobx';
 import { getCookie, setCookie } from '../utils/cookie';
 import LevelMap from '../dataObjects/LevelMap';
 import { boundingOffsetMap } from '../constants';
@@ -7,6 +7,7 @@ export class LevelStore {
   @observable useRandomMaps: boolean;
   @observable level1: LevelMap;
   constructor() {
+    makeObservable(this);
     this.useRandomMaps = this.checkForRandomMaps();
     this.level1 = new LevelMap(1, 30, this.useRandomMaps, false);
   }

@@ -4,14 +4,17 @@ import GlobalControls from './components/GlobalControls';
 import Header from './components/Header';
 import ExploreScreen from './screens/ExploreScreen';
 import './main.css';
+import gameContext, { gameContextDefaultValue } from './components/ComponentWithGameContext';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <ExploreScreen />
-      <GlobalControls />
-      <AudioPlayer />
+      <gameContext.Provider value={gameContextDefaultValue}>
+        <Header />
+        <ExploreScreen />
+        <GlobalControls />
+        <AudioPlayer />
+      </gameContext.Provider>
     </div>
   );
 }

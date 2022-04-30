@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, makeObservable } from 'mobx';
 import { clockwiseRotationMap, counterClockwiseRotationMap, turnAroundMap} from '../constants';
 
 const startLocation: MapLocation = [15,15];
@@ -69,6 +69,7 @@ export class PlayerStore {
   };
 
   constructor() {
+    makeObservable(this);
     this.loadDefaults();
     this.atk = this.calculateAtk();
     this.def = this.calculateDef();

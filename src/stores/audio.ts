@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { getCookie, setCookie } from '../utils/cookie';
 
 interface AudioTrack {
@@ -14,6 +14,7 @@ export class AudioStore {
   public playerAudioRef: React.RefObject<HTMLAudioElement> = React.createRef();
 
   constructor() {
+    makeObservable(this);
     this.soundEnabled = this.checkForSoundEnabled();
   }
 

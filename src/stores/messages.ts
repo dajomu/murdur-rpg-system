@@ -1,5 +1,5 @@
 import React from 'react';
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 interface Message {
   text: string;
@@ -8,6 +8,11 @@ interface Message {
 
 export class MessageStore {
   @observable messages: Message[] = [{text: "Welcome to MURDUR 0.1!", type: 'normal'}];
+
+  constructor() {
+    makeObservable(this);
+  }
+
   public messagePanelScrollRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   public addMessage = (text: string, type: 'normal' | 'alert' = 'normal') => {
