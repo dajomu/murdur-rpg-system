@@ -18,8 +18,8 @@ const GlobalControls = observer(() => {
     </div>
     <div className="toggle-edit-mode" onClick={editStore.toggleIsEditing}>
       {editStore.isEditing ? 
-        <img src="/murdur-rpg-system/images/audioOn.png" alt="switch audio on/off"/> :
-        <img src="/murdur-rpg-system/images/audioOff.png" alt="switch audio on/off"/>}
+        <img src="/murdur-rpg-system/images/editOn.png" alt="switch audio on/off"/> :
+        <img src="/murdur-rpg-system/images/editOff.png" alt="switch audio on/off"/>}
     </div>
   </div>;
 })
