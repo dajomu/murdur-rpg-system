@@ -25,6 +25,11 @@ export default observer(() => {
         selectTileForEditing(selectedEditTile); // hack to force re-render
     });
 
+    const handleRoomChange = ((event: React.ChangeEvent<HTMLSelectElement>, selectedTile: MapLocation) => {
+        levelStore.setSectionRoom(selectedTile, event.target.value === 'none' ? undefined : parseInt(event.target.value));
+        selectTileForEditing(selectedEditTile); // hack to force re-render
+    });
+
     const handleRoomNameChange = (name: string) => {
         if(selectedLevelCell.roomId) {
             levelStore.setRoomName(selectedLevelCell.roomId, name);
@@ -101,8 +106,18 @@ export default observer(() => {
             </>
         </div>
         <div className="edit-screen-room">
+            <h2>Selected room {selectedRoom ? `[${selectedRoom.id}]: ${selectedRoom.name}` : 'none'}</h2>
+            <>
+                <p>Select Room</p>
+                <select
+                    onChange={(e) => handleRoomChange(e, [selectedEditTile[0], selectedEditTile[1]])} 
+                    value={ !isUndefined(selectedLevelCell.roomId) ? selectedLevelCell.roomId : 'none' }>
+                    <option value="none">none</option>
+                    {Object.values(levelStore.level1.levelRooms).map(room =>
+                        <option value={room.id}>{`[${room.id}]: ${room.name}`}</option>)}
+                </select>
+            </>
             {selectedRoom && <>
-                <h2>Selected room [{`${selectedRoom.id}]: ${selectedRoom.name}`}</h2>
                 <p>{JSON.stringify(selectedRoom)}</p>
                 <>
                     <p>Name</p>

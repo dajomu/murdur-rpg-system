@@ -47,6 +47,11 @@ export default class LevelMap {
     this.levelSections[`${coords[0]}-${coords[1]}`] = {...this.levelSections[`${coords[0]}-${coords[1]}`], [wallFace]: wallType};
   }
 
+  public changeLevelSectionRoom = (coords: MapLocation, roomId: number | undefined) => {
+    this.levelSections[`${coords[0]}-${coords[1]}`] = {...this.levelSections[`${coords[0]}-${coords[1]}`], roomId};
+    console.log('changeLevelSectionRoom', coords, roomId, this.levelSections[`${coords[0]}-${coords[1]}`], this.levelSections);
+  }
+
   public changeRoomName = (roomId: number, name: string) => {
     this.levelRooms[roomId].name = name;
   }

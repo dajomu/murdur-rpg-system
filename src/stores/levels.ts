@@ -38,6 +38,14 @@ export class LevelStore {
     this.level1.changeLevelSectionWall(coords, wallFace, wallType);
   }
 
+  @action setSectionRoom = (
+    coords: MapLocation,
+    roomId: number | undefined
+  ) => {
+    console.log('setSectionRoom', coords, roomId);
+    this.level1.changeLevelSectionRoom(coords, roomId);
+  }
+
   @action setRoomName = (
     roomId: number,
     name: string
