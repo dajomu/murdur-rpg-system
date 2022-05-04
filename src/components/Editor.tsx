@@ -96,7 +96,7 @@ export default observer(() => {
                 </>
             }
             <>
-                <button onClick={() => {saveLevelData(Object.values(levelStore.level1.levelSections))}}>Download Level Data</button>
+                <button onClick={() => {saveLevelData(Object.values(levelStore.level1.levelSections), levelStore.level1.levelRooms)}}>Download Level Data</button>
             </>
         </div>
         <div className="edit-screen-room">
