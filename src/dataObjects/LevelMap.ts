@@ -10,8 +10,8 @@ interface Chest {
 }
 
 export default class LevelMap {
-  levelSections: SectionData[] = [];
-  levelRooms: {[key: string]: RoomData} = {};
+  levelSections: { [key: string]: SectionData } = {};
+  levelRooms: { [key: string]: RoomData } = {};
   level: number;
   size: number;
   discoveredSections: { [key: string]: DiscoveredSection } = {};
@@ -39,18 +39,33 @@ export default class LevelMap {
     }
   }
 
+  public changeLevelSectionTerrain = (coords: MapLocation, terrain: Terrain) => {
+    this.levelSections[`${coords[0]}-${coords[1]}`] = {...this.levelSections[`${coords[0]}-${coords[1]}`], terrain};
+  }
+
+  public changeLevelSectionWall = (coords: MapLocation, wallFace: WallFace, wallType: Walls) => {
+    this.levelSections[`${coords[0]}-${coords[1]}`] = {...this.levelSections[`${coords[0]}-${coords[1]}`], [wallFace]: wallType};
+  }
+
   public isSectionDiscovered = (coords: MapLocation) => {
     return this.discoveredSections[`${coords[0]}-${coords[1]}`] ? this.discoveredSections[`${coords[0]}-${coords[1]}`].tile : false;
   }
 
   private populateMap = () => {
-    this.levelSections = level1Data as SectionData[];
+    level1Data.forEach(levelSection => {
+      this.levelSections[`${levelSection.coords[0]}-${levelSection.coords[1]}`] = levelSection;
+    })
   }
 
   private randomlyPopulateMap = () => {
     for(var ycord = 0; ycord < this.size; ycord++) {
       for(var xcord = 0; xcord < this.size; xcord++) {
-        this.levelSections.push({coords: [xcord, ycord], leftWall: this.getRandomWall(), topWall: this.getRandomWall(), terrain: this.getRandomTerrain()});
+        this.levelSections[`${xcord}-${ycord}`] = {
+          coords: [xcord, ycord],
+          leftWall: this.getRandomWall(),
+          topWall: this.getRandomWall(),
+          terrain: this.getRandomTerrain()
+        }
       }
     }
   }
@@ -92,12 +107,12 @@ export default class LevelMap {
     }
   }
 
-  private getRandomWall = (): string => {
+  private getRandomWall = (): Walls => {
     const randomWall = Math.round(1 + Math.random() * 4);
     return randomWall >= 4 ? 'wall' : randomWall === 1 ? 'door' : 'none';
   }
 
-  private getRandomTerrain = (): string => {
+  private getRandomTerrain = (): Terrain => {
     switch(Math.round(1 + Math.random() * 6)) {
       case 1:
         return 'sand';

@@ -1,11 +1,17 @@
 interface SectionData {
   coords: MapLocation,
-  leftWall: string;
-  topWall: string;
-  terrain: string;
+  leftWall: Walls;
+  topWall: Walls;
+  terrain: Terrain;
   modifier?: string;
   roomId?: number;
 }
+
+type Terrain = 'sand' | 'water' | 'none';
+
+type Walls = 'wall' | 'door' | 'none';
+
+type WallFace = 'topWall' | 'leftWall';
 
 interface DiscoveredSection {
   leftWall: boolean;

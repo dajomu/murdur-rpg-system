@@ -23,9 +23,24 @@ export class LevelStore {
     this.level1.markSectionDiscovered(coords);
   }
 
-  getWallFace(playerLocation: MapLocation, playerDirection: Direction, offset: [number, number] = [0,0]) {
+  @action setSectionTerrain = (
+    coords: MapLocation,
+    terrain: Terrain
+  ) => {
+    this.level1.changeLevelSectionTerrain(coords, terrain);
+  }
+
+  @action setSectionWall = (
+    coords: MapLocation,
+    wallFace: WallFace,
+    wallType: Walls
+  ) => {
+    this.level1.changeLevelSectionWall(coords, wallFace, wallType);
+  }
+
+  getWallFace(playerLocation: MapLocation, playerDirection: Direction, offset: [number, number] = [0,0]): Walls {
     const wallOffset = boundingOffsetMap[playerDirection];
-    const sectionWithWall = this.level1.levelSections.find(section => playerLocation[0] + wallOffset[0] + offset[0] === section.coords[0] && playerLocation[1] + wallOffset[1] + offset[1] === section.coords[1]);
+    const sectionWithWall = this.level1.levelSections[`${playerLocation[0] + offset[0] + wallOffset[0]}-${playerLocation[1] + offset[1] + wallOffset[1]}`];
     if(!sectionWithWall) { return 'wall' }
     if(playerLocation[0] + wallOffset[0] + offset[0] === 0 && playerDirection === 'west') { return 'wall' }
     if(playerLocation[1] + wallOffset[1] + offset[1] === 0 && playerDirection === 'north') { return 'wall' }
@@ -37,7 +52,7 @@ export class LevelStore {
   }
 
   getFloor(playerLocation: MapLocation, offset: [number, number] = [0,0]) {
-    const section = this.level1.levelSections.find(section => playerLocation[0] + offset[0] === section.coords[0] && playerLocation[1] + offset[1] === section.coords[1]);
+    const section = this.level1.levelSections[`${playerLocation[0] + offset[0]}-${playerLocation[1] + offset[1]}`];
     if(section) {
       return section.terrain;
     } else {
@@ -50,7 +65,7 @@ export class LevelStore {
   }
 
   getSectionByCoords(coords: MapLocation) {
-    return this.level1.levelSections.find(section => coords[0] === section.coords[0] && coords[1] === section.coords[1]);
+    return this.level1.levelSections[`${coords[0]}-${coords[1]}`];
   }
 
   checkForRandomMaps(): boolean {
