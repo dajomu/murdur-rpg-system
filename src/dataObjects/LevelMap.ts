@@ -47,6 +47,14 @@ export default class LevelMap {
     this.levelSections[`${coords[0]}-${coords[1]}`] = {...this.levelSections[`${coords[0]}-${coords[1]}`], [wallFace]: wallType};
   }
 
+  public changeRoomName = (roomId: number, name: string) => {
+    this.levelRooms[roomId].name = name;
+  }
+
+  public changeRoomDescription = (roomId: number, description: string) => {
+    this.levelRooms[roomId].description = description;
+  }
+
   public isSectionDiscovered = (coords: MapLocation) => {
     return this.discoveredSections[`${coords[0]}-${coords[1]}`] ? this.discoveredSections[`${coords[0]}-${coords[1]}`].tile : false;
   }
@@ -89,6 +97,8 @@ export default class LevelMap {
       currentFighter: undefined,
       description: roomInitData.description,
       id: roomKey,
+      monsterGroupIds: roomInitData.monsterGroupIds,
+      name: roomInitData.name,
       groups: monsterGroup.groups.map(group => ({
         monsterId: group.monsterId,
         monster: monsterStore.monsters[group.monsterId],

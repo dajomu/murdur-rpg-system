@@ -36,6 +36,8 @@ interface RoomData {
   currentFighter: CurrentFighter;
   description?: string;
   groups: ActiveMonsterGroup[];
+  monsterGroupIds: number[];
+  name: string;
   id: number;
   isFighting?: boolean;
 }
