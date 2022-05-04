@@ -1,5 +1,5 @@
 # murdur-rpg-system
-Initially an attempt to kind of remake Morder: The Depths of Dejenol
+Initially an attempt to kind of remake Mordor: The Depths of Dejenol
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -10,7 +10,7 @@ In the project directory, you can run:
 ### `yarn start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000/murdur-rpg-system](http://localhost:3000/murdur-rpg-system) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
@@ -22,8 +22,10 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `yarn build`
 
-### `yarn eject`
+Builds the latest version of the game. Once pushed to github it will appear here:
+https://dajomu.github.io/murdur-rpg-system/
 
+### `yarn eject`
 
 ## Learn More
 

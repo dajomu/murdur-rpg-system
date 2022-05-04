@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import { observer } from "mobx-react";
+import { isUndefined } from 'lodash';
 import gameContext from '../stores/gameContext';
 import { saveLevelData } from '../utils/editor';
 
@@ -9,7 +10,7 @@ export default observer(() => {
 
     const { selectedEditTile, selectTileForEditing } = editStore;
     const selectedLevelCell = levelStore.level1.levelSections[`${selectedEditTile[0]}-${selectedEditTile[1]}`];
-    const selectedRoom = !!selectedLevelCell.roomId ? levelStore.level1.levelRooms[selectedLevelCell.roomId] : false;
+    const selectedRoom = !isUndefined(selectedLevelCell.roomId) ? levelStore.level1.levelRooms[selectedLevelCell.roomId] : false;
     const rightLevelCell = levelStore.level1.levelSections[`${selectedEditTile[0] + 1}-${selectedEditTile[1]}`];
     const lowerLevelCell = levelStore.level1.levelSections[`${selectedEditTile[0]}-${selectedEditTile[1] + 1}`];
     const { terrain } = selectedLevelCell;
@@ -109,7 +110,7 @@ export default observer(() => {
                 </>
                 <>
                     <p>Description</p>
-                    <textarea rows={10} cols={60} value={selectedRoom.description} onChange={e => {handleRoomDescriptionChange(e.target.value)}} />
+                    <textarea rows={10} cols={60} value={selectedRoom.description || ''} onChange={e => {handleRoomDescriptionChange(e.target.value)}} />
                 </>
             </>}
         </div>
