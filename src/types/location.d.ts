@@ -24,7 +24,7 @@ interface RoomInitData {
   chestId?: number;
   description?: string;
   name: string;
-  monsterGroupIds: number[];
+  monsterGroupIds: string[];
 }
 
 type CurrentFighter = undefined | 'player' | 0 | 1 | 2 | 3;
@@ -36,7 +36,7 @@ interface RoomData {
   currentFighter: CurrentFighter;
   description?: string;
   groups: ActiveMonsterGroup[];
-  monsterGroupIds: number[];
+  monsterGroupIds: string[];
   name: string;
   id: number;
   isFighting?: boolean;

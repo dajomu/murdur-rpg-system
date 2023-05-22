@@ -1,5 +1,5 @@
 const level1Data: SectionData[] = [
-  {coords : [0,0], leftWall: 'none', topWall: 'none', terrain: 'none'},
+  	{coords : [0,0], leftWall: 'none', topWall: 'none', terrain: 'none'},
 	{coords : [1,0], leftWall: 'none', topWall: 'none', terrain: 'none'},
 	{coords : [2,0], leftWall: 'wall', topWall: 'none', terrain: 'none'},
 	{coords : [3,0], leftWall: 'none', topWall: 'none', terrain: 'none'},

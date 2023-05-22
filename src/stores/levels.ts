@@ -60,6 +60,13 @@ export class LevelStore {
     this.level1.changeRoomDescription(roomId, description);
   }
 
+  @action setRoomMonsterGroupIds = (
+    roomId: number,
+    monsterGroupIds: string[]
+  ) => {
+    this.level1.changeRoomMonsterGroupIds(roomId, monsterGroupIds);
+  }
+
   getWallFace(playerLocation: MapLocation, playerDirection: Direction, offset: [number, number] = [0,0]): Walls {
     const wallOffset = boundingOffsetMap[playerDirection];
     const sectionWithWall = this.level1.levelSections[`${playerLocation[0] + offset[0] + wallOffset[0]}-${playerLocation[1] + offset[1] + wallOffset[1]}`];

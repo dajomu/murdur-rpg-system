@@ -6,7 +6,7 @@ import { saveLevelData } from '../utils/editor';
 
 export default observer(() => {
     const context = useContext(gameContext);
-    const { editStore, levelStore } = context;
+    const { editStore, levelStore, monsterStore } = context;
 
     const { selectedEditTile, selectTileForEditing } = editStore;
     const selectedLevelCell = levelStore.level1.levelSections[`${selectedEditTile[0]}-${selectedEditTile[1]}`];
@@ -31,15 +31,25 @@ export default observer(() => {
     });
 
     const handleRoomNameChange = (name: string) => {
-        if(selectedLevelCell.roomId) {
+        if(!isUndefined(selectedLevelCell.roomId)) {
             levelStore.setRoomName(selectedLevelCell.roomId, name);
             selectTileForEditing(selectedEditTile); // hack to force re-render
         }
     }
 
     const handleRoomDescriptionChange = (description: string) => {
-        if(selectedLevelCell.roomId) {
+        if(!isUndefined(selectedLevelCell.roomId)) {
             levelStore.setRoomDescription(selectedLevelCell.roomId, description);
+            selectTileForEditing(selectedEditTile); // hack to force re-render
+        }
+    }
+
+    const handleRoomMonsterGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        if(!isUndefined(selectedLevelCell.roomId)) {
+            const selectedMonsterGroupIds = Array.from(event.target.options)
+                .filter(option => option.selected)
+                .map(option => option.value);
+            levelStore.setRoomMonsterGroupIds(selectedLevelCell.roomId, selectedMonsterGroupIds);
             selectTileForEditing(selectedEditTile); // hack to force re-render
         }
     }
@@ -119,9 +129,20 @@ export default observer(() => {
             </>
             {selectedRoom && <>
                 <p>{JSON.stringify(selectedRoom)}</p>
+
                 <>
                     <p>Name</p>
                     <input type="text" value={selectedRoom.name} onChange={e => {handleRoomNameChange(e.target.value)}} />
+                </>
+                <>
+                    <p>Select Monster Group(s) (Shift Click for multiple)</p>
+                    <select
+                        onChange={(e) => handleRoomMonsterGroupChange(e)} 
+                        defaultValue={ selectedRoom.monsterGroupIds }
+                        multiple={true}>
+                        {Object.keys(monsterStore.monsterGroups).map(monsterGroupKey =>
+                            <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.monsterGroups[monsterGroupKey].name}`}</option>)}
+                    </select>
                 </>
                 <>
                     <p>Description</p>

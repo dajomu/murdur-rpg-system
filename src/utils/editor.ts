@@ -2,7 +2,7 @@ import {isUndefined} from 'lodash';
 
 export function saveLevelData(sections: SectionData[], rooms: { [key: string]: RoomData }): void {
     const levelString = generateLevelDownload(sections, rooms) + '\n\n' + generateLevelRoomsDownload(rooms);
-    saveFile(levelString);
+    saveLevelFile(levelString);
 }
 
 export function generateLevelDownload(sections: SectionData[], rooms: { [key: string]: RoomData }): string {
@@ -19,7 +19,7 @@ export function generateLevelRoomsDownload(rooms: { [key: string]: RoomData }): 
     };`;
 }
 
-export function saveFile(saveString: string): void {
+export function saveLevelFile(saveString: string): void {
     const blob = new Blob([saveString], { type: "text/plain" });
     const a = document.createElement('a');
     a.download = `level-${new Date().toISOString()}.ts`;
@@ -28,4 +28,4 @@ export function saveFile(saveString: string): void {
       setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
     });
     a.click();
-  };
+};

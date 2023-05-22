@@ -60,6 +60,10 @@ export default class LevelMap {
     this.levelRooms[roomId].description = description;
   }
 
+  public changeRoomMonsterGroupIds = (roomId: number, monsterGroupIds: string[]) => {
+    this.levelRooms[roomId].monsterGroupIds = monsterGroupIds;
+  }
+
   public isSectionDiscovered = (coords: MapLocation) => {
     return this.discoveredSections[`${coords[0]}-${coords[1]}`] ? this.discoveredSections[`${coords[0]}-${coords[1]}`].tile : false;
   }
@@ -94,7 +98,7 @@ export default class LevelMap {
       return;
     }
     const monsterGroupId = getRandomFromList(roomInitData.monsterGroupIds);
-    if(typeof monsterGroupId !== 'number') {
+    if(typeof monsterGroupId !== 'string') {
       return;
     }
     const monsterGroup = monsterStore.monsterGroups[monsterGroupId]

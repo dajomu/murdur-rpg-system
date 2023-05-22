@@ -32,3 +32,7 @@ https://dajomu.github.io/murdur-rpg-system/
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Icons
+I've taken icons from [Ion Icons](https://ionic.io/ionicons/).

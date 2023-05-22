@@ -1,8 +1,11 @@
 import { action, observable, makeObservable } from 'mobx';
 
+type EditMode = 'level' | 'monster';
+
 export class EditStore {
 
     @observable isEditing: boolean = false;
+    @observable editMode: EditMode = 'level';
     @observable selectedEditTile: MapLocation = [15,15];
 
     constructor() {
@@ -14,8 +17,11 @@ export class EditStore {
     }
 
     @action selectTileForEditing = (tileLocation: MapLocation) => {
-        console.log('selectTileForEditing', tileLocation);
         this.selectedEditTile = [...tileLocation];
+    }
+
+    @action changeEditMode = (editMode: EditMode) => {
+        this.editMode = editMode;
     }
 }
 
