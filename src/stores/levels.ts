@@ -46,6 +46,11 @@ export class LevelStore {
     this.level1.changeLevelSectionRoom(coords, roomId);
   }
 
+  @action createRoom = (
+  ) => {
+    this.level1.createNewRoom();
+  }
+
   @action setRoomName = (
     roomId: number,
     name: string

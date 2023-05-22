@@ -30,6 +30,12 @@ export default observer(() => {
         selectTileForEditing(selectedEditTile); // hack to force re-render
     });
 
+    const handleCreateRoom = (() => {
+        levelStore.createRoom();
+        levelStore.setSectionRoom([selectedEditTile[0], selectedEditTile[1]], Object.keys(levelStore.level1.levelRooms).length - 1);
+        selectTileForEditing(selectedEditTile); // hack to force re-render
+    });
+
     const handleRoomNameChange = (name: string) => {
         if(!isUndefined(selectedLevelCell.roomId)) {
             levelStore.setRoomName(selectedLevelCell.roomId, name);
@@ -117,6 +123,9 @@ export default observer(() => {
         </div>
         <div className="edit-screen-room">
             <h2>Selected room {selectedRoom ? `[${selectedRoom.id}]: ${selectedRoom.name}` : 'none'}</h2>
+            <div className="add-new-room-button" onClick={handleCreateRoom}>
+                <img src="/murdur-rpg-system/images/add-circle-outline.svg" alt="switch audio on"/>
+            </div>
             <>
                 <p>Select Room</p>
                 <select
@@ -138,7 +147,7 @@ export default observer(() => {
                     <p>Select Monster Group(s) (Shift Click for multiple)</p>
                     <select
                         onChange={(e) => handleRoomMonsterGroupChange(e)} 
-                        defaultValue={ selectedRoom.monsterGroupIds }
+                        value={ selectedRoom.monsterGroupIds }
                         multiple={true}>
                         {Object.keys(monsterStore.monsterGroups).map(monsterGroupKey =>
                             <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.monsterGroups[monsterGroupKey].name}`}</option>)}

@@ -87,6 +87,17 @@ export default class LevelMap {
     }
   }
 
+  public createNewRoom = () => {
+    this.populateRoom(
+      Object.keys(this.levelRooms).length,
+      {
+        description: 'A new room.',
+        name: 'Room ' + (Object.keys(this.levelRooms).length + 1),
+        monsterGroupIds: ['0']
+      }
+    )
+  }
+
   private populateRooms = () => {
     for (const roomKey in levelOneRoomInitData) {
       this.populateRoom(parseInt(roomKey), levelOneRoomInitData[roomKey]);
