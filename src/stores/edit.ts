@@ -7,6 +7,7 @@ export class EditStore {
     @observable isEditing: boolean = false;
     @observable editMode: EditMode = 'level';
     @observable selectedEditTile: MapLocation = [15,15];
+    @observable showRoomNumbersOnMap: boolean = false;
 
     constructor() {
         makeObservable(this);
@@ -14,6 +15,10 @@ export class EditStore {
 
     @action toggleIsEditing = () => {
         this.isEditing = !this.isEditing;
+    }
+
+    @action toggleShowRoomNumbersOnMap = () => {
+        this.showRoomNumbersOnMap = !this.showRoomNumbersOnMap;
     }
 
     @action selectTileForEditing = (tileLocation: MapLocation) => {

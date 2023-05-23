@@ -27,11 +27,22 @@ const GlobalControls = observer(() => {
       </div>
       {editStore.isEditing ?
         <div>
-          <div className={"toggle-edit-level" + editStore.editMode} onClick={() => editStore.changeEditMode('level')}>
+          <div className="edit-level-controls">
+            <div className={"toggle-edit-level" + editStore.editMode} onClick={() => editStore.changeEditMode('level')}>
+              {editStore.editMode === 'level' ?
+                <img src="/murdur-rpg-system/images/map.svg" alt="switch editor to monster"/> :
+                <img src="/murdur-rpg-system/images/map-outline.svg" alt="switch editor to level"/>
+              }
+            </div>
             {editStore.editMode === 'level' ? 
-              <img src="/murdur-rpg-system/images/map.svg" alt="switch editor to monster"/> :
-              <img src="/murdur-rpg-system/images/map-outline.svg" alt="switch editor to level"/>
-            }
+                <div className={"toggle-edit-level" + editStore.editMode} onClick={editStore.toggleShowRoomNumbersOnMap}>
+                  {editStore.showRoomNumbersOnMap ?
+                    <img src="/murdur-rpg-system/images/keypad.svg" alt="show room numbers on map"/> :
+                    <img src="/murdur-rpg-system/images/keypad-outline.svg" alt="hide room numbers on map"/>
+                  }
+                </div> :
+                null
+              }
           </div>
           <div className={"toggle-edit-monster"} onClick={() => editStore.changeEditMode('monster')}>
             {editStore.editMode === 'monster' ? 

@@ -4,7 +4,7 @@ import { observer } from "mobx-react"
 import exploreController from '../controllers/exploreController';
 import gameContext from '../stores/gameContext';
 
-const MapPanel = observer(() => {
+const MapPanel = observer(({showRoomNumbers = false}) => {
 
   const context = useContext(gameContext);
 
@@ -34,7 +34,7 @@ const MapPanel = observer(() => {
                     if (isEditing) {
                       selectTileForEditing(section.coords);
                     }
-                  }}>
+                  }}>{showRoomNumbers ? section.roomId : ""}
           {isPlayerLocation ? <img src="/murdur-rpg-system/images/arrowUp-pink.png" alt="player" className={"player-sprite " + playerDirection} /> : null}
         </div>;
       })}
