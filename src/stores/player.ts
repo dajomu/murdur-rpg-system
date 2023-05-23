@@ -56,7 +56,7 @@ export class PlayerStore {
   };
   @observable playerLocation: MapLocation = [15,15];
   @observable playerDirection: Direction = 'north';
-  @observable playerInventory: { itemId: number, alignment?: Alignment }[] = [];
+  @observable playerInventory: { itemId: number, alignment?: Alignment }[] = new Array(20);
   @observable equippedRightHand?: number;
   @observable equippedLeftHand?: number;
   @observable equippedHelmet?: number;

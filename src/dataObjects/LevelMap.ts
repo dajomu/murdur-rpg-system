@@ -1,5 +1,4 @@
-import level1Data from '../data/levels/level1';
-import levelOneRoomInitData from '../data/rooms/level1';
+import {level1Data, level1RoomInitData} from '../data/levels/level1';
 import monsterStore from '../stores/monster';
 import { getCount, getPlusMinusTwentyPercentInteger, getRandomFromList } from '../utils/numbers';
 
@@ -99,8 +98,8 @@ export default class LevelMap {
   }
 
   private populateRooms = () => {
-    for (const roomKey in levelOneRoomInitData) {
-      this.populateRoom(parseInt(roomKey), levelOneRoomInitData[roomKey]);
+    for (const roomKey in level1RoomInitData) {
+      this.populateRoom(parseInt(roomKey), level1RoomInitData[roomKey]);
     }
   }
 
