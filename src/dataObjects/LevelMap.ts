@@ -142,11 +142,13 @@ export default class LevelMap {
   }
 
   private getRandomTerrain = (): Terrain => {
-    switch(Math.round(1 + Math.random() * 6)) {
+    switch(Math.round(1 + Math.random() * 8)) {
       case 1:
         return 'sand';
       case 2:
         return 'water';
+      case 3:
+        return 'grass';
       default:
         return 'none';
     }

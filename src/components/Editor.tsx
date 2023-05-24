@@ -70,6 +70,7 @@ export default observer(() => {
                 value={ terrain }>
                 <option value="none">None</option>
                 <option value="sand">Sand</option>
+                <option value="grass">Grass</option>
                 <option value="water">Water</option>
             </select>
             <h3>Edit Walls</h3>

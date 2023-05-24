@@ -7,7 +7,7 @@ interface SectionData {
   roomId?: number;
 }
 
-type Terrain = 'sand' | 'water' | 'none';
+type Terrain = 'sand' | 'water' | 'grass' | 'none';
 
 type Walls = 'wall' | 'door' | 'none';
 
