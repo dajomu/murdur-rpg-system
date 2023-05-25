@@ -15,7 +15,7 @@ export function generateLevelDownload(sections: SectionData[], rooms: { [key: st
 export function generateLevelRoomsDownload(rooms: { [key: string]: RoomData }): string {    
     return `export const level1RoomInitData: {[key: number]: RoomInitData} = {
         ${Object.keys(rooms).map((roomId: string) => 
-            `${roomId}: { monsterGroupIds: [${rooms[roomId].monsterGroupIds.join(',')}], name: '${rooms[roomId].name}'${rooms[roomId].description ? ', description: "' + rooms[roomId].description?.replaceAll("'", "\'").replaceAll("\n", "\\n") + '"' : '' }},`).join('\n\t')}
+            `${roomId}: { monsterGroupIds: [${rooms[roomId].monsterGroupIds.map(mgId => `'${mgId}'`).join(',')}], name: '${rooms[roomId].name}'${rooms[roomId].description ? ', description: "' + rooms[roomId].description?.replaceAll("'", "\'").replaceAll("\n", "\\n") + '"' : '' }},`).join('\n\t')}
     };`;
 }
 
