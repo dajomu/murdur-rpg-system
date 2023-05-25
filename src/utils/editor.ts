@@ -6,14 +6,14 @@ export function saveLevelData(sections: SectionData[], rooms: { [key: string]: R
 }
 
 export function generateLevelDownload(sections: SectionData[], rooms: { [key: string]: RoomData }): string {
-    return `const level1Data: SectionData[] = [
+    return `export const level1Data: SectionData[] = [
         ${sections.map((section: SectionData) => 
             `{coords : [${section.coords[0]},${section.coords[1]}], leftWall: '${section.leftWall}', topWall: '${section.topWall}', terrain: '${section.terrain}'${!isUndefined(section.roomId) ? ', roomId: ' + section.roomId : '' }},`).join('\n\t')}
     ];`;
 }
 
 export function generateLevelRoomsDownload(rooms: { [key: string]: RoomData }): string {    
-    return `const levelOneRoomInitData: {[key: number]: RoomInitData} = {
+    return `export const level1RoomInitData: {[key: number]: RoomInitData} = {
         ${Object.keys(rooms).map((roomId: string) => 
             `${roomId}: { monsterGroupIds: [${rooms[roomId].monsterGroupIds.join(',')}], name: '${rooms[roomId].name}'${rooms[roomId].description ? ', description: "' + rooms[roomId].description?.replaceAll("'", "\'").replaceAll("\n", "\\n") + '"' : '' }},`).join('\n\t')}
     };`;

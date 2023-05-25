@@ -4,6 +4,16 @@ import { isUndefined } from 'lodash';
 import gameContext from '../stores/gameContext';
 import { saveLevelData } from '../utils/editor';
 
+const wallOptions = [
+    {name: 'None', id: 'none'},
+    {name: 'Wall', id: 'wall'},
+    {name: 'Door', id: 'door'},
+    {name: 'Secret Door', id: 'secret-door'},
+    {name: 'Chair', id: 'chair'},
+    {name: 'Grave', id: 'grave'},
+    
+];
+
 export default observer(() => {
     const context = useContext(gameContext);
     const { editStore, levelStore, monsterStore } = context;
@@ -79,18 +89,14 @@ export default observer(() => {
                 id="topWall"
                 onChange={(e) => handleWallChange(e, selectedEditTile)} 
                 value={ selectedLevelCell.topWall }>
-                <option value="none">None</option>
-                <option value="wall">Wall</option>
-                <option value="door">Door</option>
+                {wallOptions.map(wallOption => <option value={wallOption.id}>{wallOption.name}</option>)}
             </select>
             <p>Left Wall</p>
             <select 
                 id="leftWall"
                 onChange={(e) => handleWallChange(e, selectedEditTile)} 
                 value={ selectedLevelCell.leftWall }>
-                <option value="none">None</option>
-                <option value="wall">Wall</option>
-                <option value="door">Door</option>
+                {wallOptions.map(wallOption => <option value={wallOption.id}>{wallOption.name}</option>)}
             </select>
             {rightLevelCell &&
                 <>
@@ -99,9 +105,7 @@ export default observer(() => {
                         id="leftWall"
                         onChange={(e) => handleWallChange(e, [selectedEditTile[0] + 1, selectedEditTile[1]])} 
                         value={ rightLevelCell.leftWall }>
-                        <option value="none">None</option>
-                        <option value="wall">Wall</option>
-                        <option value="door">Door</option>
+                        {wallOptions.map(wallOption => <option value={wallOption.id}>{wallOption.name}</option>)}
                     </select>
                 </>
             }
@@ -112,9 +116,7 @@ export default observer(() => {
                         id="topWall"
                         onChange={(e) => handleWallChange(e, [selectedEditTile[0], selectedEditTile[1] + 1])} 
                         value={ lowerLevelCell.topWall }>
-                        <option value="none">None</option>
-                        <option value="wall">Wall</option>
-                        <option value="door">Door</option>
+                        {wallOptions.map(wallOption => <option value={wallOption.id}>{wallOption.name}</option>)}
                     </select>
                 </>
             }

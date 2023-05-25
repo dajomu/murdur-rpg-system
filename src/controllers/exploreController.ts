@@ -17,6 +17,12 @@ const keyDirection: {[key: number]: string} = {
   70: 'fight' // f key
 }
 
+const collisionableWalls = [
+  'wall',
+  'chair',
+  'grave'
+]
+
 export class ExploreController {
   handleKeyDown = (event: KeyboardEvent) => {
     // console.log('KEYCODE: ', event.keyCode);
@@ -139,9 +145,9 @@ export class ExploreController {
     const boundingOffset = boundingOffsetMap[direction];
     const boundingSection = levelStore.getSectionByCoords([playerStore.playerLocation[0] + boundingOffset[0], playerStore.playerLocation[1] + boundingOffset[1]]);
     if(direction === 'north' || direction === 'south') {
-      return boundingSection && boundingSection.topWall !== 'wall' && playerStore.playerLocation[1] + boundingOffset[1] >= 1;
+      return boundingSection && !collisionableWalls.includes(boundingSection.topWall) && playerStore.playerLocation[1] + boundingOffset[1] >= 1;
     } else {
-      return boundingSection && boundingSection.leftWall !== 'wall' && playerStore.playerLocation[0] + boundingOffset[0] >= 1;
+      return boundingSection && !collisionableWalls.includes(boundingSection.leftWall) && playerStore.playerLocation[0] + boundingOffset[0] >= 1;
     }
   }
 

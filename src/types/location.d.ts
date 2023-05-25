@@ -9,7 +9,7 @@ interface SectionData {
 
 type Terrain = 'sand' | 'water' | 'grass' | 'none';
 
-type Walls = 'wall' | 'door' | 'none';
+type Walls = 'wall' | 'door' | 'secret-door' | 'chair' | 'grave' | 'none';
 
 type WallFace = 'topWall' | 'leftWall';
 
