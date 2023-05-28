@@ -907,7 +907,7 @@ export const level1RoomInitData: {[key: number]: RoomInitData} = {
 2: { monsterGroupIds: ['2'], name: 'Room 3'},
 3: { monsterGroupIds: ['3'], name: 'Spillage', description: "There's been a major spillage of some unpleasant oily muck here.\nThe cleanup crew mutter something under their breath and give you a surly look.\nBest not tarry."},
 4: { monsterGroupIds: ['0'], name: 'The Churchyard Gates', description: "The great iron gates of the churchyard creak open. Ahead of you stretches an overgrown field strewn with worn and broken gravestones."},
-5: { monsterGroupIds: ['0'], name: 'The Font', description: "You dip yourself in the refreshing waters."},
+5: { monsterGroupIds: ['0'], name: 'The Font', description: "You dip yourself in the refreshing waters of the font."},
 6: { monsterGroupIds: ['0'], name: 'The Tool Shed', description: "The gardener obviously hasn't been here for quite a while. The small shed is strewn with broken pots and rusted tools."},
-7: { monsterGroupIds: ['0'], name: 'The Podium', description: "The priest must have given his sermons from here during better times."},
+7: { monsterGroupIds: ['0'], name: 'The Podium', description: "The priest must have given his sermons from this pulpit during better times."},
 };

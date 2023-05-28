@@ -1,12 +1,9 @@
 import React, {useContext} from 'react';
 import gameContext from '../stores/gameContext';
 import { clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
+import { comboCoordinates, getViewTerrainMapAtCoordinates } from '../utils/encounterPane';
 import {isUndefined} from 'lodash';
 import { observer } from "mobx-react";
-
-const comboCoordinates = function(offsetOne: [number, number], offsetTwo: [number,number]): [number, number] {
-  return [offsetOne[0] + offsetTwo[0], offsetOne[1] + offsetTwo[1]];
-}
 
 const EncounterPane = observer(() => {
 
@@ -59,7 +56,9 @@ const EncounterPane = observer(() => {
     }
   }
 
-    const {gameStateStore, playerStore} = context;
+    const {gameStateStore, levelStore, playerStore} = context;
+    const {playerLocation, playerDirection} = playerStore;
+    const viewTerrainMap = getViewTerrainMapAtCoordinates(playerLocation, playerDirection, levelStore);
     const wallFaces = getWallFaces();
     const floors = getFloors();
     const roomData = getCurrentRoom();
@@ -70,7 +69,19 @@ const EncounterPane = observer(() => {
           {`${playerStore.playerLocation[0]},${playerStore.playerLocation[1]},1 ${playerStore.playerDirection}`}
         </p>
         <div className="fps-view">
-          <div className={`fps-square walls left ${wallFaces.left}`}/>
+          {viewTerrainMap['playerRow'].map((tileTerrain, index) => {
+            return <div className={`fps-square floor player-${index} ${tileTerrain}`}/>
+          })}
+          {viewTerrainMap['playerOneForwardRow'].map((tileTerrain, index) => {
+            return <div className={`fps-square floor playerOneForward-${index} ${tileTerrain}`}/>
+          })}
+          {viewTerrainMap['playerTwoForwardRow'].map((tileTerrain, index) => {
+            return <div className={`fps-square floor playerTwoForwardRow-${index} ${tileTerrain}`}/>
+          })}
+          {/* playerRow
+playerOneForwardRow
+playerTwoForwardRow */}
+          {/* <div className={`fps-square walls left ${wallFaces.left}`}/>
           <div className={`fps-square walls left forward ${wallFaces.forwardLeft}`}/>
           <div className={`fps-square walls front front-left ${wallFaces.frontLeft}`}/>
           <div className={`fps-square walls front ${wallFaces.front}`} />
@@ -85,7 +96,7 @@ const EncounterPane = observer(() => {
           <div className={`fps-square floor right ${floors.right}`}/>
           <div className={`fps-square floor left forward ${floors.forwardLeft}`}/>
           <div className={`fps-square floor forward ${floors.forward}`}/>
-          <div className={`fps-square floor right forward ${floors.forwardRight}`}/>
+          <div className={`fps-square floor right forward ${floors.forwardRight}`}/> */}
         </div>
       </div>
       {roomData && roomData.groups.length ?
@@ -109,6 +120,14 @@ const EncounterPane = observer(() => {
         <div className="encounter-info"> </div>
       }
     </div>
-})
+});
+
+interface FloorTilesProps {
+  section: SectionData;
+}
+
+const FloorTile = ({section}: FloorTilesProps) => {
+  return null;//<div className={`fps-square floor left ${floors.left}`}/>;
+}
 
 export default EncounterPane;
