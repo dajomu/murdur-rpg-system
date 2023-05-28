@@ -119,36 +119,63 @@
           }
 
           &.side {
-            
+            width: 120px
+            height: 120px
+            top: 40px
+            &.player-0 {
+              display: none;
+            }
+            &.player-1 {
+              z-index: 5
+              left: 100px
+              transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
+            }
+            &.player-2 {
+              left: 160px;
+              z-index: 5
+              display: none;
+            }
+
+            &.playerOneForward-0 {
+              left: -27px;
+              display: none;
+            }
+            &.playerOneForward-1 {
+              left: -20px
+              transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
+              z-index: 3
+            }
+            &.playerOneForward-2 {
+              left: 100px;
+              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
+              z-index: 3
+            }
+
+            &.playerTwoForward-0 {
+              left: -27px;
+              display: none;
+            }
+            &.playerTwoForward-1 {
+              left: -66px
+              transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(160px)
+              z-index: 1
+            }
+            &.playerTwoForward-2 {
+              left: -20px;
+              transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(160px)
+              z-index: 1
+            }
+            &.playerTwoForward-3 {
+              left: 100px;
+              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-160px)
+              z-index: 1
+            }
+            &.playerTwoForward-4 {
+              left: 146px;
+              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-160px)
+              z-index: 1
+            }
           }
-          
-          // &.left {
-          //   width: 120px
-          //   height: 120px
-          //   top: 40px
-          //   left: -20px
-          //   transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
-          //   z-index: 5
-          //   &.forward {
-          //     transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
-          //     z-index: 3
-          //   }
-          // }
-        
-
-
-          // &.right {
-          //   width: 120px
-          //   height: 120px
-          //   top: 40px
-          //   right: -20px
-          //   transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
-          //   z-index: 5
-          //   &.forward {
-          //     transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
-          //     z-index: 3
-          //   }
-          // }
         }
 
         &.floor{
