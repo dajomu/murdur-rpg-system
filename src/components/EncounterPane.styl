@@ -24,14 +24,26 @@
       .fps-square {
         position: absolute
         &.wall {
+          &.side {
+            background: linear-gradient(90deg, transparent 0%,#000 200%), url('./images/wall-texture.png');
+            background-size: cover;
+          }
           background: radial-gradient(transparent 40%,#222 92%), url('./images/wall-texture.png');
           background-size: cover;
         }
         &.door {
+          &.side {
+            background: linear-gradient(90deg, transparent 0%,#000 200%), url('./images/door-texture.png');
+            background-size: cover;
+          }
           background: radial-gradient(transparent 40%,#222 92%), url('./images/door-texture.png');
           background-size: cover;
         }
         &.secret-door {
+          &.side {
+            background: linear-gradient(90deg, transparent 0%,#000 200%), url('./images/wall-texture.png');
+            background-size: cover;
+          }
           background: radial-gradient(transparent 40%,#222 92%), url('./images/wall-texture.png');
           background-size: cover;
         }
@@ -79,42 +91,50 @@
               left: -27px;
               transform: scale(0.56)
               z-index: 2;
+              filter: brightness(66%)
             }
             &.playerOneForward-1 {
               left: 40px
               transform: scale(0.56)
               z-index: 2;
+              filter: brightness(66%)
             }
             &.playerOneForward-2 {
               left: 107px;
               transform: scale(0.56)
               z-index: 2;
+              filter: brightness(66%)
             }
 
             &.playerTwoForward-0 {
               left: -48px;
               transform: scale(0.40)
               z-index: 0;
+              filter: brightness(33%)
             }
             &.playerTwoForward-1 {
               left: -4px
               transform: scale(0.40)
               z-index: 0;
+              filter: brightness(33%)
             }
             &.playerTwoForward-2 {
               left: 40px;
               transform: scale(0.40)
               z-index: 0;
+              filter: brightness(33%)
             }
             &.playerTwoForward-3 {
               left: 88px;
               transform: scale(0.40)
               z-index: 0;
+              filter: brightness(33%)
             }
             &.playerTwoForward-4 {
               left: 132px;
               transform: scale(0.40)
               z-index: 0;
+              filter: brightness(33%)
             }
           }
 
@@ -133,47 +153,55 @@
             &.player-2 {
               z-index: 5
               left: 100px
-              transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
+              transform: perspective(140px) rotate3d(0, 1, 0, 115deg) translateX(-60px)
             }
 
             &.playerOneForward-0 {
               left: -27px;
               display: none;
+              filter: brightness(50%)
             }
             &.playerOneForward-1 {
               left: -20px
               transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(60px)
+              filter: brightness(50%)
               z-index: 3
             }
             &.playerOneForward-2 {
               left: 100px;
-              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-60px)
+              transform: perspective(140px) rotate3d(0,1,0,115deg) translateX(60px)
+              filter: brightness(50%)
               z-index: 3
             }
 
             &.playerTwoForward-0 {
               left: -27px;
               display: none;
+              filter: brightness(25%)
             }
             &.playerTwoForward-1 {
               left: -66px
               transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(160px)
               z-index: 1
+              filter: brightness(25%)
             }
             &.playerTwoForward-2 {
               left: -20px;
               transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(160px)
               z-index: 1
+              filter: brightness(25%)
             }
             &.playerTwoForward-3 {
               left: 100px;
-              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-160px)
+              transform: perspective(140px) rotate3d(0,1,0,115deg) translateX(160px)
               z-index: 1
+              filter: brightness(25%)
             }
             &.playerTwoForward-4 {
               left: 146px;
-              transform: perspective(140px) rotate3d(0,1,0,-65deg) translateX(-160px)
+              transform: perspective(140px) rotate3d(0,1,0,115deg) translateX(160px)
               z-index: 1
+              filter: brightness(25%)
             }
           }
         }
