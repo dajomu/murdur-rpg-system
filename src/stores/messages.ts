@@ -6,8 +6,10 @@ interface Message {
   type: 'normal' | 'alert';
 }
 
+const emptyMessages: Message[] =[{text: "Welcome to MURDUR 0.2!", type: 'normal'}];
+
 export class MessageStore {
-  @observable messages: Message[] = [{text: "Welcome to MURDUR 0.1!", type: 'normal'}];
+  @observable messages: Message[] = [...emptyMessages];
 
   constructor() {
     makeObservable(this);
@@ -28,7 +30,7 @@ export class MessageStore {
   }
 
   @action clearMessage = () => {
-    this.messages = [{text: "Welcome to MURDUR 0.1!", type: 'normal'}];
+    this.messages = [...emptyMessages];
   }
 }
 
