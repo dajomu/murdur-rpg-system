@@ -127,13 +127,13 @@
             }
             &.player-1 {
               z-index: 5
-              left: 100px
-              transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
+              left: -20px
+              transform: perspective(140px) rotate3d(0, 1, 0, 65deg) translateX(-60px)
             }
             &.player-2 {
-              left: 160px;
               z-index: 5
-              display: none;
+              left: 100px
+              transform: perspective(140px) rotate3d(0, 1, 0, -65deg) translateX(60px)
             }
 
             &.playerOneForward-0 {
@@ -213,28 +213,26 @@
           }
 
           &.playerTwoForwardRow-0 {
-            z-index: 2;
+            z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(-240px);
           }
           &.playerTwoForwardRow-1 {
-            z-index: 2;
+            z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(-120px);
           }
           &.playerTwoForwardRow-2 {
-            z-index: 2;
+            z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px);
           }
           &.playerTwoForwardRow-3 {
-            z-index: 2;
+            z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(120px);
           }
           &.playerTwoForwardRow-4 {
-            z-index: 2;
+            z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(240px);
           }
-
         }
-
       }
     }
   }
