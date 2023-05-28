@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import gameContext from '../stores/gameContext';
 import { clockwiseRotationMap, counterClockwiseRotationMap, movementOffsetMap, offsetMap} from '../constants';
-import { comboCoordinates, getViewTerrainMapAtCoordinates } from '../utils/encounterPane';
+import { comboCoordinates, getViewTerrainMapAtCoordinates, getViewFacingWallMapAtCoordinates } from '../utils/encounterPane';
 import {isUndefined} from 'lodash';
 import { observer } from "mobx-react";
 
@@ -59,6 +59,7 @@ const EncounterPane = observer(() => {
     const {gameStateStore, levelStore, playerStore} = context;
     const {playerLocation, playerDirection} = playerStore;
     const viewTerrainMap = getViewTerrainMapAtCoordinates(playerLocation, playerDirection, levelStore);
+    const viewFacingWallMap = getViewFacingWallMapAtCoordinates(playerLocation, playerDirection, levelStore);
     const wallFaces = getWallFaces();
     const floors = getFloors();
     const roomData = getCurrentRoom();
@@ -77,6 +78,16 @@ const EncounterPane = observer(() => {
           })}
           {viewTerrainMap['playerTwoForwardRow'].map((tileTerrain, index) => {
             return <div className={`fps-square floor playerTwoForwardRow-${index} ${tileTerrain}`}/>
+          })}
+
+          {viewFacingWallMap['playerRow'].map((tileTerrain, index) => {
+            return <div className={`fps-square walls facing player-${index} ${tileTerrain}`}/>
+          })}
+          {viewFacingWallMap['playerOneForwardRow'].map((tileTerrain, index) => {
+            return <div className={`fps-square walls facing playerOneForward-${index} ${tileTerrain}`}/>
+          })}
+          {viewFacingWallMap['playerTwoForwardRow'].map((tileTerrain, index) => {
+            return <div className={`fps-square walls facing playerTwoForward-${index} ${tileTerrain}`}/>
           })}
           {/* playerRow
 playerOneForwardRow

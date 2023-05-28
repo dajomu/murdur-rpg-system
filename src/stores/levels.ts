@@ -79,9 +79,9 @@ export class LevelStore {
     if(playerLocation[0] + wallOffset[0] + offset[0] === 0 && playerDirection === 'west') { return 'wall' }
     if(playerLocation[1] + wallOffset[1] + offset[1] === 0 && playerDirection === 'north') { return 'wall' }
     if(playerDirection === 'north' || playerDirection === 'south') {
-      return sectionWithWall!.topWall;
+      return sectionWithWall.topWall;
     } else {
-      return sectionWithWall!.leftWall;
+      return sectionWithWall.leftWall;
     }
   }
 
