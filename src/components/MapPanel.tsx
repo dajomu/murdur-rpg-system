@@ -23,7 +23,7 @@ const MapPanel = observer(({showRoomNumbers = false}) => {
   return <div className="explore-map">
     <div className="map-container" style={{width: levelStore.level1.size * 14, height: levelStore.level1.size * 14}}>
       {Object.values(levelStore.level1.levelSections).map(section => {
-        const isEditing = true;
+        // const isEditing = true; // switch this on to see full map while playing )for debug)
         const isPlayerLocation = section.coords[0] === playerLocation[0] && section.coords[1] === playerLocation[1];
         const isSectionDiscovered = levelStore.getSectionDiscovered(section.coords);
         const wallClasses = `${isEditing || isSectionDiscovered.leftWall ? "wall-left-"  + section.leftWall : ""} ${isEditing || isSectionDiscovered.topWall ? "wall-top-"  + section.topWall : ""}`;
