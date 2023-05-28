@@ -1,4 +1,5 @@
 interface MonsterItem {
+  id: string;
   name: string;
   hp: number;
   atk: number,
@@ -6,8 +7,8 @@ interface MonsterItem {
   xp: number;
   gold: number;
   profileImage: string;
-  alignment?: Alignment;
-  canSteal?: boolean;
+  alignment: Alignment;
+  canSteal: boolean;
   guild: number;
   maxLevel: number;
   stats: Stats;

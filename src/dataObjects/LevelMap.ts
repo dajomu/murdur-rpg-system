@@ -120,8 +120,8 @@ export default class LevelMap {
       name: roomInitData.name,
       groups: monsterGroup.groups.map(group => ({
         monsterId: group.monsterId,
-        monster: monsterStore.monsters[group.monsterId],
-        monsterHealth: [...Array(getCount(group.minCount, group.maxCount))].map(monster => getPlusMinusTwentyPercentInteger(monsterStore.monsters[group.monsterId].hp)),
+        monster: monsterStore.getMonster(group.monsterId.toString()),
+        monsterHealth: [...Array(getCount(group.minCount, group.maxCount))].map(monster => getPlusMinusTwentyPercentInteger(monsterStore.getMonster(group.monsterId.toString()).hp)),
         monsterStatus: 'none'}))
     }
   }
