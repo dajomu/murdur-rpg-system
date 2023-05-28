@@ -56,13 +56,13 @@
           background-size: cover;
         }
         &.water {
-          background: radial-gradient(transparent 63%,#444 115%), darkblue;
+          background: linear-gradient(0deg, transparent 0%,#000 200%), darkblue;
         }
         &.sand {
-          background: radial-gradient(transparent 63%,#444 115%), burlywood;
+          background: linear-gradient(0deg, transparent 0%,#000 200%), burlywood;
         }
         &.grass {
-          background: radial-gradient(transparent 63%,#444 115%), forestgreen;
+          background: linear-gradient(0deg, transparent 0%,#000 200%), forestgreen;
         }
         &.none {
           display: none
@@ -230,35 +230,43 @@
           &.playerOneForward-0 {
             z-index: 2;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-60px) translateX(-120px);
+            filter: brightness(50%)
           }
           &.playerOneForward-1 {
             z-index: 2;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-60px);
+            filter: brightness(50%)
           }
           &.playerOneForward-2 {
             z-index: 2;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-60px) translateX(120px);
+            filter: brightness(50%)
           }
 
           &.playerTwoForwardRow-0 {
             z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(-240px);
+            filter: brightness(25%)
           }
           &.playerTwoForwardRow-1 {
             z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(-120px);
+            filter: brightness(25%)
           }
           &.playerTwoForwardRow-2 {
             z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px);
+            filter: brightness(25%)
           }
           &.playerTwoForwardRow-3 {
             z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(120px);
+            filter: brightness(25%)
           }
           &.playerTwoForwardRow-4 {
             z-index: 0;
             transform: perspective(120px) rotate3d(-1,0,0,-65deg) translateY(-180px) translateX(240px);
+            filter: brightness(25%)
           }
         }
       }
