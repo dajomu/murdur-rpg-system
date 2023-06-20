@@ -2,7 +2,7 @@ import { action, observable, get, set } from 'mobx';
 import { isUndefined } from 'lodash';
 import { monsters, monsterGroups } from '../data/monsters';
 
-const basicMonster: MonsterItem = {
+export const baseMonster: MonsterItem = {
   id: '100',
   name: 'none',
   hp: 1,
@@ -33,7 +33,7 @@ export class MonsterStore {
     monsterId: string,
   ): MonsterItem => {
     const monster = get(this.monsters, monsterId);
-    return typeof monster === 'undefined' ? basicMonster : monster;
+    return typeof monster === 'undefined' ? baseMonster : monster;
   }
 
   @action upsertMonster = (
@@ -43,11 +43,19 @@ export class MonsterStore {
     console.log(monsterId, monsterDetails)
     set(this.monsters, {[monsterId]: monsterDetails})
   }
+
+  getMonsterCount = () => {
+    console.log('getMonsterCount', Array.from(this.monsters.keys()).length, this.monsters.size)
+    return this.monsters.size;
+  }
 }
 
 const monsterStore = new MonsterStore();
 
 export default monsterStore;
+
+
+
 
 // interface MonsterItem {
 //   name: string;
