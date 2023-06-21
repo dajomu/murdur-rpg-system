@@ -15,8 +15,8 @@ import { saveMonsterData } from '../utils/editor';
 //     def: 1, x
 //     xp: 1, x
 //     gold: 1, x
-//     profileImage: '',
-//     guild: 1,
+//  >>>>>   profileImage: '', 
+//     guild: 1, x
 //     maxLevel: 1, x
 //     alignment: 'good', x
 //     canSteal: false, x
@@ -33,11 +33,10 @@ import { saveMonsterData } from '../utils/editor';
 
 export default observer(() => {
     const context = useContext(gameContext);
-    const { editStore, levelStore, monsterStore } = context;
+    const { editStore, guildsStore, levelStore, monsterStore } = context;
 
     const { selectedEditMonsterId, selectMonsterForEditing } = editStore;
     const selectedMonster: MonsterItem = monsterStore.getMonster(selectedEditMonsterId);
-    console.log(selectedMonster);
 
     const handleMonsterFieldChange = action((fieldValue: string, key: keyof MonsterItem) => {
         set(selectedMonster, {[key]: fieldValue});
@@ -51,7 +50,6 @@ export default observer(() => {
     })
 
     const handleAddMonster = action(() => {
-        console.log('monsterStore.getMonsterCount()', monsterStore.getMonsterCount())
         monsterStore.upsertMonster(monsterStore.getMonsterCount().toString(), baseMonster);
         selectMonsterForEditing(monsterStore.getMonsterCount().toString());
     })
@@ -73,7 +71,7 @@ export default observer(() => {
             </>
             <div>
                 <label>Name</label>
-                <input type="text" value={selectedMonster.name} onChange={e => {handleMonsterFieldChange(e.target.value, 'name')}} />
+                <input type="text" value={selectedMonster.name} id={"name"} onChange={e => {handleMonsterFieldChange(e.target.value, 'name')}} />
             </div>
             <div>
                 <label>HP</label>
@@ -108,6 +106,19 @@ export default observer(() => {
                         <option value="neutral">Neutral</option>
                         <option value="evil">Evil</option>
                 </select>
+            </div>
+            <div>
+                <label>Guild</label>
+                <select 
+                    onChange={e => {handleMonsterFieldChange(e.target.value, 'guild')}}
+                    value={ selectedMonster.guild }>
+                        {Object.keys(guildsStore).map(guildKey =>
+                            <option value={guildKey}>{`[${guildKey}]: ${monsterStore.monsterGroups[guildKey].name}`}</option>)}
+                </select>
+            </div>
+            <div>
+                <label>Image</label>
+                <input type="text" value={selectedMonster.profileImage} onChange={e => {handleMonsterFieldChange(e.target.value, 'profileImage')}} />
             </div>
             <label>
                 <input

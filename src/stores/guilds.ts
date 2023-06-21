@@ -21,5 +21,3 @@ const guildsStore: {[key: number]: Guild} = {
 }
 
 export default guildsStore;
-
-// {name: 'Nomad', xpScale: 1, guildFightingMod: 0.7},
