@@ -1,49 +1,26 @@
 import React, {useContext} from 'react';
 import { observer } from "mobx-react";
-import { action, observable, get, set } from 'mobx';
+import { action, set } from 'mobx';
 
 import gameContext from '../stores/gameContext';
 import { baseMonster } from '../stores/monster';
 import { saveMonsterData } from '../utils/editor';
 
-
-// export const baseMonster: MonsterItem = {
-//     id: '100', x
-//     name: 'none', x
-//     hp: 1, x
-//     atk: 1, x
-//     def: 1, x
-//     xp: 1, x
-//     gold: 1, x
-//  >>>>>   profileImage: '', 
-//     guild: 1, x
-//     maxLevel: 1, x
-//     alignment: 'good', x
-//     canSteal: false, x
-//     stats: {
-//       strength: 1, x
-//       intelligence: 1, x
-//       wisdom: 1, x
-//       constitution: 1, x
-//       charisma: 1, x
-//       dexterity: 1, x
-//     }
-//   }
-
-
 export default observer(() => {
     const context = useContext(gameContext);
-    const { editStore, guildsStore, levelStore, monsterStore } = context;
+    const { editStore, guildsStore, monsterStore } = context;
 
     const { selectedEditMonsterId, selectMonsterForEditing } = editStore;
     const selectedMonster: MonsterItem = monsterStore.getMonster(selectedEditMonsterId);
 
-    const handleMonsterFieldChange = action((fieldValue: string, key: keyof MonsterItem) => {
-        set(selectedMonster, {[key]: fieldValue});
+    const handleMonsterFieldChange = action((event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        const {id, value } = event.target;
+        set(selectedMonster, {[id]: value});
     })
 
-    const handleMonsterStatsChange = action((statValue: string, key: keyof Stats) => {
-        set(selectedMonster, {'stats': {...selectedMonster.stats, [key]: statValue}});
+    const handleMonsterStatsChange = action((event: React.ChangeEvent<HTMLInputElement>) => {
+        const {id, value } = event.target;
+        set(selectedMonster, {'stats': {...selectedMonster.stats, [id]: value}});
     })
     const handleMonsterCanStealChange = action(() => {
         set(selectedMonster, {'canSteal': !selectedMonster.canSteal});
@@ -71,36 +48,37 @@ export default observer(() => {
             </>
             <div>
                 <label>Name</label>
-                <input type="text" value={selectedMonster.name} id={"name"} onChange={e => {handleMonsterFieldChange(e.target.value, 'name')}} />
+                <input type="text" value={selectedMonster.name} id={"name"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>HP</label>
-                <input type="number" value={selectedMonster.hp} onChange={e => {handleMonsterFieldChange(e.target.value, 'hp')}} />
+                <input type="number" value={selectedMonster.hp} id={"hp"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>Attack</label>
-                <input type="number" value={selectedMonster.atk} onChange={e => {handleMonsterFieldChange(e.target.value, 'atk')}} />
+                <input type="number" value={selectedMonster.atk} id={"atk"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>Defence</label>
-                <input type="number" value={selectedMonster.def} onChange={e => {handleMonsterFieldChange(e.target.value, 'def')}} />
+                <input type="number" value={selectedMonster.def} id={"def"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>XP</label>
-                <input type="number" value={selectedMonster.xp} onChange={e => {handleMonsterFieldChange(e.target.value, 'xp')}} />
+                <input type="number" value={selectedMonster.xp} id={"xp"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>Gold</label>
-                <input type="number" value={selectedMonster.gold} onChange={e => {handleMonsterFieldChange(e.target.value, 'gold')}} />
+                <input type="number" value={selectedMonster.gold} id={"gold"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>Max Level</label>
-                <input type="number" value={selectedMonster.maxLevel} onChange={e => {handleMonsterFieldChange(e.target.value, 'maxLevel')}} />
+                <input type="number" value={selectedMonster.maxLevel} id={"maxLevel"} onChange={handleMonsterFieldChange} />
             </div>
             <div>
                 <label>Alignment</label>
                 <select 
-                    onChange={e => {handleMonsterFieldChange(e.target.value, 'alignment')}}
+                    id={"alignment"}
+                    onChange={handleMonsterFieldChange}
                     value={ selectedMonster.alignment }>
                         <option value="good">Good</option>
                         <option value="neutral">Neutral</option>
@@ -110,15 +88,15 @@ export default observer(() => {
             <div>
                 <label>Guild</label>
                 <select 
-                    onChange={e => {handleMonsterFieldChange(e.target.value, 'guild')}}
+                    id={"guild"} onChange={handleMonsterFieldChange}
                     value={ selectedMonster.guild }>
                         {Object.keys(guildsStore).map(guildKey =>
-                            <option value={guildKey}>{`[${guildKey}]: ${monsterStore.monsterGroups[guildKey].name}`}</option>)}
+                            <option value={guildKey}>{`[${guildKey}]: ${guildsStore[guildKey].name}`}</option>)}
                 </select>
             </div>
             <div>
                 <label>Image</label>
-                <input type="text" value={selectedMonster.profileImage} onChange={e => {handleMonsterFieldChange(e.target.value, 'profileImage')}} />
+                <input type="text" value={selectedMonster.profileImage} id={"profileImage"} onChange={handleMonsterFieldChange} />
             </div>
             <label>
                 <input
@@ -133,27 +111,27 @@ export default observer(() => {
                 <h3>Stats</h3>
                 <div>
                     <label>Strength</label>
-                    <input type="number" value={selectedMonster.stats.strength} onChange={e => {handleMonsterStatsChange(e.target.value, 'strength')}} />
+                    <input type="number" value={selectedMonster.stats.strength} id={"strength"} onChange={handleMonsterStatsChange} />
                 </div>
                 <div>
                     <label>Intelligence</label>
-                    <input type="number" value={selectedMonster.stats.intelligence} onChange={e => {handleMonsterStatsChange(e.target.value, 'intelligence')}} />
+                    <input type="number" value={selectedMonster.stats.intelligence} id={"intelligence"} onChange={handleMonsterStatsChange} />
                 </div>
                 <div>
                     <label>Wisdom</label>
-                    <input type="number" value={selectedMonster.stats.wisdom} onChange={e => {handleMonsterStatsChange(e.target.value, 'wisdom')}} />
+                    <input type="number" value={selectedMonster.stats.wisdom} id={"wisdom"} onChange={handleMonsterStatsChange} />
                 </div>
                 <div>
                     <label>Constitution</label>
-                    <input type="number" value={selectedMonster.stats.constitution} onChange={e => {handleMonsterStatsChange(e.target.value, 'constitution')}} />
+                    <input type="number" value={selectedMonster.stats.constitution} id={"constitution"} onChange={handleMonsterStatsChange} />
                 </div>
                 <div>
                     <label>Charisma</label>
-                    <input type="number" value={selectedMonster.stats.charisma} onChange={e => {handleMonsterStatsChange(e.target.value, 'charisma')}} />
+                    <input type="number" value={selectedMonster.stats.charisma} id={"charisma"} onChange={handleMonsterStatsChange} />
                 </div>
                 <div>
                     <label>Dexterity</label>
-                    <input type="number" value={selectedMonster.stats.dexterity} onChange={e => {handleMonsterStatsChange(e.target.value, 'dexterity')}} />
+                    <input type="number" value={selectedMonster.stats.dexterity} id={"dexterity"} onChange={handleMonsterStatsChange} />
                 </div>
             </div>
             <>

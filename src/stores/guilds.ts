@@ -14,7 +14,7 @@ interface Guild {
   guildFightingMod: number;
 };
 
-const guildsStore: {[key: number]: Guild} = {
+const guildsStore: {[key: string]: Guild} = {
   0: {name: 'Nomad', xpScale: 1, guildFightingMod: 0.7},
   1: {name: 'Warrior', xpScale: 1, guildFightingMod: 1.2},
   2: {name: 'Thieves', xpScale: 1, guildFightingMod: 0.85},
