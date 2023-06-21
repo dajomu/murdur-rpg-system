@@ -153,7 +153,7 @@ export default observer(() => {
                         value={ selectedRoom.monsterGroupIds }
                         multiple={true}>
                         {Object.keys(monsterStore.monsterGroups).map(monsterGroupKey =>
-                            <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.monsterGroups[monsterGroupKey].name}`}</option>)}
+                            <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.getMonsterGroup(monsterGroupKey).name}`}</option>)}
                     </select>
                 </>
                 <>

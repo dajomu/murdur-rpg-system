@@ -8,6 +8,7 @@ export class EditStore {
     @observable editMode: EditMode = 'level';
     @observable selectedEditTile: MapLocation = [15,15];
     @observable selectedEditMonsterId: string = '0';
+    @observable selectedEditMonsterGroupId: string = '0';
     @observable showRoomNumbersOnMap: boolean = false;
 
     constructor() {
@@ -28,6 +29,10 @@ export class EditStore {
 
     @action selectMonsterForEditing = (monsterId: string) => {
         this.selectedEditMonsterId = monsterId;
+    }
+
+    @action selectMonsterGroupForEditing = (monsterGroupId: string) => {
+        this.selectedEditMonsterGroupId = monsterGroupId;
     }
 
     @action changeEditMode = (editMode: EditMode) => {

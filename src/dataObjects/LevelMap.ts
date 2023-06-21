@@ -111,7 +111,7 @@ export default class LevelMap {
     if(typeof monsterGroupId !== 'string') {
       return;
     }
-    const monsterGroup = monsterStore.monsterGroups[monsterGroupId]
+    const monsterGroup = monsterStore.getMonsterGroup(monsterGroupId)
     this.levelRooms[roomKey] = {
       currentFighter: undefined,
       description: roomInitData.description,

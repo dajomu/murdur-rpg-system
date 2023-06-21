@@ -3,15 +3,16 @@ import { observer } from "mobx-react";
 import { action, set } from 'mobx';
 
 import gameContext from '../stores/gameContext';
-import { baseMonster } from '../stores/monster';
+import { baseMonster, baseMonsterGroup } from '../stores/monster';
 import { saveMonsterData } from '../utils/editor';
 
 export default observer(() => {
     const context = useContext(gameContext);
     const { editStore, guildsStore, monsterStore } = context;
 
-    const { selectedEditMonsterId, selectMonsterForEditing } = editStore;
+    const { selectedEditMonsterId, selectMonsterForEditing, selectMonsterGroupForEditing, selectedEditMonsterGroupId } = editStore;
     const selectedMonster: MonsterItem = monsterStore.getMonster(selectedEditMonsterId);
+    const selectedMonsterGroup: MonsterGroup = monsterStore.getMonsterGroup(selectedEditMonsterGroupId);
 
     const handleMonsterFieldChange = action((event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const {id, value } = event.target;
@@ -27,9 +28,36 @@ export default observer(() => {
     })
 
     const handleAddMonster = action(() => {
-        monsterStore.upsertMonster(monsterStore.getMonsterCount().toString(), baseMonster);
-        selectMonsterForEditing(monsterStore.getMonsterCount().toString());
+        const newMonsterId = monsterStore.getMonsterCount().toString();
+        monsterStore.upsertMonster(newMonsterId, {...baseMonster, id: newMonsterId});
+        selectMonsterForEditing(newMonsterId);
     })
+
+    const handleAddMonsterGroup = action(() => {
+        const newMonsterGroupId = monsterStore.getMonsterGroupsCount().toString();
+        monsterStore.upsertMonsterGroup(newMonsterGroupId, baseMonsterGroup);
+        selectMonsterGroupForEditing(newMonsterGroupId);
+    })
+
+    const handleMonsterGroupFieldChange = action((event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        const {id, value } = event.target;
+        set(selectedMonsterGroup, {[id]: value});
+    })
+
+    const handleMonsterGroupGroupChange = action((event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>, groupIndex: number) => {
+        const {id, value } = event.target;
+        set(selectedMonsterGroup, {'groups': selectedMonsterGroup.groups.map((group, index) => index == groupIndex ? {...group, [id] : value} : group)});
+    })
+
+    const handleAddMonsterGroupGroup = action(() => {
+        set(selectedMonsterGroup, {'groups': [...selectedMonsterGroup.groups, { monsterId: 0, minCount: 1, maxCount: 1 }]});
+    })
+
+    const handleRemoveMonsterGroupGroup = action((monsterGroupIndex: number) => {
+        set(selectedMonsterGroup, {'groups': 
+            selectedMonsterGroup.groups.filter((group, index) => index !== monsterGroupIndex)});
+    })
+
 
     return <div className="edit-screen-edits">
         <div className="edit-screen-monster">
@@ -139,42 +167,53 @@ export default observer(() => {
             </>
         </div>
         <div className="edit-screen-monster-group">
-            {/* <h2>Selected room {selectedRoom ? `[${selectedRoom.id}]: ${selectedRoom.name}` : 'none'}</h2>
-            <div className="add-new-room-button" onClick={handleCreateRoom}>
+            <h2>Selected monster group {selectedMonsterGroup ? `[${selectedEditMonsterGroupId}]: ${selectedMonsterGroup.name}` : 'none'}</h2>
+            <div className="add-new-monster-button" onClick={handleAddMonsterGroup}>
                 <img src="/murdur-rpg-system/images/add-circle-outline.svg" alt="switch audio on"/>
             </div>
             <>
-                <p>Select Room</p>
+                <p>Select Monster Group</p>
                 <select
-                    onChange={(e) => handleRoomChange(e, [selectedEditTile[0], selectedEditTile[1]])} 
-                    value={ !isUndefined(selectedLevelCell.roomId) ? selectedLevelCell.roomId : 'none' }>
-                    <option value="none">none</option>
-                    {Object.values(levelStore.level1.levelRooms).map(room =>
-                        <option value={room.id}>{`[${room.id}]: ${room.name}`}</option>)}
+                    onChange={(e) => selectMonsterGroupForEditing(e.target.value)} 
+                    value={ selectedEditMonsterGroupId }>
+                    {Array.from(monsterStore.monsterGroups.keys()).map(monsterGroupKey =>
+                        <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.getMonsterGroup(monsterGroupKey).name}`}</option>)}
                 </select>
             </>
-            {selectedRoom && <>
-                <p>{JSON.stringify(selectedRoom)}</p>
-
-                <>
-                    <p>Name</p>
-                    <input type="text" value={selectedRoom.name} onChange={e => {handleRoomNameChange(e.target.value)}} />
-                </>
-                <>
-                    <p>Select Monster Group(s) (Shift Click for multiple)</p>
-                    <select
-                        onChange={(e) => handleRoomMonsterGroupChange(e)} 
-                        value={ selectedRoom.monsterGroupIds }
-                        multiple={true}>
-                        {Object.keys(monsterStore.monsterGroups).map(monsterGroupKey =>
-                            <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.monsterGroups[monsterGroupKey].name}`}</option>)}
-                    </select>
-                </>
-                <>
-                    <p>Description</p>
-                    <textarea rows={10} cols={60} value={selectedRoom.description || ''} onChange={e => {handleRoomDescriptionChange(e.target.value)}} />
-                </>
-            </>} */}
+            <div>
+                <label>Name</label>
+                <input type="text" value={selectedMonsterGroup.name} id={"name"} onChange={handleMonsterGroupFieldChange} />
+            </div>
+            <h3>Groups</h3>
+            {selectedMonsterGroup.groups.map((group, index) =>
+                <div className="edit-monster-group-group">
+                    <p>Group {index}</p>
+                    <>
+                        <label>Select Monster</label>
+                        <select
+                            onChange={(e) => handleMonsterGroupGroupChange(e, index)}
+                            id="monsterId"
+                            value={ group.monsterId }>
+                            {Array.from(monsterStore.monsters.values()).map(monster =>
+                                <option value={monster.id}>{`[${monster.id}]: ${monster.name}`}</option>)}
+                        </select>
+                    </>
+                    <div>
+                        <label>Minimum Monsters</label>
+                        <input type="number" value={group.minCount} id={"minCount"} onChange={(e) => handleMonsterGroupGroupChange(e, index)} />
+                    </div>
+                    <div>
+                        <label>Maximum Monsters</label>
+                        <input type="number" value={group.maxCount} id={"maxCount"} onChange={(e) => handleMonsterGroupGroupChange(e, index)} />
+                    </div>
+                    <div className="remove-monster-group-button" onClick={() => handleRemoveMonsterGroupGroup(index)}>
+                        <img src="/murdur-rpg-system/images/remove-circle-outline.svg" alt="remove group from monster group"/>
+                    </div>
+                </div>
+                )}
+                {selectedMonsterGroup.groups.length < 4 && <div className="add-new-monster-button" onClick={handleAddMonsterGroupGroup}>
+                    <img src="/murdur-rpg-system/images/add-circle-outline.svg" alt="add group to monster group"/>
+                </div>}
         </div>
     </div>;
 })

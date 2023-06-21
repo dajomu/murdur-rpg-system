@@ -1,5 +1,4 @@
 import { action, observable, get, set } from 'mobx';
-import { isUndefined } from 'lodash';
 import { monsters, monsterGroups } from '../data/monsters';
 
 export const baseMonster: MonsterItem = {
@@ -10,7 +9,7 @@ export const baseMonster: MonsterItem = {
   def: 1,
   xp: 1,
   gold: 1,
-  profileImage: '',
+  profileImage: '/murdur-rpg-system/images/monsters/mad-wolf.jpg',
   guild: 1,
   maxLevel: 1,
   alignment: 'good',
@@ -25,9 +24,14 @@ export const baseMonster: MonsterItem = {
   }
 }
 
+export const baseMonsterGroup: MonsterGroup = {
+  name: 'new group',
+  groups: [],
+}
+
 export class MonsterStore {
   monsters = observable.map(monsters);
-  @observable monsterGroups = monsterGroups;
+  monsterGroups = observable.map(monsterGroups);
 
   getMonster = (
     monsterId: string,
@@ -36,41 +40,36 @@ export class MonsterStore {
     return typeof monster === 'undefined' ? baseMonster : monster;
   }
 
+  getMonsterGroup = (
+    monsterGroupId: string,
+  ): MonsterGroup => {
+    const monsterGroup = get(this.monsterGroups, monsterGroupId);
+    return monsterGroup as MonsterGroup;
+  }
+
   @action upsertMonster = (
     monsterId: string,
     monsterDetails: MonsterItem
   ) => {
-    console.log(monsterId, monsterDetails)
     set(this.monsters, {[monsterId]: monsterDetails})
   }
 
+  @action upsertMonsterGroup = (
+    monsterGroupId: string,
+    monsterDetails: MonsterGroup
+  ) => {
+    set(this.monsterGroups, {[monsterGroupId]: monsterDetails})
+  }
+
   getMonsterCount = () => {
-    console.log('getMonsterCount', Array.from(this.monsters.keys()).length, this.monsters.size)
     return this.monsters.size;
+  }
+
+  getMonsterGroupsCount = () => {
+    return this.monsterGroups.size;
   }
 }
 
 const monsterStore = new MonsterStore();
 
 export default monsterStore;
-
-
-
-
-// interface MonsterItem {
-//   name: string;
-//   hp: number;
-//   atk: number,
-//   def: number,
-//   xp: number;
-//   gold: number;
-//   profileImage: string;
-//   alignment?: Alignment;
-//   canSteal?: boolean;
-//   guild: number;
-//   maxLevel: number;
-//   stats: Stats;
-// }
-
-// { name: '', xp: 1, hp: 10, atk: 2, def: 2, profileImage: '/murdur-rpg-system/images/monsters/', alignment: 'good', canSteal: false }
-// stats: {strength: 5, intelligence: 5, wisdom: 5,constitution: 5,charisma: 5, dexterity: 5}
