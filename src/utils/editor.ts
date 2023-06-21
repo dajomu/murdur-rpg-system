@@ -30,8 +30,8 @@ export function saveFile(saveString: string, type: string): void {
     a.click();
 };
 
-export function saveMonsterData(monsters: MonsterItem[]): void {
-    const monsterString = generateMonstersDownload(monsters) + '\n';
+export function saveMonsterData(monsters: MonsterItem[], monsterGroups: MonsterGroup[]): void {
+    const monsterString = generateMonstersDownload(monsters) + '\n' + generateMonsterGroupssDownload(monsterGroups) + '\n';
     saveFile(monsterString, 'monsters');
 }
 
@@ -39,6 +39,14 @@ export function generateMonstersDownload(monsters: MonsterItem[]): string {
     return `export const monsters: {[key: string]: MonsterItem} = {
         ${monsters.map((monster: MonsterItem) =>
             ` ${monster.id}: { id: ${monster.id}, name: '${monster.name}', hp: ${monster.hp}, atk: ${monster.atk}, def: ${monster.def}, xp: ${monster.xp}, gold: ${monster.gold}, guild: ${monster.guild}, maxLevel: ${monster.maxLevel}, profileImage: '${monster.profileImage}', alignment: '${monster.alignment}', canSteal: ${monster.canSteal}, stats: {strength: ${monster.stats.strength}, intelligence: ${monster.stats.intelligence}, wisdom: ${monster.stats.wisdom},constitution: ${monster.stats.constitution},charisma: ${monster.stats.charisma}, dexterity: ${monster.stats.dexterity}} },`)
+            .join('\n\t')}
+    };`;
+}
+
+export function generateMonsterGroupssDownload(monsterGroups: MonsterGroup[]): string {
+    return `export const monsterGroups: {[key: string]: MonsterGroup} = {
+        ${monsterGroups.map((monsterGroup: MonsterGroup, index) =>
+            ` ${index}: { name: '${monsterGroup.name}', groups: [${monsterGroup.groups.map(group => `{ monsterId: ${group.monsterId}, minCount: ${group.minCount}, maxCount: ${group.maxCount} }`)}]}, `)
             .join('\n\t')}
     };`;
 }

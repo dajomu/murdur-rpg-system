@@ -152,7 +152,7 @@ export default observer(() => {
                         onChange={(e) => handleRoomMonsterGroupChange(e)} 
                         value={ selectedRoom.monsterGroupIds }
                         multiple={true}>
-                        {Object.keys(monsterStore.monsterGroups).map(monsterGroupKey =>
+                        {Array.from(monsterStore.monsterGroups.keys()).map(monsterGroupKey =>
                             <option value={monsterGroupKey}>{`[${monsterGroupKey}]: ${monsterStore.getMonsterGroup(monsterGroupKey).name}`}</option>)}
                     </select>
                 </>

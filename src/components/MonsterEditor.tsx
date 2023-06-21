@@ -23,6 +23,7 @@ export default observer(() => {
         const {id, value } = event.target;
         set(selectedMonster, {'stats': {...selectedMonster.stats, [id]: value}});
     })
+
     const handleMonsterCanStealChange = action(() => {
         set(selectedMonster, {'canSteal': !selectedMonster.canSteal});
     })
@@ -163,7 +164,7 @@ export default observer(() => {
                 </div>
             </div>
             <>
-                <button onClick={() => {saveMonsterData(Array.from(monsterStore.monsters.values()))}}>Download Monster Data</button>
+                <button onClick={() => {saveMonsterData(Array.from(monsterStore.monsters.values()), Array.from(monsterStore.monsterGroups.values()))}}>Download Monster Data</button>
             </>
         </div>
         <div className="edit-screen-monster-group">
@@ -216,4 +217,4 @@ export default observer(() => {
                 </div>}
         </div>
     </div>;
-})
+});
