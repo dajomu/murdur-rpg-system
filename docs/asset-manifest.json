@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/murdur-rpg-system/static/css/main.13715b35.css",
-    "main.js": "/murdur-rpg-system/static/js/main.06e794ae.js",
+    "main.css": "/murdur-rpg-system/static/css/main.0cd2ef4f.css",
+    "main.js": "/murdur-rpg-system/static/js/main.9a6c27ea.js",
     "static/media/grave-texture.png": "/murdur-rpg-system/static/media/grave-texture.97c344284b73601fc3b0.png",
     "static/media/chair-texture.png": "/murdur-rpg-system/static/media/chair-texture.89f352683c1b90f144d9.png",
     "index.html": "/murdur-rpg-system/index.html",
-    "main.13715b35.css.map": "/murdur-rpg-system/static/css/main.13715b35.css.map",
-    "main.06e794ae.js.map": "/murdur-rpg-system/static/js/main.06e794ae.js.map"
+    "main.0cd2ef4f.css.map": "/murdur-rpg-system/static/css/main.0cd2ef4f.css.map",
+    "main.9a6c27ea.js.map": "/murdur-rpg-system/static/js/main.9a6c27ea.js.map"
   },
   "entrypoints": [
-    "static/css/main.13715b35.css",
-    "static/js/main.06e794ae.js"
+    "static/css/main.0cd2ef4f.css",
+    "static/js/main.9a6c27ea.js"
   ]
 }
